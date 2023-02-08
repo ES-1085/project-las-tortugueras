@@ -8,8 +8,6 @@ library(broom)
 library(readr)
 ```
 
-<<<<<<< HEAD
-=======
 ``` r
 # library(readxl)
 # GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx")
@@ -18,9 +16,12 @@ library(readr)
 # library(readxl)
 # GTBK_2014_2018 <- read_excel("data/GTBK_2014_2018.xls")
 # View(GTBK_2014_2018)
+
+# library(readr)
+# buis_greenturtles_2022 <- read_csv("data/buis_greenturtles_2022.csv")
+# View(buis_greenturtles_2022)
 ```
 
->>>>>>> 0ea246c7cac539941efbf371c30bb9cb68f4e387
 ## 1. Introduction
 
 ## 2. Data
