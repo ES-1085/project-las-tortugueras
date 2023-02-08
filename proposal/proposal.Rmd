@@ -7,7 +7,12 @@ output: github_document
 ```{r load-packages, message = FALSE}
 library(tidyverse)
 library(broom)
+library(readr)
 ```
+
+```{r}
+```
+
 
 ## 1. Introduction
 
