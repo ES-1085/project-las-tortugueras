@@ -7,8 +7,18 @@ library(tidyverse)
 library(broom)
 ```
 
-## 1\. Introduction
+``` r
+# library(readxl)
+# GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx")
+# View(GTBK_2018_2023)
 
-## 2\. Data
+# library(readxl)
+# GTBK_2014_2018 <- read_excel("data/GTBK_2014_2018.xls")
+# View(GTBK_2014_2018)
+```
 
-## 3\. Data analysis plan
+## 1. Introduction
+
+## 2. Data
+
+## 3. Data analysis plan
