@@ -6,11 +6,6 @@ Then, include codebooks (variables, and their descriptions) for your data file(s
 using the following format.
 
 ## GTBK 2014-2018
-
-- `variable1`: Description of variable 1
-- `variable2`: Description of variable 2
-- `variable3`: Description of variable 3
-- ...
 - `ID#`: Identification number for each turtle
 - `Nombre de la tortuga`: The turtle's name 
 - `No. Monitoreo	Estacion`: Monitoring station	

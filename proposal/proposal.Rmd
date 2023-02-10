@@ -3,6 +3,14 @@ title: "Project proposal"
 author: "Las Tortugueras"
 output: github_document
 ---
+```{r load_packages}
+#install.packages(tidyverse)
+#install.packages(skimr)
+
+library(tidyverse)
+library(skimr)
+```
+
 ## 1. Introduction
 
 The aim of this project is to analyze data collected on sea turtles in Kino Bay, Sonora, Mexico and Buck Island, Saint Croix, USVI. This project will focus on data collected by Grupo Tortuguero de Bahia de Kino (GTBK), a community organization that monitors sea turtle populations and recapture. We will work alongside the community organization to answer questions that have come up during their research. Our aim is to address questions that have been raised by GTBK and offer them an analysis of their data. We will examine registration and recapture data including season of registration and frequency of recapture. We will also incorporate data from the Buck Island Sea Turtle Research Program (BISTRP) that monitors nesting sea turtles. Both datasets have individual sea turtles as the case subject; the two datasets each have data on reproductive females, we will be able to compare the two locations using this variable.
@@ -17,17 +25,20 @@ Bucks Island–activity number : unique numerical identifier representing each n
 ## 2. Data
 
 ```{r load-data}
-# library(readxl)
-# GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx")
-# View(GTBK_2018_2023)
+library(readxl)
+GTBK_2018_2023 <- read_excel("../data/GTBK_2018_2023.xlsx") 
 
-# library(readxl)
-# GTBK_2014_2018 <- read_excel("data/GTBK_2014_2018.xls")
-# View(GTBK_2014_2018)
+library(readxl)
+GTBK_2014_2018 <- read_excel("../data/GTBK_2014_2018.xls")
 
-# library(readr)
-# buis_greenturtles_2022 <- read_csv("data/buis_greenturtles_2022.csv")
-# View(buis_greenturtles_2022)
+library(readr)
+buis_greenturtles_2022 <- read_csv("../data/buis_greenturtles_2022.csv")
+```
+#### Data Skim 
+```{r skim_data}
+skim(GTBK_2018_2023)
+skim(GTBK_2014_2018)
+skim(buis_greenturtles_2022)
 ```
 
 ## 3. Data analysis plan
@@ -40,6 +51,3 @@ For the GTBK data the subject cases are each an individual sea turtle. The varia
 
 For the BISTRP data we want to use carapace size and primary tag number.
 
-`r skim(GTBK_2018_2023)`
-`r skim(GTBK_2014_2018)`
-`r skim(buis_greenturtles_2022)`
