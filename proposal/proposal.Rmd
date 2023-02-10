@@ -1,14 +1,20 @@
 ---
 title: "Project proposal"
-author: "Team name"
+author: "Las Tortugueras"
 output: github_document
 ---
+## 1. Introduction
 
-```{r load-packages, message = FALSE}
-library(tidyverse)
-library(broom)
-library(readr)
-```
+The aim of this project is to analyze data collected on sea turtles in Kino Bay, Sonora, Mexico and Buck Island, Saint Croix, USVI. This project will focus on data collected by Grupo Tortuguero de Bahia de Kino (GTBK), a community organization that monitors sea turtle populations and recapture. We will work alongside the community organization to answer questions that have come up during their research. Our aim is to address questions that have been raised by GTBK and offer them an analysis of their data. We will examine registration and recapture data including season of registration and frequency of recapture. We will also incorporate data from the Buck Island Sea Turtle Research Program (BISTRP) that monitors nesting sea turtles. Both datasets have individual sea turtles as the case subject; the two datasets each have data on reproductive females, we will be able to compare the two locations using this variable.
+We will work with three datasets: two from Kino Bay–one from 2014-2018 and one from 2019-current–and one from Buck’s Island.
+The variables are as follows: 
+Kino Bay 2014-2018–ID#, Nombre de la tortuga, No. Monitoreo, Estación, Fecha Area de Monitoreo, Posicion (Lati. Long.), Hora de capture, Especie, Peso (Kg), Sexo, L.R.C. (cm), L.C.C.(cm), A.R.C.(cm), A.C.C.(cm), P.C (cm), L.P (cm), LTC (cm), ¿Posee marca? (Recaptura), Marca Derecha, Marca Izquierda, Observaciones y comentarios. 
+Kino Bay 2019-current–Codigo_Comunidad	Responsable, Red numero, Fecha_inicio, Hora_inicio, Hora_fin, Total_horas, Tipo_monitoreo, Metodologia, Longitud red / lanceos, Lugar_captura	(Latitud, Longitud), Unidad (UTM o grados), Fecha_captura, Hora_captura, Nombre tortuga, Especie, LRC, ARC, LCC, ACC, Profundidad cuerpo, Longitud plastron, Longitud total cola, Peso_kg, Sexo, Material_marcas, Marca nueva DX, Marca nueva SX, Marca previa DX, Marca previa SX, PIT tag (si, no), PIT nuevo, PIT previo	, Muestra sangre (si o no), Muestra piel  (si o no), Muestra cont estom  (si o no), Otra muestra  (si o no), Especificar, Lesiones / Balanos, Foto (si o no), Comentarios, ID #, PIT previo, Muestra sangre (si o no), Muestra piel  (si o no), Muestra cont estom  (si o no), Otra muestra  (si o no), Especificar	
+Lesiones / Balanos, Foto (si o no), Comentarios, ID #
+Bucks Island–activity number : unique numerical identifier representing each nesting activity from 2022, CDate : date that the sea turtle was measured in 2022, PrimaryTag : “name” of the turtle (the first tag that she was ever given), sp : species, ApplyDate : date that the turtle was given her primary tag, Remi? : (TRUE/FALSE) indicates whether the turtle had been recaptured before 2022, cclnucn : curved carapace length from nuchal notch to notch, ccw : curved carapace width, cclnuct : curved carapace length from nuchal notch to tip, cclnott : curved carapace length from notch to tip.
+
+
+## 2. Data
 
 ```{r load-data}
 # library(readxl)
@@ -24,16 +30,16 @@ library(readr)
 # View(buis_greenturtles_2022)
 ```
 
-
-## 1. Introduction
-
-
-
-## 2. Data
-
-
-
 ## 3. Data analysis plan
 
+We are working alongside the community organization Grupo Tortuguero de Bahia de Kino (GTBK). They are a community-based turtle monitoring group that collects data from local estuaries and less frequently local islands. They are monitoring populations health and size, and observing potential recapture. GTBK would like to visualize the number of sea turtles that have been registered, number registered per effort hour across all years, frequency of recapture, the average time between recaptures, and the seasonality of recaptures. The data we are using has been collected by GTBK from 2014-present in Laguna la Cruz estuary in Kino Bay, Sonora, Mexico and Isla San Pedro Martir oceanic offshore island in the Gulf of California.
 
+We would also like to incorporate some of the data that Georgia helped collect last summer and fall on Buck Island, Saint Croix, USVI. This data was collected as part of a long term NPS sea turtle monitoring project called the Buck Island Sea Turtle Research Program (BISTRP). BISTRP has been monitoring the nesting sea turtles (Greens, Hawksbills) on Buck Island for 35 years, conducting a mark-recapture study, collecting biological data and recording the locations of nesting activities. We are interested in making some sort of comparison between the reproductive female Green sea turtles (this is one parameter that both of our datasets have in common) sampled on Buck Island, USVI and those sampled in Kino Bay, Sonora, Mexico. Because both research projects collected Curved Carapace Length (CCL) as a size measurement of reproductive female Greens, we would like to ask how the size of reproductive female GR sea turtles varies geographically. 
 
+For the GTBK data the subject cases are each an individual sea turtle. The variables we will analyze include date, season, location, tag numbers, species, and sex. 
+
+For the BISTRP data we want to use carapace size and primary tag number.
+
+`r skim(GTBK_2018_2023)`
+`r skim(GTBK_2014_2018)`
+`r skim(buis_greenturtles_2022)`
