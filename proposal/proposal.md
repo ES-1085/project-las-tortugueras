@@ -3,8 +3,8 @@ Project proposal
 Las Tortugueras
 
 ``` r
-#install.packages(tidyverse)
-#install.packages(skimr)
+# install.packages(tidyverse)
+# install.packages(skimr)
 
 library(tidyverse)
 ```
@@ -332,3 +332,14 @@ The variables we will analyze include date, season, location, tag
 numbers, species, and sex.
 
 For the BISTRP data we want to use carapace size and primary tag number.
+
+#### Preliminary Analysis
+
+``` r
+GTBK_2018_2023 <- GTBK_2018_2023 %>%
+  mutate(especie_nombre_latino = 
+           case_when(Especie >= "Prieta/Verde" ~ "Chelonia mydas",
+                     Especie >= "Carey" ~ "Eretmochelys imbricata", 
+                     Especie >= "Amarilla" ~ "Caretta caretta", 
+                     Especie >= "Golfina" ~ "Lepidochelys olivacea"))
+```
