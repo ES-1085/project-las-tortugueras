@@ -59,8 +59,30 @@ GTBK_2018_2023 <- GTBK_2018_2023 %>%
                      Especie >= "Carey" ~ "Eretmochelys imbricata", 
                      Especie >= "Amarilla" ~ "Caretta caretta", 
                      Especie >= "Golfina" ~ "Lepidochelys olivacea"))
-                
 
+```
+
+```{r buis-summary-stats}
+summary(buis_greenturtles_2022)
+```
+
+```{r GTBK-2014-2018-summary-stats}
+summary(GTBK_2014_2018)
+```
+
+```{r GTBK-2018-2023-summary-stats}
+summary(GTBK_2018_2023)
+```
+
+```{r species-breakdown}
+GTBK_2014_2018 %>%
+  count(Especie, sort = TRUE)
+
+GTBK_2018_2023 %>%
+  count(especie_nombre_latino, sort = TRUE)
+
+buis_greenturtles_2022 %>%
+  count(sp, sort = TRUE)
 ```
 
 

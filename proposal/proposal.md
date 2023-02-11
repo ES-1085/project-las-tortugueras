@@ -343,3 +343,262 @@ GTBK_2018_2023 <- GTBK_2018_2023 %>%
                      Especie >= "Amarilla" ~ "Caretta caretta", 
                      Especie >= "Golfina" ~ "Lepidochelys olivacea"))
 ```
+
+``` r
+summary(buis_greenturtles_2022)
+```
+
+    ##   activityno           CDate            PrimaryTag             sp           
+    ##  Length:27          Length:27          Length:27          Length:27         
+    ##  Class :character   Class :character   Class :character   Class :character  
+    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##   ApplyDate            Remi?              cclnucn           ccw        
+    ##  Length:27          Length:27          Min.   :102.1   Min.   : 91.50  
+    ##  Class :character   Class :character   1st Qu.:107.8   1st Qu.: 96.87  
+    ##  Mode  :character   Mode  :character   Median :110.0   Median : 99.50  
+    ##                                        Mean   :110.7   Mean   :100.44  
+    ##                                        3rd Qu.:114.5   3rd Qu.:103.72  
+    ##                                        Max.   :123.4   Max.   :110.80  
+    ##                                        NA's   :4       NA's   :4       
+    ##     cclnuct         cclnott         location        
+    ##  Min.   :102.1   Min.   :0.0000   Length:27         
+    ##  1st Qu.:107.8   1st Qu.:0.0000   Class :character  
+    ##  Median :108.7   Median :0.0000   Mode  :character  
+    ##  Mean   :110.7   Mean   :0.1123                     
+    ##  3rd Qu.:114.5   3rd Qu.:0.0500                     
+    ##  Max.   :123.4   Max.   :1.3000                     
+    ##  NA's   :4       NA's   :4
+
+``` r
+summary(GTBK_2014_2018)
+```
+
+    ##      ID#            Nombre de la tortuga No. Monitoreo     Estacion        
+    ##  Length:409         Length:409           Min.   : 1.00   Length:409        
+    ##  Class :character   Class :character     1st Qu.: 5.00   Class :character  
+    ##  Mode  :character   Mode  :character     Median :12.00   Mode  :character  
+    ##                                          Mean   :12.35                     
+    ##                                          3rd Qu.:19.00                     
+    ##                                          Max.   :28.00                     
+    ##                                          NA's   :1                         
+    ##     Fecha           Area de Monitoreo  Posicion (Lati. Long.)
+    ##  Length:409         Length:409         Length:409            
+    ##  Class :character   Class :character   Class :character      
+    ##  Mode  :character   Mode  :character   Mode  :character      
+    ##                                                              
+    ##                                                              
+    ##                                                              
+    ##                                                              
+    ##  Hora de captura      Especie            Peso (Kg)         Sexo          
+    ##  Length:409         Length:409         Min.   : 4.00   Length:409        
+    ##  Class :character   Class :character   1st Qu.:31.00   Class :character  
+    ##  Mode  :character   Mode  :character   Median :38.00   Mode  :character  
+    ##                                        Mean   :39.76                     
+    ##                                        3rd Qu.:46.25                     
+    ##                                        Max.   :96.40                     
+    ##                                        NA's   :1                         
+    ##  L.R.C. (cm)          L.C.C.(cm)       A.R.C.(cm)      A.C.C.(cm)   
+    ##  Length:409         Min.   : 26.00   Min.   :28.00   Min.   :24.60  
+    ##  Class :character   1st Qu.: 65.50   1st Qu.:48.50   1st Qu.:62.58  
+    ##  Mode  :character   Median : 70.15   Median :52.30   Median :67.60  
+    ##                     Mean   : 69.93   Mean   :52.07   Mean   :66.51  
+    ##                     3rd Qu.: 75.03   3rd Qu.:55.20   3rd Qu.:71.42  
+    ##                     Max.   :101.50   Max.   :89.00   Max.   :91.00  
+    ##                     NA's   :1        NA's   :2       NA's   :1      
+    ##     P.C (cm)       L.P (cm)            LTC (cm)       ¿Posee marca? (Recaptura)
+    ##  Min.   :11.00   Length:409         Min.   : 0.4597   Length:409               
+    ##  1st Qu.:23.00   Class :character   1st Qu.:11.5750   Class :character         
+    ##  Median :25.30   Mode  :character   Median :13.5000   Mode  :character         
+    ##  Mean   :25.71                      Mean   :14.1591                            
+    ##  3rd Qu.:27.50                      3rd Qu.:15.5000                            
+    ##  Max.   :72.60                      Max.   :97.0000                            
+    ##  NA's   :6                          NA's   :5                                  
+    ##  Marca Derecha      Marca Izquierda    Observaciones y comentarios
+    ##  Length:409         Length:409         Length:409                 
+    ##  Class :character   Class :character   Class :character           
+    ##  Mode  :character   Mode  :character   Mode  :character           
+    ##                                                                   
+    ##                                                                   
+    ##                                                                   
+    ## 
+
+``` r
+summary(GTBK_2018_2023)
+```
+
+    ##  Codigo_Comunidad   Responsable         Red numero        Fecha_inicio      
+    ##  Length:471         Length:471         Length:471         Length:471        
+    ##  Class :character   Class :character   Class :character   Class :character  
+    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##  Hora_inicio          Hora_fin         Total_horas        Tipo_monitoreo    
+    ##  Length:471         Length:471         Length:471         Length:471        
+    ##  Class :character   Class :character   Class :character   Class :character  
+    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##  Metodologia        Longitud red / lanceos Lugar_captura     
+    ##  Length:471         Length:471             Length:471        
+    ##  Class :character   Class :character       Class :character  
+    ##  Mode  :character   Mode  :character       Mode  :character  
+    ##                                                              
+    ##                                                              
+    ##                                                              
+    ##                                                              
+    ##    Latitud            Longitud         Unidad (UTM o grados) Fecha_captura     
+    ##  Length:471         Length:471         Length:471            Length:471        
+    ##  Class :character   Class :character   Class :character      Class :character  
+    ##  Mode  :character   Mode  :character   Mode  :character      Mode  :character  
+    ##                                                                                
+    ##                                                                                
+    ##                                                                                
+    ##                                                                                
+    ##  Hora_captura       Nombre tortuga       Especie             1.LRC          
+    ##  Length:471         Length:471         Length:471         Length:471        
+    ##  Class :character   Class :character   Class :character   Class :character  
+    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##     2.ARC              3.LCC              4.ACC           5.Profundidad cuerpo
+    ##  Length:471         Length:471         Length:471         Length:471          
+    ##  Class :character   Class :character   Class :character   Class :character    
+    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character    
+    ##                                                                               
+    ##                                                                               
+    ##                                                                               
+    ##                                                                               
+    ##  6. Longitud plastron 7. Longitud total cola  8. Peso_kg       
+    ##  Length:471           Length:471             Length:471        
+    ##  Class :character     Class :character       Class :character  
+    ##  Mode  :character     Mode  :character       Mode  :character  
+    ##                                                                
+    ##                                                                
+    ##                                                                
+    ##                                                                
+    ##      Sexo           Material_marcas    Marca nueva DX     Marca nueva SX    
+    ##  Length:471         Length:471         Length:471         Length:471        
+    ##  Class :character   Class :character   Class :character   Class :character  
+    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##                                                                             
+    ##  Marca previa DX    Marca previa SX    PIT tag (si, no)   PIT nuevo     
+    ##  Length:471         Length:471         Length:471         Mode:logical  
+    ##  Class :character   Class :character   Class :character   NA's:471      
+    ##  Mode  :character   Mode  :character   Mode  :character                 
+    ##                                                                         
+    ##                                                                         
+    ##                                                                         
+    ##                                                                         
+    ##  PIT previo...35 Muestra sangre (si o no)...36 Muestra piel  (si o no)...37
+    ##  Mode:logical    Length:471                    Length:471                  
+    ##  NA's:471        Class :character              Class :character            
+    ##                  Mode  :character              Mode  :character            
+    ##                                                                            
+    ##                                                                            
+    ##                                                                            
+    ##                                                                            
+    ##  Muestra cont estom  (si o no)...38 Otra muestra  (si o no)...39
+    ##  Length:471                         Length:471                  
+    ##  Class :character                   Class :character            
+    ##  Mode  :character                   Mode  :character            
+    ##                                                                 
+    ##                                                                 
+    ##                                                                 
+    ##                                                                 
+    ##  Especificar...40   Lesiones / Balanos...41 Foto (si o no)...42
+    ##  Length:471         Length:471              Length:471         
+    ##  Class :character   Class :character        Class :character   
+    ##  Mode  :character   Mode  :character        Mode  :character   
+    ##                                                                
+    ##                                                                
+    ##                                                                
+    ##                                                                
+    ##  Comentarios...43     ID #...44      PIT previo...45
+    ##  Length:471         Min.   : 0.000   Mode:logical   
+    ##  Class :character   1st Qu.: 2.000   NA's:471       
+    ##  Mode  :character   Median : 3.000                  
+    ##                     Mean   : 4.683                  
+    ##                     3rd Qu.: 6.000                  
+    ##                     Max.   :25.000                  
+    ##                     NA's   :11                      
+    ##  Muestra sangre (si o no)...46 Muestra piel  (si o no)...47
+    ##  Length:471                    Length:471                  
+    ##  Class :character              Class :character            
+    ##  Mode  :character              Mode  :character            
+    ##                                                            
+    ##                                                            
+    ##                                                            
+    ##                                                            
+    ##  Muestra cont estom  (si o no)...48 Otra muestra  (si o no)...49
+    ##  Length:471                         Length:471                  
+    ##  Class :character                   Class :character            
+    ##  Mode  :character                   Mode  :character            
+    ##                                                                 
+    ##                                                                 
+    ##                                                                 
+    ##                                                                 
+    ##  Especificar...50   Lesiones / Balanos...51 Foto (si o no)...52
+    ##  Length:471         Length:471              Length:471         
+    ##  Class :character   Class :character        Class :character   
+    ##  Mode  :character   Mode  :character        Mode  :character   
+    ##                                                                
+    ##                                                                
+    ##                                                                
+    ##                                                                
+    ##  Comentarios...53     ID #...54      especie_nombre_latino
+    ##  Length:471         Min.   : 0.000   Length:471           
+    ##  Class :character   1st Qu.: 2.000   Class :character     
+    ##  Mode  :character   Median : 3.000   Mode  :character     
+    ##                     Mean   : 4.683                        
+    ##                     3rd Qu.: 6.000                        
+    ##                     Max.   :25.000                        
+    ##                     NA's   :11
+
+``` r
+GTBK_2014_2018 %>%
+  count(Especie, sort = TRUE)
+```
+
+    ## # A tibble: 4 × 2
+    ##   Especie                    n
+    ##   <chr>                  <int>
+    ## 1 Chelonia mydas           395
+    ## 2 Lepidochelys olivacea      8
+    ## 3 Eretmochelys imbricata     5
+    ## 4 <NA>                       1
+
+``` r
+GTBK_2018_2023 %>%
+  count(especie_nombre_latino, sort = TRUE)
+```
+
+    ## # A tibble: 4 × 2
+    ##   especie_nombre_latino      n
+    ##   <chr>                  <int>
+    ## 1 Chelonia mydas           453
+    ## 2 Eretmochelys imbricata     9
+    ## 3 <NA>                       7
+    ## 4 Caretta caretta            2
+
+``` r
+buis_greenturtles_2022 %>%
+  count(sp, sort = TRUE)
+```
+
+    ## # A tibble: 1 × 2
+    ##   sp        n
+    ##   <chr> <int>
+    ## 1 GR       27
