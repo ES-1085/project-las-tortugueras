@@ -16,13 +16,13 @@ using the following format.
 - `Especie`: Species	
 - `Peso (Kg)': Weight (kg)	
 - `Sexo`: Sex	
-- `L.R.C. (cm)`	
-- `L.C.C.(cm)`	
-- `A.R.C.(cm)`	
-- `A.C.C.(cm)`	
-- `P.C (cm)`	
-- `L.P (cm)`	
-- `LTC (cm)`	
+- `L.R.C. (cm)`: Carapace length 	
+- `L.C.C.(cm)`: Carapace width	
+- `A.R.C.(cm)`: Curved carapace length	
+- `A.C.C.(cm)`: Curved carapace width 	
+- `P.C (cm)`: Carapace width	
+- `L.P (cm)`: Plastron length	
+- `LTC (cm)`: Tail length 	
 - `¿Posee marca? (Recaptura)`: Recapture (yes/no)
 - `Marca Derecha`: Right tag number
 - `Marca Izquierda`: Left tag number
@@ -48,42 +48,32 @@ using the following format.
 - `Hora_captura`: Time of capture
 - `Nombre tortuga`: Turtle name	
 - `Especie`: Species	
-- `LRC`	
-- `ARC`	
-- `LCC`	
-- `ACC`	
+- `LRC`: Carapace length	
+- `ARC`: Carapace width	
+- `LCC`: Curved carapace width
+- `ACC`: Curved carapace length	
 - `Profundidad cuerpo`: Carapace depth	
-- `Longitud plastron`	
+- `Longitud plastron`: Plastrong length
 - `Longitud total cola`: Total tail length 
 - `Peso_kg`: weight (kg)	
 - `Sexo`: Sex
 - `Material_marcas`: Markings	
-- `Marca nueva DX`	
-- `Marca nueva SX`	
-- `Marca previa DX`	
-- `Marca previa SX`	
-- `PIT tag (si, no)`	
-- `PIT nuevo`	
-- `PIT previo`	
-- `Muestra sangre (si o no)`	
-- `Muestra piel  (si o no)`	
-- `Muestra cont estom  (si o no)`	
-- `Otra muestra  (si o no)`	
-- `Especificar`	
-- `Lesiones / Balanos`	
-- `Foto (si o no)`	
-- `Comentarios`	
-- `ID #`	
-- `PIT previo`	
-- `Muestra sangre (si o no)`	
-- `Muestra piel  (si o no)`	
-- `Muestra cont estom  (si o no)`	
-- `Otra muestra  (si o no)`
-- `Especificar`	
-- `Lesiones / Balanos`	
-- `Foto (si o no)`	
-- `Comentarios`	
-- `ID #`
+- `Marca nueva DX`: New tag (right)	number
+- `Marca nueva SX`: New tag (left) number
+- `Marca previa DX`: Old tag (right) number
+- `Marca previa SX`: Old tag (left) number
+- `PIT tag (si, no)`: PIT Tag (yes/no)	
+- `PIT nuevo`: New PIT Tag number 
+- `PIT previo`: Old PIT Tag number
+- `Muestra sangre (si o no)`: Bleeding (yes/no)
+- `Muestra piel  (si o no)`: Damaged skin (yes/no)
+- `Muestra cont estom  (si o no)`: Stomach contents (yes/no)	
+- `Otra muestra  (si o no)`: Other (yes/no)
+- `Especificar`: Details for "otra muestra"
+- `Lesiones / Balanos`: Lesions or barnacles	
+- `Foto (si o no)`: Photo (yes/no)	
+- `Comentarios`: Comments	
+- `ID #`: ID Number	
 
 
 
