@@ -1,11 +1,16 @@
 # data
 
-Below are the files where our project data are stored:
+These are the files where our project data are stored:
+
 - "GTBK_2014_2018"
 - "GTBK 2018_2023"
 - "buis_greenturtles_2022"
 
-## GTBK 2014-2018
+# variables
+
+These are lists of the variables in each dataset, along with their descriptions:
+
+## GTBK_2014_2018
 - `ID#`: identification number for each turtle
 - `Nombre de la tortuga`: the turtle's given name 
 - `No. Monitoreo	Estacion`: monitoring station	
@@ -29,7 +34,7 @@ Below are the files where our project data are stored:
 - `Observaciones y comentarios`: observations and comments 
 
 
-## GTBK 2018-2023
+## GTBK_2018_2023
 - `Codigo_Comunidad`: community code	
 - `Responsable`: people in charge of the data	
 - `Red numero`: network number 	
