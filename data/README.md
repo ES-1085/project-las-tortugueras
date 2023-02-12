@@ -80,7 +80,7 @@ These are lists of the variables in each dataset, along with their descriptions:
 - `Comentarios`: comments	
 - `ID #`: ID Number	
 
-## buis_greenturtles_2022
+## buis_2022
 - `activityno`: unique numerical identifier representing each individual nesting activity from 2022
 - `CDate`: date that the sea turtle was measured in 2022
 - `PrimaryTag`: “name” of the turtle (the first tag that the turtle was ever given)
