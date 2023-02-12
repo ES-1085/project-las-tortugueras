@@ -1,79 +1,97 @@
 # data
 
-Place data file(s) in this folder.
+These are the files where our project data are stored:
 
-Then, include codebooks (variables, and their descriptions) for your data file(s)
-using the following format.
+- "GTBK_2014_2018"
+- "GTBK 2018_2023"
+- "buis_2022"
 
-## GTBK 2014-2018
-- `ID#`: Identification number for each turtle
-- `Nombre de la tortuga`: The turtle's name 
-- `No. Monitoreo	Estacion`: Monitoring station	
-- `Fecha`: Date
-- `Area de Monitoreo`: Monitoring location
-- `Posicion (Lati. Long.)`: Location (lat/long)	
-- `Hora de captura`: Hour of capture 
-- `Especie`: Species	
-- `Peso (Kg)': Weight (kg)	
-- `Sexo`: Sex	
-- `L.R.C. (cm)`: Carapace length 	
-- `L.C.C.(cm)`: Carapace width	
-- `A.R.C.(cm)`: Curved carapace length	
-- `A.C.C.(cm)`: Curved carapace width 	
-- `P.C (cm)`: Carapace width	
-- `L.P (cm)`: Plastron length	
-- `LTC (cm)`: Tail length 	
-- `¿Posee marca? (Recaptura)`: Recapture (yes/no)
-- `Marca Derecha`: Right tag number
-- `Marca Izquierda`: Left tag number
-- `Observaciones y comentarios`: Observations and comments 
+# variables
+
+These are lists of the variables in each dataset, along with their descriptions:
+
+## GTBK_2014_2018
+- `ID#`: identification number for each turtle
+- `Nombre de la tortuga`: the turtle's given name 
+- `No. Monitoreo	Estacion`: monitoring station	
+- `Fecha`: date
+- `Area de Monitoreo`: monitoring location
+- `Posicion (Lati. Long.)`: location (lat/long)	
+- `Hora de captura`: hour of capture 
+- `Especie`: species	
+- `Peso (Kg)': weight (kg)	
+- `Sexo`: sex	
+- `L.R.C. (cm)`: carapace length 	
+- `L.C.C.(cm)`: carapace width	
+- `A.R.C.(cm)`: curved carapace length	
+- `A.C.C.(cm)`: curved carapace width 	
+- `P.C (cm)`: carapace width	
+- `L.P (cm)`: plastron length	
+- `LTC (cm)`: tail length 	
+- `¿Posee marca? (Recaptura)`: recapture? (yes/no)
+- `Marca Derecha`: right tag number
+- `Marca Izquierda`: left tag number
+- `Observaciones y comentarios`: observations and comments 
 
 
-## GTBK 2019-Current
-- `Codigo_Comunidad`: Community code	
-- `Responsable`: People in charge of the data	
-- `Red numero`: Network number 	
-- `Fecha_inicio`: Start date	
-- `Hora_inicio`: Start hour	
-- `Hora_fin`: End hour	
-- `Total_horas`: Total effort hours 
-- `Tipo_monitoreo`: Monitoring type 
-- `Metodologia`: Methodology
+## GTBK_2018_2023
+- `Codigo_Comunidad`: community code	
+- `Responsable`: people in charge of the data	
+- `Red numero`: network number 	
+- `Fecha_inicio`: start date	
+- `Hora_inicio`: start hour	
+- `Hora_fin`: end hour	
+- `Total_horas`: total effort hours 
+- `Tipo_monitoreo`: monitoring type 
+- `Metodologia`: methodology
 - `Longitud red / lanceos`: 
-- `Lugar_captura`: Capture location, name	
-- `Latitud`: Capture location latitude 	
-- `Longitud`: Capture location longitude	
+- `Lugar_captura`: capture location, name	
+- `Latitud`: capture location latitude 	
+- `Longitud`: capture location longitude	
 - `Unidad (UTM o grados)`:	
-- `Fecha_captura`: Date of capture
-- `Hora_captura`: Time of capture
-- `Nombre tortuga`: Turtle name	
-- `Especie`: Species	
-- `LRC`: Carapace length	
-- `ARC`: Carapace width	
-- `LCC`: Curved carapace width
-- `ACC`: Curved carapace length	
-- `Profundidad cuerpo`: Carapace depth	
-- `Longitud plastron`: Plastrong length
-- `Longitud total cola`: Total tail length 
+- `Fecha_captura`: date of capture
+- `Hora_captura`: time of capture
+- `Nombre tortuga`: the turtle's given name	
+- `Especie`: species	
+- `LRC`: carapace length	
+- `ARC`: carapace width	
+- `LCC`: curved carapace width
+- `ACC`: curved carapace length	
+- `Profundidad cuerpo`: carapace depth	
+- `Longitud plastron`: plastron length
+- `Longitud total cola`: total tail length 
 - `Peso_kg`: weight (kg)	
-- `Sexo`: Sex
-- `Material_marcas`: Markings	
-- `Marca nueva DX`: New tag (right)	number
-- `Marca nueva SX`: New tag (left) number
-- `Marca previa DX`: Old tag (right) number
-- `Marca previa SX`: Old tag (left) number
+- `Sexo`: sex
+- `Material_marcas`: markings	
+- `Marca nueva DX`: new tag (right)	number
+- `Marca nueva SX`: new tag (left) number
+- `Marca previa DX`: old tag (right) number
+- `Marca previa SX`: old tag (left) number
 - `PIT tag (si, no)`: PIT Tag (yes/no)	
-- `PIT nuevo`: New PIT Tag number 
-- `PIT previo`: Old PIT Tag number
-- `Muestra sangre (si o no)`: Bleeding (yes/no)
-- `Muestra piel  (si o no)`: Damaged skin (yes/no)
-- `Muestra cont estom  (si o no)`: Stomach contents (yes/no)	
-- `Otra muestra  (si o no)`: Other (yes/no)
-- `Especificar`: Details for "otra muestra"
-- `Lesiones / Balanos`: Lesions or barnacles	
-- `Foto (si o no)`: Photo (yes/no)	
-- `Comentarios`: Comments	
+- `PIT nuevo`: new PIT Tag number 
+- `PIT previo`: old PIT Tag number
+- `Muestra sangre (si o no)`: bleeding (yes/no)
+- `Muestra piel  (si o no)`: damaged skin (yes/no)
+- `Muestra cont estom  (si o no)`: stomach contents (yes/no)	
+- `Otra muestra  (si o no)`: other (yes/no)
+- `Especificar`: details for "otra muestra"
+- `Lesiones / Balanos`: lesions or barnacles	
+- `Foto (si o no)`: photo? (yes/no)	
+- `Comentarios`: comments	
 - `ID #`: ID Number	
+
+## buis_2022
+- `activityno`: unique numerical identifier representing each individual nesting activity from 2022
+- `CDate`: date that the sea turtle was measured in 2022
+- `PrimaryTag`: “name” of the turtle (the first tag that the turtle was ever given)
+- `sp`: species
+- `ApplyDate`: date that the turtle was given her primary tag
+- `Remi?`: (TRUE/FALSE) indicates whether the turtle had been captured/tagged before 2022
+- `cclnucn`: curved carapace length from nuchal notch to notch (cm)
+- `ccw`: curved carapace width (cm)
+- `cclnuct`: curved carapace length from nuchal notch to carapace tip (cm)
+- `cclnott`: curved carapace length from notch to tip (cm)
+- `location` : capture location (Buck Island)
 
 
 
