@@ -94,4 +94,4 @@ buis_2022 %>%
 ```
 
 ## Visualizations 
-Brainstorming: Some visualizations that could be helpful for our data analysis include line graphs or time series that map number of recaptures over time (maybe using some sort of time-based animation). One visualization that we could create would display number of recaptures by GTBK per species faceted by seasonality. For the visualization comparing the size of reproductive female GR turtles, we could use a pair of violin plots or box plots to display the distribution of individual sizes in each geographic region.
+Brainstorming: Some visualizations that could be helpful for our data analysis include line graphs or a time series that maps the number of recaptures by GTBK over time (maybe using some sort of time-based animation). One visualization that we could create would display the number of recaptures by GTBK per species faceted by seasonality. For the visualization comparing the size of reproductive female GR turtles, we could use a pair of violin plots or box plots to display the distribution of individual sizes in each geographic region.
