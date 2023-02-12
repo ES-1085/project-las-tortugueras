@@ -1,24 +1,15 @@
-Project proposal
+Project Proposal
 ================
 Las Tortugueras
+02/11/2023
+
+## Load Packages
 
 ``` r
-# install.packages(tidyverse)
-# install.packages(skimr)
+install.packages("tidyverse")
+install.packages("skimr")
 
 library(tidyverse)
-```
-
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-    ## ✔ ggplot2 3.4.0     ✔ purrr   1.0.1
-    ## ✔ tibble  3.1.8     ✔ dplyr   1.1.0
-    ## ✔ tidyr   1.3.0     ✔ stringr 1.5.0
-    ## ✔ readr   2.1.3     ✔ forcats 1.0.0
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-
-``` r
 library(skimr)
 ```
 
@@ -27,76 +18,55 @@ library(skimr)
 The aim of this project is to analyze data collected on sea turtles in
 Kino Bay, Sonora, Mexico and Buck Island, Saint Croix, USVI. This
 project will focus on data collected by Grupo Tortuguero de Bahia de
-Kino (GTBK), a community organization that monitors sea turtle
-populations and recapture. We will work alongside the community
-organization to answer questions that have come up during their
-research. Our aim is to address questions that have been raised by GTBK
-and offer them an analysis of their data. We will examine registration
-and recapture data including season of registration and frequency of
-recapture. We will also incorporate data from the Buck Island Sea Turtle
-Research Program (BISTRP) that monitors nesting sea turtles. Both
-datasets have individual sea turtles as the case subject; the two
-datasets each have data on reproductive females, we will be able to
-compare the two locations using this variable. We will work with three
-datasets: two from Kino Bay–one from 2014-2018 and one from
-2019-current–and one from Buck’s Island. The variables are as follows:
-Kino Bay 2014-2018–ID#, Nombre de la tortuga, No. Monitoreo, Estación,
-Fecha Area de Monitoreo, Posicion (Lati. Long.), Hora de capture,
-Especie, Peso (Kg), Sexo, L.R.C. (cm), L.C.C.(cm), A.R.C.(cm),
-A.C.C.(cm), P.C (cm), L.P (cm), LTC (cm), ¿Posee marca? (Recaptura),
-Marca Derecha, Marca Izquierda, Observaciones y comentarios. Kino Bay
-2019-current–Codigo_Comunidad Responsable, Red numero, Fecha_inicio,
-Hora_inicio, Hora_fin, Total_horas, Tipo_monitoreo, Metodologia,
-Longitud red / lanceos, Lugar_captura (Latitud, Longitud), Unidad (UTM o
-grados), Fecha_captura, Hora_captura, Nombre tortuga, Especie, LRC, ARC,
-LCC, ACC, Profundidad cuerpo, Longitud plastron, Longitud total cola,
-Peso_kg, Sexo, Material_marcas, Marca nueva DX, Marca nueva SX, Marca
-previa DX, Marca previa SX, PIT tag (si, no), PIT nuevo, PIT previo ,
-Muestra sangre (si o no), Muestra piel (si o no), Muestra cont estom (si
-o no), Otra muestra (si o no), Especificar, Lesiones / Balanos, Foto (si
-o no), Comentarios, ID \#, PIT previo, Muestra sangre (si o no), Muestra
-piel (si o no), Muestra cont estom (si o no), Otra muestra (si o no),
-Especificar Lesiones / Balanos, Foto (si o no), Comentarios, ID \# Bucks
-Island–activity number : unique numerical identifier representing each
-nesting activity from 2022, CDate : date that the sea turtle was
-measured in 2022, PrimaryTag : “name” of the turtle (the first tag that
-she was ever given), sp : species, ApplyDate : date that the turtle was
-given her primary tag, Remi? : (TRUE/FALSE) indicates whether the turtle
-had been recaptured before 2022, cclnucn : curved carapace length from
-nuchal notch to notch, ccw : curved carapace width, cclnuct : curved
-carapace length from nuchal notch to tip, cclnott : curved carapace
-length from notch to tip.
+Kino (GTBK), a community organization that monitors local sea turtle
+populations through boat surveys and mark-recapture. We will work
+alongside the community organization to answer questions that have come
+up during their research. Our aim is to address questions that have been
+raised by GTBK and offer them an analysis of their data. We will examine
+registration and recapture data including season of registration and
+frequency of recapture. We will also incorporate data from the Buck
+Island Sea Turtle Research Program (BISTRP) that monitors nesting sea
+turtles on an island in the Caribbean. The datasets have individual sea
+turtles as the case subject and both research projects have collected
+morphometric data on reproductive female Green sea turtles. Using the
+overlapping size variables, we will be able to compare the reproductive
+female Green turtles in Kino Bay, Mexico to those on Buck Island, USVI.
+
+We will work with three datasets: two from Kino Bay (one from 2014-2018
+and one from 2019-present) and one from Buck Island.
+
+The variables are as follows:
+
+“Kino Bay 2014-2018” - `ID#`, `Nombre de la tortuga`,
+`No. Monitoreo`,`Estación`, `Fecha Area de Monitoreo`,
+`Posicion (Lati. Long.)`, `Hora de capture`, `Especie`, `Peso(Kg)`,
+`Sexo`, `L.R.C.(cm)`, `L.C.C.(cm)`, `A.R.C.(cm)`, `A.C.C.(cm)`,
+`P.C (cm)`, `L.P (cm)`, `LTC (cm)`, `¿Posee marca? (Recaptura)`,
+`Marca Derecha`, `Marca Izquierda`, `Observaciones y comentarios`
+
+“Kino Bay 2019-current” - `Codigo_Comunidad Responsable`, `Red numero`,
+`Fecha_inicio`, `Hora_inicio`, `Hora_fin`, `Total_horas`,
+`Tipo_monitoreo`, `Metodologia`, `Longitud red / lanceos`,
+`Lugar_captura (Latitud, Longitud)`, `Unidad (UTM o grados)`,
+`Fecha_captura`, `Hora_captura`, `Nombre tortuga`, `Especie`, `LRC`,
+`ARC`, `LCC`, `ACC`, `Profundidad cuerpo`, `Longitud plastron`,
+`Longitud total cola`, `Peso_kg`, `Sexo`, `Material_marcas`,
+`Marca nueva DX`, `Marca nueva SX`, `Marca previa DX`,
+`Marca previa SX`, `PIT tag (si, no)`, `PIT nuevo`, `PIT previo`,
+`Muestra sangre (si o no)`, `Muestra piel(si o no)`,
+`Muestra cont estom  (si o no)`, `Otra muestra  (si o no)`,
+`Especificar`, `Lesiones / Balanos`, `Foto (si o no)`, `Comentarios`,
+`ID #`
+
+“Buck Island 2022” - `activity number`, `CDate`, `PrimaryTag`, `sp`,
+`ApplyDate`, `Remi?`, `cclnucn`, `ccw`, `cclnuct`, `cclnott`
 
 ## 2. Data
 
 ``` r
 library(readxl)
 GTBK_2018_2023 <- read_excel("../data/GTBK_2018_2023.xlsx") 
-```
 
-    ## New names:
-    ## • `PIT previo` -> `PIT previo...35`
-    ## • `Muestra sangre (si o no)` -> `Muestra sangre (si o no)...36`
-    ## • `Muestra piel (si o no)` -> `Muestra piel (si o no)...37`
-    ## • `Muestra cont estom (si o no)` -> `Muestra cont estom (si o no)...38`
-    ## • `Otra muestra (si o no)` -> `Otra muestra (si o no)...39`
-    ## • `Especificar` -> `Especificar...40`
-    ## • `Lesiones / Balanos` -> `Lesiones / Balanos...41`
-    ## • `Foto (si o no)` -> `Foto (si o no)...42`
-    ## • `Comentarios` -> `Comentarios...43`
-    ## • `ID #` -> `ID #...44`
-    ## • `PIT previo` -> `PIT previo...45`
-    ## • `Muestra sangre (si o no)` -> `Muestra sangre (si o no)...46`
-    ## • `Muestra piel (si o no)` -> `Muestra piel (si o no)...47`
-    ## • `Muestra cont estom (si o no)` -> `Muestra cont estom (si o no)...48`
-    ## • `Otra muestra (si o no)` -> `Otra muestra (si o no)...49`
-    ## • `Especificar` -> `Especificar...50`
-    ## • `Lesiones / Balanos` -> `Lesiones / Balanos...51`
-    ## • `Foto (si o no)` -> `Foto (si o no)...52`
-    ## • `Comentarios` -> `Comentarios...53`
-    ## • `ID #` -> `ID #...54`
-
-``` r
 library(readxl)
 GTBK_2014_2018 <- read_excel("../data/GTBK_2014_2018.xls")
 ```
@@ -107,17 +77,8 @@ GTBK_2014_2018 <- read_excel("../data/GTBK_2014_2018.xls")
 
 ``` r
 library(readr)
-buis_greenturtles_2022 <- read_csv("../data/buis_greenturtles_2022.csv")
+buis_2022 <- read_csv("../data/buis_greenturtles_2022.csv")
 ```
-
-    ## Rows: 27 Columns: 11
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: ","
-    ## chr (7): activityno, CDate, PrimaryTag, sp, ApplyDate, Remi?, location
-    ## dbl (4): cclnucn, ccw, cclnuct, cclnott
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 #### Data Skim
 
@@ -260,20 +221,20 @@ Data summary
 | LTC (cm)      |         5 |          0.99 | 14.16 |  6.21 |  0.46 | 11.57 | 13.50 | 15.50 |  97.0 | ▇▁▁▁▁ |
 
 ``` r
-skim(buis_greenturtles_2022)
+skim(buis_2022)
 ```
 
-|                                                  |                        |
-|:-------------------------------------------------|:-----------------------|
-| Name                                             | buis_greenturtles_2022 |
-| Number of rows                                   | 27                     |
-| Number of columns                                | 11                     |
-| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   |                        |
-| Column type frequency:                           |                        |
-| character                                        | 7                      |
-| numeric                                          | 4                      |
-| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |                        |
-| Group variables                                  | None                   |
+|                                                  |           |
+|:-------------------------------------------------|:----------|
+| Name                                             | buis_2022 |
+| Number of rows                                   | 27        |
+| Number of columns                                | 11        |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   |           |
+| Column type frequency:                           |           |
+| character                                        | 7         |
+| numeric                                          | 4         |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |           |
+| Group variables                                  | None      |
 
 Data summary
 
@@ -298,19 +259,19 @@ Data summary
 | cclnuct       |         4 |          0.85 | 110.69 | 5.60 | 102.1 | 107.75 | 108.7 | 114.55 | 123.4 | ▅▇▂▃▂ |
 | cclnott       |         4 |          0.85 |   0.11 | 0.30 |   0.0 |   0.00 |   0.0 |   0.05 |   1.3 | ▇▁▁▁▁ |
 
-## 3. Data analysis plan
+## 3. Data Analysis Plan
 
 We are working alongside the community organization Grupo Tortuguero de
 Bahia de Kino (GTBK). They are a community-based turtle monitoring group
-that collects data from local estuaries and less frequently local
-islands. They are monitoring populations health and size, and observing
-potential recapture. GTBK would like to visualize the number of sea
-turtles that have been registered, number registered per effort hour
-across all years, frequency of recapture, the average time between
-recaptures, and the seasonality of recaptures. The data we are using has
-been collected by GTBK from 2014-present in Laguna la Cruz estuary in
-Kino Bay, Sonora, Mexico and Isla San Pedro Martir oceanic offshore
-island in the Gulf of California.
+that collects data from local estuaries and less frequently from local
+islands. They are monitoring the health and size of sea turtle
+populations, and observing potential recapture. GTBK would like to
+visualize the number of sea turtles that have been registered, number
+registered per effort hour across all years, frequency of recapture, the
+average time between recaptures, and the seasonality of recaptures. The
+data we are using has been collected by GTBK from 2014-present in Laguna
+la Cruz estuary in Kino Bay, Sonora, Mexico and Isla San Pedro Martir
+oceanic offshore island in the Gulf of California.
 
 We would also like to incorporate some of the data that Georgia helped
 collect last summer and fall on Buck Island, Saint Croix, USVI. This
@@ -321,17 +282,19 @@ on Buck Island for 35 years, conducting a mark-recapture study,
 collecting biological data and recording the locations of nesting
 activities. We are interested in making some sort of comparison between
 the reproductive female Green sea turtles (this is one parameter that
-both of our datasets have in common) sampled on Buck Island, USVI and
+both of the datasets have in common) sampled on Buck Island, USVI and
 those sampled in Kino Bay, Sonora, Mexico. Because both research
-projects collected Curved Carapace Length (CCL) as a size measurement of
-reproductive female Greens, we would like to ask how the size of
-reproductive female GR sea turtles varies geographically.
+projects collected Curved Carapace Length (CCL) and Curved Carapace
+Width (CCW) as size measurements of reproductive female Greens, we would
+like to ask how the size of reproductive female GR sea turtles varies
+geographically.
 
 For the GTBK data the subject cases are each an individual sea turtle.
 The variables we will analyze include date, season, location, tag
 numbers, species, and sex.
 
-For the BISTRP data we want to use carapace size and primary tag number.
+For the BISTRP data we want to use curved carapace length, curved
+carapace width, location, species and primary tag number.
 
 #### Preliminary Analysis
 
@@ -345,7 +308,7 @@ GTBK_2018_2023 <- GTBK_2018_2023 %>%
 ```
 
 ``` r
-summary(buis_greenturtles_2022)
+summary(buis_2022)
 ```
 
     ##   activityno           CDate            PrimaryTag             sp           
@@ -594,7 +557,7 @@ GTBK_2018_2023 %>%
     ## 4 Caretta caretta            2
 
 ``` r
-buis_greenturtles_2022 %>%
+buis_2022 %>%
   count(sp, sort = TRUE)
 ```
 
@@ -602,3 +565,12 @@ buis_greenturtles_2022 %>%
     ##   sp        n
     ##   <chr> <int>
     ## 1 GR       27
+
+Some visualizations that could be helpful for our data analysis include
+line graphs or time series that map number of recaptures over time
+(maybe using some sort of time-based animation). One visualization that
+we could create would display number of recaptures by GTBK per species
+faceted by seasonality. For the visualization comparing the size of
+reproductive female GR turtles, we could use a pair of violin plots or
+box plots to display the distribution of individual sizes in each
+geographic region.
