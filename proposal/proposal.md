@@ -576,3 +576,16 @@ number of recaptures by GTBK per species faceted by seasonality. For the
 visualization comparing the size of reproductive female GR turtles, we
 could use a pair of violin plots or box plots to display the
 distribution of individual sizes in each geographic region.
+
+- A bar graph or line graph (or combo) displaying turtles per effort
+  hour over year
+- A bar graph (sideways) displaying number of turtles that have been
+  recaptured 2, 3, 4, 5, etc. times
+- Spatial color-coded points for turtles that have been recaptured more
+  than once (site fidelity visualization) in locations
+- Number of turtles recaptured every year, number recaptured every two
+  years, number recaptured every three years, etc.
+- A horizontal bar graph displaying Average number of turtle recaptures
+  over month
+- Bar graphs of number of recaptures over month faceted by individual
+  turtles (2 sets of this for San Pedro Martí and the estuary)
