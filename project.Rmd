@@ -8,6 +8,7 @@ date: "2023-02-22"
 library(tidyverse)
 library(readxl)
 library(readr)
+library(lubridate)
 ```
 
 ```{r load-data}
@@ -26,24 +27,27 @@ GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx")
         # "text", "text", "numeric", "numeric", 
         # "text", "text", "text", "text", "text", 
         # "text", "text", "text", "numeric"))
+buis_greenturtles_2022 <- read_csv("data/buis_greenturtles_2022.csv")
+
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+## Cleaning Data
+```{r clean-species-variable-GTBK_2018_2023}
+GTBK_2018_2023 <- GTBK_2018_2023 %>%
+  mutate(especie_nombre_latino = 
+           case_when(
+             Especie == "Prieta/Verde" ~ "Chelonia mydas",
+             Especie == "Carey" ~ "Eretmochelys imbricata", 
+             Especie == "Amarilla" ~ "Caretta caretta", 
+             Especie == "Golfina" ~ "Lepidochelys olivacea"
+             )
+         )
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+```{r update-data-types}
+#GTBK_2010_2018 %>%
+  #time == parse_date_time(fecha, "Y%m%d")
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
