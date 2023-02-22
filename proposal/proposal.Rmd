@@ -36,7 +36,7 @@ library(readxl)
 GTBK_2018_2023 <- read_excel("../data/GTBK_2018_2023.xlsx") 
 
 library(readxl)
-GTBK_2014_2018 <- read_excel("../data/GTBK_2014_2018.xls")
+GTBK_2010_2018 <- read_excel("../data/GTBK_2014_2018.xls")
 
 library(readr)
 buis_2022 <- read_csv("../data/buis_greenturtles_2022.csv")
@@ -61,6 +61,11 @@ For the GTBK data the subject cases are each an individual sea turtle. The varia
 For the BISTRP data we want to use curved carapace length, curved carapace width, location, species and primary tag number.
 
 #### Preliminary Analysis
+```{r clean-GTBK-dates}
+
+```
+
+
 ```{r clean_species_variable}
 GTBK_2018_2023 <- GTBK_2018_2023 %>%
   mutate(especie_nombre_latino = 
