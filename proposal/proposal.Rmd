@@ -111,3 +111,5 @@ Brainstorming: Some visualizations that could be helpful for our data analysis i
 - Number of turtles recaptured every year, number recaptured every two years, number recaptured every three years, etc.
 - A horizontal bar graph displaying Average number of turtle recaptures over month 
 - Bar graphs of number of recaptures over month faceted by individual turtles (2 sets of this for San Pedro Martí and the estuary)
+
+

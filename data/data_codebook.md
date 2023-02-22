@@ -2,7 +2,7 @@
 
 These are the files where our project data are stored:
 
-- "GTBK_2014_2018"
+- "GTBK_2010_2018"
 - "GTBK 2018_2023"
 - "buis_2022"
 
@@ -10,7 +10,12 @@ These are the files where our project data are stored:
 
 These are lists of the variables in each dataset, along with their descriptions:
 
-## GTBK_2014_2018
+## GTBK_2010_2018
+This dataset is the work from Grupo Tortugero Bahía de Kino from 2010 to 2018. It includes recapture data, turtle identification, and effort-based data. 
+
+Variables: 23
+Observations: 409
+
 - `ID#`: identification number for each turtle
 - `Nombre de la tortuga`: the turtle's given name 
 - `No. Monitoreo	Estacion`: monitoring station	
@@ -35,6 +40,11 @@ These are lists of the variables in each dataset, along with their descriptions:
 
 
 ## GTBK_2018_2023
+This dataset is the work from Grupo Tortugero Bahía de Kino from 2010 to 2023. It includes recapture data, turtle identification, and effort-based data. 
+
+Variables: 54
+Observations: 471
+
 - `Codigo_Comunidad`: community code	
 - `Responsable`: people in charge of the data	
 - `Red numero`: network number 	
@@ -81,6 +91,11 @@ These are lists of the variables in each dataset, along with their descriptions:
 - `ID #`: ID Number	
 
 ## buis_2022
+Add description of buis data. 
+
+Variables: 11
+Observations: 27
+
 - `activityno`: unique numerical identifier representing each individual nesting activity from 2022
 - `CDate`: date that the sea turtle was measured in 2022
 - `PrimaryTag`: “name” of the turtle (the first tag that the turtle was ever given)
