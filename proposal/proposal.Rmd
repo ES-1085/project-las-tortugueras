@@ -64,10 +64,12 @@ For the BISTRP data we want to use curved carapace length, curved carapace width
 ```{r clean_species_variable}
 GTBK_2018_2023 <- GTBK_2018_2023 %>%
   mutate(especie_nombre_latino = 
-           case_when(Especie >= "Prieta/Verde" ~ "Chelonia mydas",
-                     Especie >= "Carey" ~ "Eretmochelys imbricata", 
-                     Especie >= "Amarilla" ~ "Caretta caretta", 
-                     Especie >= "Golfina" ~ "Lepidochelys olivacea"))
+           case_when(
+             Especie == "Prieta/Verde" ~ "Chelonia mydas",
+             Especie == "Carey" ~ "Eretmochelys imbricata", 
+             Especie == "Amarilla" ~ "Caretta caretta", 
+             Especie == "Golfina" ~ "Lepidochelys olivacea"
+             ))
 
 ```
 
