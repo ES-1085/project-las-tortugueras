@@ -356,6 +356,976 @@ Visualization</h1>
 </div>
 
 
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0     ✔ purrr   1.0.1
+## ✔ tibble  3.1.8     ✔ dplyr   1.1.0
+## ✔ tidyr   1.3.0     ✔ stringr 1.5.0
+## ✔ readr   2.1.3     ✔ forcats 1.0.0
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(readxl)
+library(readr)</code></pre>
+<pre class="r"><code>GTBK_2010_2018 &lt;- read_excel(&quot;data/GTBK_2010_2018.xls&quot;)</code></pre>
+<pre><code>## Warning: Expecting numeric in Q148 / R148C17: got a date</code></pre>
+<pre><code>## Warning: Expecting numeric in S332 / R332C19: got a date</code></pre>
+<pre class="r"><code>library(readxl)
+GTBK_2018_2023 &lt;- read_excel(&quot;data/GTBK_2018_2023.xlsx&quot;, 
+    col_types = c(&quot;text&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;date&quot;, &quot;text&quot;, &quot;text&quot;, &quot;numeric&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;numeric&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;date&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;numeric&quot;, &quot;numeric&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, 
+        &quot;text&quot;, &quot;text&quot;, &quot;text&quot;, &quot;numeric&quot;))</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D2 / R2C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D3 / R3C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D4 / R4C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D5 / R5C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D6 / R6C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D7 / R7C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D8 / R8C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D9 / R9C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D10 / R10C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D11 / R11C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D12 / R12C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D13 / R13C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D14 / R14C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D15 / R15C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D16 / R16C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D17 / R17C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D18 / R18C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D19 / R19C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D20 / R20C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D21 / R21C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D22 / R22C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D23 / R23C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D24 / R24C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D25 / R25C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L25 / R25C12: got &#39;12 0370830&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D26 / R26C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L26 / R26C12: got &#39;12 0370830&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D27 / R27C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L27 / R27C12: got &#39;12 R- 0372883&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D28 / R28C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L28 / R28C12: got &#39;12 R-0413725&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D29 / R29C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L29 / R29C12: got &#39;12 R-0413725&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D30 / R30C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L30 / R30C12: got &#39;12 R-0370874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D31 / R31C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L31 / R31C12: got &#39;12 R-0370760&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D32 / R32C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L32 / R32C12: got &#39;12 R-0372539&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D33 / R33C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L33 / R33C12: got &#39;12 R-0372594&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D34 / R34C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L34 / R34C12: got &#39;12 R-0414001&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D35 / R35C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L35 / R35C12: got &#39;12 R-0372547&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D36 / R36C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L36 / R36C12: got &#39;12 R-0372547&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D37 / R37C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L37 / R37C12: got &#39;12 R-0372547&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D38 / R38C4</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D39 / R39C4</code></pre>
+<pre><code>## Warning: Expecting date in O39 / R39C15: got &#39;x&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D40 / R40C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L40 / R40C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D41 / R41C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L41 / R41C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D42 / R42C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L42 / R42C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D43 / R43C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L43 / R43C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D44 / R44C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L44 / R44C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D45 / R45C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L45 / R45C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D46 / R46C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L46 / R46C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D47 / R47C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L47 / R47C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D48 / R48C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L48 / R48C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D49 / R49C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L49 / R49C12: got &#39;12 R-0413814&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D50 / R50C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L50 / R50C12: got &#39;12 R-0372613&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D51 / R51C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L51 / R51C12: got &#39;12 R-0372613&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D52 / R52C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L52 / R52C12: got &#39;12 R-0378509&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D53 / R53C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L53 / R53C12: got &#39;12 R-0407156&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D54 / R54C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L54 / R54C12: got &#39;12-R 0370704&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D55 / R55C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L55 / R55C12: got &#39;N28,78260&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D56 / R56C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L56 / R56C12: got &#39;12 R 0372552&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D57 / R57C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L57 / R57C12: got &#39;12 R 0372552&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D58 / R58C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L58 / R58C12: got &#39;12 R 0372552&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D59 / R59C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L59 / R59C12: got &#39;N 28,37220&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D60 / R60C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L60 / R60C12: got &#39;N28.46970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D61 / R61C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L61 / R61C12: got &#39;N28.46970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D62 / R62C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L62 / R62C12: got &#39;N28.78307&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D63 / R63C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L63 / R63C12: got &#39;N28.78307&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D64 / R64C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L64 / R64C12: got &#39;N28.78307&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D65 / R65C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L65 / R65C12: got &#39;N28.23340&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D66 / R66C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L66 / R66C12: got &#39;N28.23340&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D67 / R67C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L67 / R67C12: got &#39;N28.23340&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D68 / R68C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L68 / R68C12: got &#39;N28.4728&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D69 / R69C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L69 / R69C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D70 / R70C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L70 / R70C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D71 / R71C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L71 / R71C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D72 / R72C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L72 / R72C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D73 / R73C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L73 / R73C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D74 / R74C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L74 / R74C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D75 / R75C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L75 / R75C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D76 / R76C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L76 / R76C12: got &#39;N28.7882&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D77 / R77C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L77 / R77C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D78 / R78C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L78 / R78C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D79 / R79C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L79 / R79C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D80 / R80C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L80 / R80C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D81 / R81C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L81 / R81C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D82 / R82C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L82 / R82C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D83 / R83C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L83 / R83C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D84 / R84C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L84 / R84C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D85 / R85C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L85 / R85C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D86 / R86C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L86 / R86C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D87 / R87C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L87 / R87C12: got &#39;N28.78734&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D88 / R88C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L88 / R88C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D89 / R89C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L89 / R89C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D90 / R90C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L90 / R90C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D91 / R91C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L91 / R91C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D92 / R92C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L92 / R92C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D93 / R93C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L93 / R93C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D94 / R94C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L94 / R94C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D95 / R95C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L95 / R95C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D96 / R96C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L96 / R96C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D97 / R97C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L97 / R97C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D98 / R98C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L98 / R98C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D99 / R99C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L99 / R99C12: got &#39;N28.7815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D100 / R100C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L100 / R100C12: got &#39;N28.38855&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D101 / R101C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L101 / R101C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D102 / R102C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L102 / R102C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D103 / R103C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L103 / R103C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D104 / R104C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L104 / R104C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D105 / R105C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L105 / R105C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D106 / R106C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L106 / R106C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D107 / R107C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L107 / R107C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D108 / R108C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L108 / R108C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D109 / R109C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L109 / R109C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D110 / R110C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L110 / R110C12: got &#39;N28.78862&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D111 / R111C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L111 / R111C12: got &#39;N 28.38202&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D112 / R112C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L112 / R112C12: got &#39;N 28.38202&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D113 / R113C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L113 / R113C12: got &#39;N 28.78748&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D114 / R114C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L114 / R114C12: got &#39;N 28.78748&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D115 / R115C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L115 / R115C12: got &#39;N 28.78748&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D116 / R116C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L116 / R116C12: got &#39;N28.78889&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D117 / R117C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L117 / R117C12: got &#39;N 28.78678&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D118 / R118C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L118 / R118C12: got &#39;N 28.78874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D119 / R119C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L119 / R119C12: got &#39;N 28.78874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D120 / R120C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L120 / R120C12: got &#39;N 28.78874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D121 / R121C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L121 / R121C12: got &#39;N 28.38778&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D122 / R122C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L122 / R122C12: got &#39;N 28.38778&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D123 / R123C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L123 / R123C12: got &#39;N 28.38778&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D124 / R124C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L124 / R124C12: got &#39;N28.38332&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D125 / R125C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L125 / R125C12: got &#39;N28.38332&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D126 / R126C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L126 / R126C12: got &#39;pendiente&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D127 / R127C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L127 / R127C12: got &#39;N 28.78398&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D128 / R128C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L128 / R128C12: got &#39;N 28.78398&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D129 / R129C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L129 / R129C12: got &#39;N 28.78398&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D130 / R130C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L130 / R130C12: got &#39;N 28.78398&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D131 / R131C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L131 / R131C12: got &#39;N 28.78398&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D132 / R132C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L132 / R132C12: got &#39;N 28.78633&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D133 / R133C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L133 / R133C12: got &#39;N 28.78633&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D134 / R134C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L134 / R134C12: got &#39;N 28.78633&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D135 / R135C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L135 / R135C12: got &#39;N 28.4852&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D136 / R136C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L136 / R136C12: got &#39;N 28.4841&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D137 / R137C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L137 / R137C12: got &#39;N 28.4841&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D138 / R138C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L138 / R138C12: got &#39;N 28.38815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D139 / R139C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L139 / R139C12: got &#39;N 28.38815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D140 / R140C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L140 / R140C12: got &#39;N 28.38815&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D141 / R141C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L141 / R141C12: got &#39;N 28.37921&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D142 / R142C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L142 / R142C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D143 / R143C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L143 / R143C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D144 / R144C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L144 / R144C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D145 / R145C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L145 / R145C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D146 / R146C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L146 / R146C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D147 / R147C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L147 / R147C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D148 / R148C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L148 / R148C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D149 / R149C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L149 / R149C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D150 / R150C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L150 / R150C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D151 / R151C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L151 / R151C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D152 / R152C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L152 / R152C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D153 / R153C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L153 / R153C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D154 / R154C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L154 / R154C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D155 / R155C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L155 / R155C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D156 / R156C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L156 / R156C12: got &#39;N 28.78268&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D157 / R157C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L157 / R157C12: got &#39;N28.82770&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D158 / R158C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L158 / R158C12: got &#39;N 28.78793&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D159 / R159C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L159 / R159C12: got &#39;N 28.78793&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D160 / R160C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L160 / R160C12: got &#39;N 28.78793&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D161 / R161C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L161 / R161C12: got &#39;N 28,37220&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D162 / R162C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L162 / R162C12: got &#39;N 28,37220&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D163 / R163C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L163 / R163C12: got &#39;N 28,37220&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D164 / R164C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L164 / R164C12: got &#39;N 28.37162&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D165 / R165C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L165 / R165C12: got &#39;N28.47023&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D166 / R166C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L166 / R166C12: got &#39;N28.47023&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D167 / R167C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L167 / R167C12: got &#39;N28.47023&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D168 / R168C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L168 / R168C12: got &#39;N28.47023&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D169 / R169C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L169 / R169C12: got &#39;N 28.37725&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D170 / R170C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L170 / R170C12: got &#39;N 28.78874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D171 / R171C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L171 / R171C12: got &#39;N 28.78788&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D172 / R172C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L172 / R172C12: got &#39;N 28.78784&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D173 / R173C4</code></pre>
+<pre><code>## Warning: Expecting numeric in G173 / R173C7: got &#39;6,00&#39;</code></pre>
+<pre><code>## Warning: Expecting numeric in L173 / R173C12: got &#39;N 28.78454&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D174 / R174C4</code></pre>
+<pre><code>## Warning: Expecting numeric in G174 / R174C7: got &#39;6,00&#39;</code></pre>
+<pre><code>## Warning: Expecting numeric in L174 / R174C12: got &#39;N 28.78454&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D175 / R175C4</code></pre>
+<pre><code>## Warning: Expecting numeric in G175 / R175C7: got &#39;6,00&#39;</code></pre>
+<pre><code>## Warning: Expecting numeric in L175 / R175C12: got &#39;N 28.78454&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D176 / R176C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L176 / R176C12: got &#39;N 28.37197&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D177 / R177C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L177 / R177C12: got &#39;N 28.37182&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D178 / R178C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L178 / R178C12: got &#39;N 28.78339&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D179 / R179C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L179 / R179C12: got &#39;N 28.78339&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D180 / R180C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L180 / R180C12: got &#39;N 28.78339&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D181 / R181C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L181 / R181C12: got &#39;N 28.78339&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D182 / R182C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L182 / R182C12: got &#39;N 28.78386&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D183 / R183C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L183 / R183C12: got &#39;N 28.78413&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D184 / R184C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L184 / R184C12: got &#39;N 28.78922&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D185 / R185C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L185 / R185C12: got &#39;N 28.37639&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D186 / R186C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L186 / R186C12: got &#39;N 28.37639&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D187 / R187C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L187 / R187C12: got &#39;N 28.37639&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D188 / R188C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L188 / R188C12: got &#39;N 28.37639&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D189 / R189C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L189 / R189C12: got &#39;N 28.37639&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D190 / R190C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L190 / R190C12: got &#39;N28.78945&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D191 / R191C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L191 / R191C12: got &#39;N28.78945&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D192 / R192C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L192 / R192C12: got &#39;N28.78945&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D193 / R193C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L193 / R193C12: got &#39;N 28.755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D194 / R194C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L194 / R194C12: got &#39;N 28.755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D195 / R195C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L195 / R195C12: got &#39;N 28.755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D196 / R196C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L196 / R196C12: got &#39;N 28.755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D197 / R197C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L197 / R197C12: got &#39;N 28.755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D198 / R198C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L198 / R198C12: got &#39;N 28.755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D199 / R199C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L199 / R199C12: got &#39;N28.81174&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D200 / R200C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L200 / R200C12: got &#39;N 28.77970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D201 / R201C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L201 / R201C12: got &#39;N 28.77970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D202 / R202C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L202 / R202C12: got &#39;N 28.77970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D203 / R203C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L203 / R203C12: got &#39;N 28.77970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D204 / R204C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L204 / R204C12: got &#39;N 28.77970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D205 / R205C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L205 / R205C12: got &#39;N 28.77970&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D206 / R206C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L206 / R206C12: got &#39;N 28.81612&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D207 / R207C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L207 / R207C12: got &#39;N 28.81612&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D208 / R208C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L208 / R208C12: got &#39;N 28.78844&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D209 / R209C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L209 / R209C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D210 / R210C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L210 / R210C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D211 / R211C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L211 / R211C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D212 / R212C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L212 / R212C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D213 / R213C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L213 / R213C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D214 / R214C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L214 / R214C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D215 / R215C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L215 / R215C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D216 / R216C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L216 / R216C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D217 / R217C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L217 / R217C12: got &#39;N 28.4660&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D218 / R218C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L218 / R218C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D219 / R219C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L219 / R219C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D220 / R220C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L220 / R220C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D221 / R221C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L221 / R221C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D222 / R222C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L222 / R222C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D223 / R223C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L223 / R223C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D224 / R224C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L224 / R224C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D225 / R225C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L225 / R225C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D226 / R226C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L226 / R226C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D227 / R227C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L227 / R227C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D228 / R228C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L228 / R228C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D229 / R229C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L229 / R229C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D230 / R230C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L230 / R230C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D231 / R231C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L231 / R231C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D232 / R232C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L232 / R232C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D233 / R233C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L233 / R233C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D234 / R234C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L234 / R234C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D235 / R235C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L235 / R235C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D236 / R236C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L236 / R236C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D237 / R237C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L237 / R237C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D238 / R238C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L238 / R238C12: got &#39;N 28.78843&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D239 / R239C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L239 / R239C12: got &#39;N 28.846608&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D240 / R240C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L240 / R240C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D241 / R241C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L241 / R241C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D242 / R242C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L242 / R242C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D243 / R243C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L243 / R243C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D244 / R244C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L244 / R244C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D245 / R245C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L245 / R245C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D246 / R246C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L246 / R246C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D247 / R247C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L247 / R247C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D248 / R248C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L248 / R248C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D249 / R249C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L249 / R249C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D250 / R250C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L250 / R250C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D251 / R251C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L251 / R251C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D252 / R252C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L252 / R252C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D253 / R253C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L253 / R253C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D254 / R254C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L254 / R254C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D255 / R255C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L255 / R255C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D256 / R256C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L256 / R256C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D257 / R257C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L257 / R257C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D258 / R258C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L258 / R258C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D259 / R259C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L259 / R259C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D260 / R260C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L260 / R260C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D261 / R261C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L261 / R261C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D262 / R262C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L262 / R262C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D263 / R263C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L263 / R263C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D264 / R264C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L264 / R264C12: got &#39;N 28.78072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D265 / R265C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L265 / R265C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D266 / R266C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L266 / R266C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D267 / R267C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L267 / R267C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D268 / R268C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L268 / R268C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D269 / R269C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L269 / R269C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D270 / R270C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L270 / R270C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D271 / R271C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L271 / R271C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D272 / R272C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L272 / R272C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D273 / R273C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L273 / R273C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D274 / R274C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L274 / R274C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D275 / R275C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L275 / R275C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D276 / R276C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L276 / R276C12: got &#39;N 28.78383&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D277 / R277C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L277 / R277C12: got &#39;N 28.2316026&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D278 / R278C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L278 / R278C12: got &#39;N 28.38755&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D279 / R279C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L279 / R279C12: got &#39;N 28.478417&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D280 / R280C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L280 / R280C12: got &#39;N28.4715.012&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D281 / R281C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L281 / R281C12: got &#39;N28.4715.012&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D282 / R282C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L282 / R282C12: got &#39;N28.4715.012&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D283 / R283C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L283 / R283C12: got &#39;N 28.60709&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D284 / R284C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L284 / R284C12: got &#39;N 28.37858&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D285 / R285C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L285 / R285C12: got &#39;N 28.78772&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D286 / R286C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L286 / R286C12: got &#39;N 28.78772&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D287 / R287C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L287 / R287C12: got &#39;N 28.78292&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D288 / R288C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L288 / R288C12: got &#39;N 28,4720,645&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D289 / R289C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L289 / R289C12: got &#39;N 28.2259952&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D290 / R290C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L290 / R290C12: got &#39;N 28.2259952&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D291 / R291C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L291 / R291C12: got &#39;N 28.2259952&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D292 / R292C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L292 / R292C12: got &#39;N 28.78910&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D293 / R293C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L293 / R293C12: got &#39;N 28.78910&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D294 / R294C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L294 / R294C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D295 / R295C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L295 / R295C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D296 / R296C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L296 / R296C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D297 / R297C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L297 / R297C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D298 / R298C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L298 / R298C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D299 / R299C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L299 / R299C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D300 / R300C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L300 / R300C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D301 / R301C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L301 / R301C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D302 / R302C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L302 / R302C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D303 / R303C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L303 / R303C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D304 / R304C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L304 / R304C12: got &#39;N28.78277&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D305 / R305C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L305 / R305C12: got &#39;N 28.78400&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D306 / R306C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L306 / R306C12: got &#39;N 28.78400&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D307 / R307C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L307 / R307C12: got &#39;N 28.78400&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D308 / R308C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L308 / R308C12: got &#39;N28.78400&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D309 / R309C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L309 / R309C12: got &#39;N 28.78395&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D310 / R310C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L310 / R310C12: got &#39;N 28.78395&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D311 / R311C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L311 / R311C12: got &#39;N 28.78395&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D312 / R312C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L312 / R312C12: got &#39;N 28.78395&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D313 / R313C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L313 / R313C12: got &#39;N 28.78395&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D314 / R314C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L314 / R314C12: got &#39;N 28.78395&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D315 / R315C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L315 / R315C12: got &#39;N 28.38304&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D316 / R316C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L316 / R316C12: got &#39;N 28.38304&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D317 / R317C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L317 / R317C12: got &#39;N 28.38304&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D318 / R318C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L318 / R318C12: got &#39;N 28.22831&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D319 / R319C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L319 / R319C12: got &#39;N 28.22831&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D320 / R320C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L320 / R320C12: got &#39;N 28.78769&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D321 / R321C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L321 / R321C12: got &#39;N 28.78769&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D322 / R322C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L322 / R322C12: got &#39;N 28.78769&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D323 / R323C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L323 / R323C12: got &#39;N 28.78769&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D324 / R324C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L324 / R324C12: got &#39;N 28.78769&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D325 / R325C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L325 / R325C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D326 / R326C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L326 / R326C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D327 / R327C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L327 / R327C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D328 / R328C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L328 / R328C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D329 / R329C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L329 / R329C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D330 / R330C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L330 / R330C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D331 / R331C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L331 / R331C12: got &#39;N 2882073&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D332 / R332C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L332 / R332C12: got &#39;N 28.89384 - Punto de&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D333 / R333C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L333 / R333C12: got &#39;N 28.37840&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D334 / R334C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L334 / R334C12: got &#39;N 28.37840&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D335 / R335C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L335 / R335C12: got &#39;N 28.37840&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D336 / R336C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L336 / R336C12: got &#39;N 28.37840&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D337 / R337C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L337 / R337C12: got &#39;N 28.37840&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D338 / R338C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L338 / R338C12: got &#39;N 28.37179&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D339 / R339C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L339 / R339C12: got &#39;N 28.37179&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D340 / R340C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L340 / R340C12: got &#39;N 28.37179&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D341 / R341C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L341 / R341C12: got &#39;N28.78857&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D342 / R342C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L342 / R342C12: got &#39;N 28.78807&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D343 / R343C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L343 / R343C12: got &#39;N 28.78381&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D344 / R344C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L344 / R344C12: got &#39;N 28.78320&#39;</code></pre>
+<pre><code>## Warning: Expecting date in D345 / R345C4: got &#39;11/03/2022&#39;</code></pre>
+<pre><code>## Warning: Expecting numeric in L345 / R345C12: got &#39;N 28.47.054&#39;</code></pre>
+<pre><code>## Warning: Expecting date in D346 / R346C4: got &#39;11/03/2022&#39;</code></pre>
+<pre><code>## Warning: Expecting numeric in L346 / R346C12: got &#39;N 28.47.054&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D347 / R347C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L347 / R347C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D348 / R348C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L348 / R348C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D349 / R349C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L349 / R349C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D350 / R350C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L350 / R350C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D351 / R351C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L351 / R351C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D352 / R352C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L352 / R352C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D353 / R353C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L353 / R353C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D354 / R354C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L354 / R354C12: got &#39;N 28.82076&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D355 / R355C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L355 / R355C12: got &#39;N 28.37863&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D356 / R356C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L356 / R356C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D357 / R357C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L357 / R357C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D358 / R358C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L358 / R358C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D359 / R359C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L359 / R359C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D360 / R360C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L360 / R360C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D361 / R361C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L361 / R361C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D362 / R362C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L362 / R362C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D363 / R363C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L363 / R363C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D364 / R364C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L364 / R364C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D365 / R365C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L365 / R365C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D366 / R366C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L366 / R366C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D367 / R367C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L367 / R367C12: got &#39;N 28.82122&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D368 / R368C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L368 / R368C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D369 / R369C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L369 / R369C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D370 / R370C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L370 / R370C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D371 / R371C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L371 / R371C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D372 / R372C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L372 / R372C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D373 / R373C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L373 / R373C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D374 / R374C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L374 / R374C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D375 / R375C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L375 / R375C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D376 / R376C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L376 / R376C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D377 / R377C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L377 / R377C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D378 / R378C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L378 / R378C12: got &#39;N 28.78422&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D379 / R379C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L379 / R379C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D380 / R380C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L380 / R380C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D381 / R381C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L381 / R381C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D382 / R382C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L382 / R382C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D383 / R383C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L383 / R383C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D384 / R384C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L384 / R384C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D385 / R385C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L385 / R385C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D386 / R386C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L386 / R386C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D387 / R387C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L387 / R387C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D388 / R388C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L388 / R388C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D389 / R389C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L389 / R389C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D390 / R390C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L390 / R390C12: got &#39;N 28.788072&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D391 / R391C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L391 / R391C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D392 / R392C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L392 / R392C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D393 / R393C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L393 / R393C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D394 / R394C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L394 / R394C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D395 / R395C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L395 / R395C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D396 / R396C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L396 / R396C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D397 / R397C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L397 / R397C12: got &#39;N 28.78967&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D398 / R398C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L398 / R398C12: got &#39;N28.4718&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D399 / R399C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L399 / R399C12: got &#39;N28.4718&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D400 / R400C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L400 / R400C12: got &#39;N28.4718&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D401 / R401C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L401 / R401C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D402 / R402C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L402 / R402C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D403 / R403C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L403 / R403C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D404 / R404C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L404 / R404C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D405 / R405C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L405 / R405C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D406 / R406C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L406 / R406C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D407 / R407C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L407 / R407C12: got &#39;N 28.78962&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D408 / R408C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L408 / R408C12: got &#39;N 28.474&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D409 / R409C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L409 / R409C12: got &#39;N 28.474&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D410 / R410C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L410 / R410C12: got &#39;N 28.474&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D411 / R411C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L411 / R411C12: got &#39;N 28.474&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D412 / R412C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L412 / R412C12: got &#39;N 28.474&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D413 / R413C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L413 / R413C12: got &#39;N 28.474&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D414 / R414C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L414 / R414C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D415 / R415C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L415 / R415C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D416 / R416C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L416 / R416C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D417 / R417C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L417 / R417C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D418 / R418C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L418 / R418C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D419 / R419C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L419 / R419C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D420 / R420C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L420 / R420C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D421 / R421C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L421 / R421C12: got &#39;N 28.78826&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D422 / R422C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L422 / R422C12: got &#39;N 28.78852&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D423 / R423C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L423 / R423C12: got &#39;N 28.78852&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D424 / R424C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L424 / R424C12: got &#39;N 28.78852&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D425 / R425C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L425 / R425C12: got &#39;N 28.22719&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D426 / R426C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L426 / R426C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D427 / R427C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L427 / R427C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D428 / R428C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L428 / R428C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D429 / R429C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L429 / R429C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D430 / R430C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L430 / R430C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D431 / R431C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L431 / R431C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D432 / R432C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L432 / R432C12: got &#39;N 28 78774&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D433 / R433C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L433 / R433C12: got &#39;N 28,78847&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D434 / R434C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L434 / R434C12: got &#39;N 28,78847&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D435 / R435C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L435 / R435C12: got &#39;N 28,78847&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D436 / R436C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L436 / R436C12: got &#39;N 28,78847&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D437 / R437C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L437 / R437C12: got &#39;N 28.78857&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D438 / R438C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L438 / R438C12: got &#39;N 28.78857&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D439 / R439C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L439 / R439C12: got &#39;N 28.78857&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D440 / R440C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L440 / R440C12: got &#39;N 28.78857&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D441 / R441C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L441 / R441C12: got &#39;N 28.78857&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D442 / R442C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L442 / R442C12: got &#39;N28.820181&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D443 / R443C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L443 / R443C12: got &#39;N28.820181&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D444 / R444C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L444 / R444C12: got &#39;N 28.78795&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D445 / R445C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L445 / R445C12: got &#39;N 28.78878&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D446 / R446C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L446 / R446C12: got &#39;N 28.78363&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D447 / R447C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L447 / R447C12: got &#39;N 28.85420&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D448 / R448C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L448 / R448C12: got &#39;N 28.37233&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D449 / R449C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L449 / R449C12: got &#39;N 28.37867&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D450 / R450C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L450 / R450C12: got &#39;N 28.37867&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D451 / R451C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L451 / R451C12: got &#39;N 28.78781&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D452 / R452C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L452 / R452C12: got &#39;N 28.78781&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D453 / R453C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L453 / R453C12: got &#39;N 28.78781&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D454 / R454C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L454 / R454C12: got &#39;N 28.78781&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D455 / R455C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L455 / R455C12: got &#39;N 28.78781&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D456 / R456C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L456 / R456C12: got &#39;N 28.37874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D457 / R457C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L457 / R457C12: got &#39;N 28.37874&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D458 / R458C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L458 / R458C12: got &#39;N 28,47393&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D459 / R459C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L459 / R459C12: got &#39;N 28,47393&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D460 / R460C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L460 / R460C12: got &#39;N 28.78375&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D461 / R461C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L461 / R461C12: got &#39;N 28.78375&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D462 / R462C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L462 / R462C12: got &#39;N 28.78375&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D463 / R463C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L463 / R463C12: got &#39;N 28.69261&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D464 / R464C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L464 / R464C12: got &#39;N 28.78306&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D465 / R465C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L465 / R465C12: got &#39;N 28.37218&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D466 / R466C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L466 / R466C12: got &#39;N 28.37218&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D467 / R467C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L467 / R467C12: got &#39;N 28.37218&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D468 / R468C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L468 / R468C12: got &#39;N 28.78421&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D469 / R469C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L469 / R469C12: got &#39;N 28.78421&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D470 / R470C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L470 / R470C12: got &#39;N 28.78421&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D471 / R471C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L471 / R471C12: got &#39;N 2878929&#39;</code></pre>
+<pre><code>## Warning: Coercing numeric to date in D472 / R472C4</code></pre>
+<pre><code>## Warning: Expecting numeric in L472 / R472C12: got &#39;N 2878929&#39;</code></pre>
+<pre><code>## New names:
+## • `PIT previo` -&gt; `PIT previo...35`
+## • `Muestra sangre (si o no)` -&gt; `Muestra sangre (si o no)...36`
+## • `Muestra piel (si o no)` -&gt; `Muestra piel (si o no)...37`
+## • `Muestra cont estom (si o no)` -&gt; `Muestra cont estom (si o no)...38`
+## • `Otra muestra (si o no)` -&gt; `Otra muestra (si o no)...39`
+## • `Especificar` -&gt; `Especificar...40`
+## • `Lesiones / Balanos` -&gt; `Lesiones / Balanos...41`
+## • `Foto (si o no)` -&gt; `Foto (si o no)...42`
+## • `Comentarios` -&gt; `Comentarios...43`
+## • `ID #` -&gt; `ID #...44`
+## • `PIT previo` -&gt; `PIT previo...45`
+## • `Muestra sangre (si o no)` -&gt; `Muestra sangre (si o no)...46`
+## • `Muestra piel (si o no)` -&gt; `Muestra piel (si o no)...47`
+## • `Muestra cont estom (si o no)` -&gt; `Muestra cont estom (si o no)...48`
+## • `Otra muestra (si o no)` -&gt; `Otra muestra (si o no)...49`
+## • `Especificar` -&gt; `Especificar...50`
+## • `Lesiones / Balanos` -&gt; `Lesiones / Balanos...51`
+## • `Foto (si o no)` -&gt; `Foto (si o no)...52`
+## • `Comentarios` -&gt; `Comentarios...53`
+## • `ID #` -&gt; `ID #...54`</code></pre>
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
 <p>This is an R Markdown document. Markdown is a simple formatting

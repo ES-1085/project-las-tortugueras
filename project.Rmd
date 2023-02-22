@@ -4,8 +4,29 @@ output: html_document
 date: "2023-02-22"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r load-packages}
+library(tidyverse)
+library(readxl)
+library(readr)
+```
+
+```{r load-data}
+GTBK_2010_2018 <- read_excel("data/GTBK_2010_2018.xls")
+
+library(readxl)
+GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx", 
+    col_types = c("text", "text", "text", 
+        "date", "text", "text", "numeric", 
+        "text", "text", "text", "text", "numeric", 
+        "text", "text", "date", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "numeric", "numeric", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "text", "numeric", "numeric", 
+        "text", "text", "text", "text", "text", 
+        "text", "text", "text", "numeric"))
 ```
 
 ## R Markdown
