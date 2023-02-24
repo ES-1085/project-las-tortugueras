@@ -11,23 +11,24 @@ library(readr)
 library(lubridate)
 ```
 
-```{r load-data}
+```{r load-data, message = FALSE}
 GTBK_2010_2018 <- read_excel("data/GTBK_2010_2018.xls")
 
-GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx") 
+GTBK_2018_2023 <- read_excel("/cloud/project/data/GTBK_2018_2023.xlsx", 
     col_types = c("text", "text", "text", 
-        "text", "text", "text", "numeric", 
-        "text", "text", "text", "text", "text", 
-        "text", "text", "date", "text", "text", 
-        "text", "numeric", "numeric", "numeric", 
+        "date", "numeric", "numeric", "numeric", 
+        "text", "text", "numeric", "text", 
+        "numeric", "numeric", "text", "date", 
+        "numeric", "text", "text", "numeric", 
         "numeric", "numeric", "numeric", 
-        "numeric", "numeric", "text", "text", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "text", "text", "text", 
+        "text", "text", "text", "text", "numeric", 
+        "numeric", "text", "text", "text", 
         "text", "text", "text", "text", "text", 
         "numeric", "numeric", "text", "text", 
         "text", "text", "text", "text", "text", 
-        "text", "numeric", "numeric", "text", 
-        "text", "text", "text", "text", "text", 
-        "text", "text", "numeric")
+        "text", "numeric"))
 
 buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
     col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
@@ -47,10 +48,84 @@ GTBK_2018_2023 <- GTBK_2018_2023 %>%
          )
 ```
 
+```{r species-by-sex-counts}
+GTBK_2018_2023 %>% 
+  group_by(especie_nombre_latino) %>% 
+  count(Sexo)
 
-```{r update-data-types}
-#GTBK_2010_2018 %>%
-  #time == parse_date_time(fecha, "Y%m%d")
+GTBK_2010_2018 %>% 
+  group_by(Especie) %>% 
+  count(Sexo) 
 
+buis_turtle_measures %>% 
+  group_by(sp) %>% 
+  count(sex)
+```
+
+```{r buis-22-species-measurements}
+buis_turtle_measures %>% 
+  mutate(species = case_when(
+    sp == "HB" ~ "Eretmochelys imbricata",
+    sp == "GR" ~ "Chelonia mydas")
+  ) %>% 
+  ggplot(aes(x = species, y = cclnuct, fill = species)) +
+  geom_violin() +
+  scale_fill_manual(values = c("chartreuse4", "hotpink4")) + 
+  theme_minimal() +
+  coord_flip () +
+  labs(title = "Average Curved Carapace Length of Green and Hawksbill Sea Turtles",
+       subtitle = "Reproductive Females Measured During 2022 Nesting Season on Buck Island, USVI",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+
+buis_turtle_measures %>% 
+  mutate(species = case_when(
+    sp == "HB" ~ "Eretmochelys imbricata",
+    sp == "GR" ~ "Chelonia mydas")
+  ) %>% 
+  ggplot(aes(x = species, y = cclnuct, fill = species)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("chartreuse4", "hotpink4")) + 
+  theme_minimal() +
+  coord_flip () +
+  labs(title = "Average Curved Carapace Length of Green and Hawksbill Sea Turtles",
+       subtitle = "Reproductive Females Measured During 2022 Nesting Season on Buck Island, USVI",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+```
+```{r GTBK-species-measurements}
+GTBK_2010_2018 %>% 
+  filter(Especie == "Chelonia mydas" |
+         Especie == "Eretmochelys imbricata" |
+         Especie == "Lepidochelys olivacea" |
+         Especie == "Caretta Caretta") %>% 
+  ggplot(aes(x = Especie, y = `A.R.C.(cm)`, fill = Especie)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) + 
+  theme_minimal() +
+  coord_flip() +
+  labs(title = "Curved Carapace Length Measurements of Three Sea Turtle Species",
+       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2018",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+
+GTBK_2018_2023 %>% 
+  filter(especie_nombre_latino == "Chelonia mydas" |
+         especie_nombre_latino == "Eretmochelys imbricata" |
+         especie_nombre_latino == "Lepidochelys olivacea" |
+         especie_nombre_latino == "Caretta caretta") %>%
+  ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) + 
+  theme_minimal() +
+  coord_flip() +
+  labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
+       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2018-2023",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
 ```
 

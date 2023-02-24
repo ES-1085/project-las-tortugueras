@@ -39,15 +39,15 @@ library(readxl)
 GTBK_2010_2018 <- read_excel("../data/GTBK_2010_2018.xls")
 
 library(readr)
-buis_2022 <- read_csv("../data/buis_greenturtles_2022.csv")
+buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv")
 ```
 
 #### Data Skim 
 
 ```{r skim_data}
 skim(GTBK_2018_2023)
-skim(GTBK_2014_2018)
-skim(buis_2022)
+skim(GTBK_2010_2018)
+skim(buis_turtle_measures)
 ```
 
 ## 3. Data Analysis Plan
@@ -76,6 +76,7 @@ GTBK_2018_2023 <- GTBK_2018_2023 %>%
              Especie == "Golfina" ~ "Lepidochelys olivacea"
              ))
 
+view(GTBK_2018_2023)
 ```
 
 ```{r buis-summary-stats}
