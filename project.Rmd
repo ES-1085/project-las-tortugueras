@@ -15,18 +15,20 @@ library(lubridate)
 GTBK_2010_2018 <- read_excel("data/GTBK_2010_2018.xls")
 
 GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx") 
-    #col_types = c("text", "text", "text", 
-        # "date", "text", "text", "numeric", 
-        # "text", "text", "text", "text", "numeric", 
-        # "text", "text", "date", "text", "text", 
-        # "text", "text", "text", "text", "text", 
-        # "text", "text", "text", "text", "text", 
-        # "text", "text", "text", "text", "text", 
-        # "text", "numeric", "numeric", "text", 
-        # "text", "text", "text", "text", "text", 
-        # "text", "text", "numeric", "numeric", 
-        # "text", "text", "text", "text", "text", 
-        # "text", "text", "text", "numeric"))
+    col_types = c("text", "text", "text", 
+        "text", "text", "text", "numeric", 
+        "text", "text", "text", "text", "text", 
+        "text", "text", "date", "text", "text", 
+        "text", "numeric", "numeric", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "numeric", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "numeric", "numeric", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "numeric", "numeric", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "text", "numeric")
+    
 buis_greenturtles_2022 <- read_csv("data/buis_greenturtles_2022.csv")
 
 ```
