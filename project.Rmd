@@ -28,8 +28,9 @@ GTBK_2018_2023 <- read_excel("data/GTBK_2018_2023.xlsx")
         "text", "numeric", "numeric", "text", 
         "text", "text", "text", "text", "text", 
         "text", "text", "numeric")
-    
-buis_greenturtles_2022 <- read_csv("data/buis_greenturtles_2022.csv")
+
+buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
+    col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
 
 ```
 
@@ -38,7 +39,7 @@ buis_greenturtles_2022 <- read_csv("data/buis_greenturtles_2022.csv")
 GTBK_2018_2023 <- GTBK_2018_2023 %>%
   mutate(especie_nombre_latino = 
            case_when(
-             Especie == "Prieta/Verde" ~ "Chelonia mydas",
+             Especie == "Verde/Prieta" ~ "Chelonia mydas",
              Especie == "Carey" ~ "Eretmochelys imbricata", 
              Especie == "Amarilla" ~ "Caretta caretta", 
              Especie == "Golfina" ~ "Lepidochelys olivacea"
