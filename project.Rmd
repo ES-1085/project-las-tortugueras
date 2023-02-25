@@ -37,29 +37,76 @@ buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv",
 
 ## Cleaning Data
 ```{r clean-species-variable-GTBK_2018_2023}
-GTBK_2018_2023 <- GTBK_2018_2023 %>%
+# GTBK_2018_2023 <- GTBK_2018_2023 %>%
+#   mutate(especie_nombre_latino = 
+#            case_when(
+#              Especie == "Verde/Prieta" ~ "Chelonia mydas",
+#              Especie == "Carey" ~ "Eretmochelys imbricata", 
+#              Especie == "Amarilla" ~ "Caretta caretta", 
+#              Especie == "Golfina" ~ "Lepidochelys olivacea"
+#              )
+#          )
+```
+
+```{r join-datasets}
+GTBK_data <-
+full_join(GTBK_2018_2023, GTBK_2010_2018)
+```
+
+```{r clean-species-variable}
+GTBK_data <- GTBK_data %>%
   mutate(especie_nombre_latino = 
            case_when(
              Especie == "Verde/Prieta" ~ "Chelonia mydas",
+             Especie == "Chelonia mydas" ~ "Chelonia mydas",
              Especie == "Carey" ~ "Eretmochelys imbricata", 
+             Especie == "Eretmochelys imbricata" ~ "Eretmochelys imbricata",
              Especie == "Amarilla" ~ "Caretta caretta", 
-             Especie == "Golfina" ~ "Lepidochelys olivacea"
+             Especie == "Golfina" ~ "Lepidochelys olivacea", 
+             Especie == "Lepidochelys olivacea" ~ "Lepidochelys olivacea"
              )
          )
 ```
 
-```{r species-by-sex-counts}
-GTBK_2018_2023 %>% 
-  group_by(especie_nombre_latino) %>% 
-  count(Sexo)
+```{r clean-sex-variab;e}
+GTBK_data <- GTBK_data %>%
+  mutate(Sexo_correcto = 
+           case_when(
+             Sexo == "indefinido" ~ "Indefinido",
+             Sexo == "Indefinido" ~ "Indefinido",
+             Sexo == "hembra" ~ "Hembra", 
+             Sexo == "Hembra" ~ "Hembra",
+             Sexo == "macho" ~ "Macho", 
+             Sexo == "Macho" ~ "Macho"
+             ))
+#Created variable `Sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
+```
 
-GTBK_2010_2018 %>% 
-  group_by(Especie) %>% 
-  count(Sexo) 
+
+```{r count-especie-nombre-latino}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+count()  
+```
+
+
+```{r species-by-sex-counts}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+  count (Sexo_correcto)
+
+# GTBK_2018_2023 %>% 
+#   group_by(especie_nombre_latino) %>% 
+#   count(Sexo)
+
+# GTBK_2010_2018 %>% 
+#   group_by(Especie) %>% 
+#   count(Sexo) 
 
 buis_turtle_measures %>% 
   group_by(sp) %>% 
   count(sex)
+
 ```
 
 ```{r buis-22-species-measurements}
@@ -95,37 +142,55 @@ buis_turtle_measures %>%
        y = "Curved Carapace Length (cm)",
        fill = "Species")
 ```
-```{r GTBK-species-measurements}
-GTBK_2010_2018 %>% 
-  filter(Especie == "Chelonia mydas" |
-         Especie == "Eretmochelys imbricata" |
-         Especie == "Lepidochelys olivacea" |
-         Especie == "Caretta Caretta") %>% 
-  ggplot(aes(x = Especie, y = `A.R.C.(cm)`, fill = Especie)) +
-  geom_boxplot() +
-  scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) + 
-  theme_minimal() +
-  coord_flip() +
-  labs(title = "Curved Carapace Length Measurements of Three Sea Turtle Species",
-       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2018",
-       x = "Species", 
-       y = "Curved Carapace Length (cm)",
-       fill = "Species")
 
-GTBK_2018_2023 %>% 
+
+```{r GTBK-species-measurements}
+GTBK_data %>%
   filter(especie_nombre_latino == "Chelonia mydas" |
          especie_nombre_latino == "Eretmochelys imbricata" |
          especie_nombre_latino == "Lepidochelys olivacea" |
          especie_nombre_latino == "Caretta caretta") %>%
   ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
   geom_boxplot() +
-  scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) + 
+  scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) +
   theme_minimal() +
   coord_flip() +
   labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
-       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2018-2023",
-       x = "Species", 
+       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2023",
+       x = "Species",
        y = "Curved Carapace Length (cm)",
        fill = "Species")
+
+# GTBK_2010_2018 %>% 
+#   filter(Especie == "Chelonia mydas" |
+#          Especie == "Eretmochelys imbricata" |
+#          Especie == "Lepidochelys olivacea" |
+#          Especie == "Caretta Caretta") %>% 
+#   ggplot(aes(x = Especie, y = `A.R.C.(cm)`, fill = Especie)) +
+#   geom_boxplot() +
+#   scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) + 
+#   theme_minimal() +
+#   coord_flip() +
+#   labs(title = "Curved Carapace Length Measurements of Three Sea Turtle Species",
+#        subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2018",
+#        x = "Species", 
+#        y = "Curved Carapace Length (cm)",
+#        fill = "Species")
+
+# GTBK_2018_2023 %>% 
+#   filter(especie_nombre_latino == "Chelonia mydas" |
+#          especie_nombre_latino == "Eretmochelys imbricata" |
+#          especie_nombre_latino == "Lepidochelys olivacea" |
+#          especie_nombre_latino == "Caretta caretta") %>%
+#   ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
+#   geom_boxplot() +
+#   scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) + 
+#   theme_minimal() +
+#   coord_flip() +
+#   labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
+#        subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2018-2023",
+#        x = "Species", 
+#        y = "Curved Carapace Length (cm)",
+#        fill = "Species")
 ```
 
