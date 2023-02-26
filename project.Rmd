@@ -9,6 +9,8 @@ library(tidyverse)
 library(readxl)
 library(readr)
 library(lubridate)
+#install.packages("janitor")
+library(janitor)
 ```
 
 ```{r load-data, message = FALSE}
