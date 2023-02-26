@@ -11,6 +11,7 @@ library(readr)
 library(lubridate)
 #install.packages("janitor")
 library(janitor)
+library(rlang)
 ```
 
 ```{r load-data, message = FALSE}
@@ -50,9 +51,107 @@ buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv",
 #          )
 ```
 
+```{r clean-GTBK-column-names}
+colnames(GTBK_2010_2018) <- c(
+  "ID", 
+  "Nombre tortuga",
+  "No. Monitoreo",
+  "Estacion", 
+  "Fecha_original",
+  "Fecha", 
+  "Area de Monitoreo",
+  "Posicion lat-long", 
+  "Hora de captura",
+  "Especie", 
+  "Peso", 
+  "Sexo", 
+  "L.R.C.",
+  "L.C.C.",
+  "A.R.C.",
+  "A.C.C.",
+  "P.C",
+  "L.P", 
+  "L T C",
+  "Recaptura", 
+  "Marca Derecha",
+  "Marca Izquierda", 
+  "Observaciones y comentarios") 
+
+GTBK_2010_2018 <- clean_names(GTBK_2010_2018)
+
+colnames(GTBK_2018_2023) <- c(
+  "id",
+  "Responsable",
+  "no monitoreo",
+  "fecha_inicio",
+  "hora_inicio",
+  "hora_fin",
+  "total_horas",
+  "tipo monitoreo",
+  "metodologia",
+  "Longidud red o lanceos",
+  "area_de_monitoreo",
+  "latitud",
+  "longitud",
+  "unidad utm o grados",
+  "fecha",
+  "hora captura",
+  "nombre_tortuga",
+  "Especie",
+  "L R C",
+  "A R C",
+  "L C C",
+  "A C C",
+  "P C",
+  "L P",
+  "L T C",
+  "peso",
+  "sexo",
+  "Material_marcas",
+  "Marca_derecha",
+  "Marca izquierda" ,
+  "Marca previa derecha",
+  "Marca previa Izquierda",
+  "PIT tag",
+  "PIT nuevo",
+  "PIT previo",
+  "Muestra sangre",
+  "Muestra piel",
+  "Muestra cont estom",
+  "Otra muestra",
+  "Especificar",
+  "Lesiones Balanos",
+  "Foto",
+  "observaciones y comentarios",
+  "ID",
+  "PIT previo",
+  "Muestra sangre",
+  "Muestra piel",
+  "Muestra cont estom",
+  "Otra muestra",
+  "Especificar",
+  "Lesiones Balanos",
+  "Foto",
+  "Comentarios",
+  "ID"
+  )
+
+GTBK_2018_2023 <- clean_names(GTBK_2018_2023)
+```
+
+```{r coerce-variable-types}
+#GTBK 2018-2023
+GTBK_2018_2023$no_monitoreo <- as.double(GTBK_2018_2023$no_monitoreo)
+
+#GTBK 2010-2018
+GTBK_2010_2018$no_monitoreo <- as.double(GTBK_2010_2018$no_monitoreo)
+GTBK_2010_2018$l_r_c <- as.double(GTBK_2010_2018$no_monitoreo)
+GTBK_2010_2018$l_r_c <- as.double(GTBK_2010_2018$no_monitoreo)
+
+```
+
 ```{r join-datasets}
-GTBK_data <-
-full_join(GTBK_2018_2023, GTBK_2010_2018)
+GTBK_data <-full_join(GTBK_2018_2023, GTBK_2010_2018)
 ```
 
 ```{r clean-species-variable}
