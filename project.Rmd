@@ -41,12 +41,12 @@ buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv",
 ## Cleaning Data
 ```{r clean-species-variable-GTBK_2018_2023}
 # GTBK_2018_2023 <- GTBK_2018_2023 %>%
-#   mutate(especie_nombre_latino = 
+#   mutate(especie_nombre_latino =
 #            case_when(
-#              Especie == "Verde/Prieta" ~ "Chelonia mydas",
-#              Especie == "Carey" ~ "Eretmochelys imbricata", 
-#              Especie == "Amarilla" ~ "Caretta caretta", 
-#              Especie == "Golfina" ~ "Lepidochelys olivacea"
+#              especie == "Verde/Prieta" ~ "Chelonia mydas",
+#              especie == "Carey" ~ "Eretmochelys imbricata",
+#              especie == "Amarilla" ~ "Caretta caretta",
+#              especie == "Golfina" ~ "Lepidochelys olivacea"
 #              )
 #          )
 ```
@@ -313,4 +313,14 @@ number_recapture %>%
   geom_bar()
 ```
 
+```{r seasonality}
+# recapture_tibble <- GTBK_data %>%
+#   group_by(marca_nombre) %>%
+#   select(nombre_tortuga, fecha, especie, area_de_monitoreo, marca_nombre)
+# 
+# 
+# recapture_tibble %>%
+#   group_by(marca_nombre) %>%
+#   summarize(marca_nombre)
+```
 
