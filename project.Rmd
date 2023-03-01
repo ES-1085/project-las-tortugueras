@@ -147,6 +147,7 @@ GTBK_2018_2023$no_monitoreo <- as.double(GTBK_2018_2023$no_monitoreo)
 GTBK_2010_2018$no_monitoreo <- as.double(GTBK_2010_2018$no_monitoreo)
 GTBK_2010_2018$l_r_c <- as.double(GTBK_2010_2018$no_monitoreo)
 GTBK_2010_2018$l_r_c <- as.double(GTBK_2010_2018$no_monitoreo)
+GTBK_2010_2018$l_p <- as.double(GTBK_2010_2018$no_monitoreo)
 
 ```
 
@@ -158,29 +159,29 @@ GTBK_data <-full_join(GTBK_2018_2023, GTBK_2010_2018)
 GTBK_data <- GTBK_data %>%
   mutate(especie_nombre_latino = 
            case_when(
-             Especie == "Verde/Prieta" ~ "Chelonia mydas",
-             Especie == "Chelonia mydas" ~ "Chelonia mydas",
-             Especie == "Carey" ~ "Eretmochelys imbricata", 
-             Especie == "Eretmochelys imbricata" ~ "Eretmochelys imbricata",
-             Especie == "Amarilla" ~ "Caretta caretta", 
-             Especie == "Golfina" ~ "Lepidochelys olivacea", 
-             Especie == "Lepidochelys olivacea" ~ "Lepidochelys olivacea"
+             especie == "Verde/Prieta" ~ "Chelonia mydas",
+             especie == "Chelonia mydas" ~ "Chelonia mydas",
+             especie == "Carey" ~ "Eretmochelys imbricata", 
+             especie == "Eretmochelys imbricata" ~ "Eretmochelys imbricata",
+             especie == "Amarilla" ~ "Caretta caretta", 
+             especie == "Golfina" ~ "Lepidochelys olivacea", 
+             especie == "Lepidochelys olivacea" ~ "Lepidochelys olivacea"
              )
          )
 ```
 
 ```{r clean-sex-variab;e}
 GTBK_data <- GTBK_data %>%
-  mutate(Sexo_correcto = 
+  mutate(sexo_correcto = 
            case_when(
-             Sexo == "indefinido" ~ "Indefinido",
-             Sexo == "Indefinido" ~ "Indefinido",
-             Sexo == "hembra" ~ "Hembra", 
-             Sexo == "Hembra" ~ "Hembra",
-             Sexo == "macho" ~ "Macho", 
-             Sexo == "Macho" ~ "Macho"
+             sexo == "indefinido" ~ "Indefinido",
+             sexo == "Indefinido" ~ "Indefinido",
+             sexo == "hembra" ~ "Hembra", 
+             sexo == "Hembra" ~ "Hembra",
+             sexo == "macho" ~ "Macho", 
+             sexo == "Macho" ~ "Macho"
              ))
-#Created variable `Sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
+#Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
 ```
 
 
@@ -194,7 +195,7 @@ count()
 ```{r species-by-sex-counts}
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
-  count (Sexo_correcto)
+  count (sexo_correcto)
 
 # GTBK_2018_2023 %>% 
 #   group_by(especie_nombre_latino) %>% 
@@ -246,21 +247,21 @@ buis_turtle_measures %>%
 
 
 ```{r GTBK-species-measurements}
-GTBK_data %>%
-  filter(especie_nombre_latino == "Chelonia mydas" |
-         especie_nombre_latino == "Eretmochelys imbricata" |
-         especie_nombre_latino == "Lepidochelys olivacea" |
-         especie_nombre_latino == "Caretta caretta") %>%
-  ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
-  geom_boxplot() +
-  scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) +
-  theme_minimal() +
-  coord_flip() +
-  labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
-       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2023",
-       x = "Species",
-       y = "Curved Carapace Length (cm)",
-       fill = "Species")
+# GTBK_data %>%
+#   filter(especie_nombre_latino == "Chelonia mydas" |
+#          especie_nombre_latino == "Eretmochelys imbricata" |
+#          especie_nombre_latino == "Lepidochelys olivacea" |
+#          especie_nombre_latino == "Caretta caretta") %>%
+#   ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
+#   geom_boxplot() +
+#   scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) +
+#   theme_minimal() +
+#   coord_flip() +
+#   labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
+#        subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2023",
+#        x = "Species",
+#        y = "Curved Carapace Length (cm)",
+#        fill = "Species")
 
 # GTBK_2010_2018 %>% 
 #   filter(Especie == "Chelonia mydas" |
