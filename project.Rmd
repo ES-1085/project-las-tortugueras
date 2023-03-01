@@ -296,3 +296,21 @@ buis_turtle_measures %>%
 #        fill = "Species")
 ```
 
+```{r clean-indentification-marking}
+GTBK_data <- GTBK_data %>%
+  unite(marca_nombre, marca_derecha, marca_previa_derecha, na.rm = TRUE)
+
+number_recapture <- GTBK_data %>%
+  group_by(marca_nombre) %>%
+  count(marca_nombre) %>%
+  arrange(desc(n)) 
+```
+
+```{r recapture-viz-1}
+number_recapture %>% 
+  filter(n %in% c(2, 3, 4)) %>% 
+  ggplot(aes(x = n)) +
+  geom_bar()
+```
+
+
