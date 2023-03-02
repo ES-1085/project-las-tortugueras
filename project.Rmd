@@ -12,6 +12,7 @@ library(lubridate)
 #install.packages("janitor")
 library(janitor)
 library(rlang)
+library(ggridges)
 ```
 
 ```{r load-data, message = FALSE}
@@ -191,26 +192,6 @@ GTBK_data %>%
 count()  
 ```
 
-
-```{r species-by-sex-counts}
-GTBK_data %>%
-  group_by(especie_nombre_latino) %>%
-  count (sexo_correcto)
-
-# GTBK_2018_2023 %>% 
-#   group_by(especie_nombre_latino) %>% 
-#   count(Sexo)
-
-# GTBK_2010_2018 %>% 
-#   group_by(Especie) %>% 
-#   count(Sexo) 
-
-buis_turtle_measures %>% 
-  group_by(sp) %>% 
-  count(sex)
-
-```
-
 ```{r buis-22-species-measurements}
 buis_turtle_measures %>% 
   mutate(species = case_when(
@@ -322,5 +303,45 @@ number_recapture %>%
 # recapture_tibble %>%
 #   group_by(marca_nombre) %>%
 #   summarize(marca_nombre)
+```
+
+```{r species-by-sex-counts}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
+
+# GTBK_2018_2023 %>% 
+#   group_by(especie_nombre_latino) %>% 
+#   count(Sexo)
+
+# GTBK_2010_2018 %>% 
+#   group_by(Especie) %>% 
+#   count(Sexo) 
+
+buis_turtle_measures %>% 
+  group_by(sp) %>% 
+  count(sex)
+
+```
+
+```{r sepcies-sex-distribution}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
+# how can we make this graph so it just includes individuals no recaptures?
+# how to accurately remove NAs that correlate to 'no data collected' rather than not entered for an observation
+
+ggplot(data = GTBK_data,
+       mapping = aes(x = sexo_correcto, 
+                     fill = sexo_correcto)) +
+  geom_bar() + 
+  facet_wrap( ~ especie_nombre_latino) +
+   labs(title = "Species and Sex Distribution", 
+       subtitle = "of turtles captured in Kino Bay", 
+       x = "sex", 
+       y = "number of individuals") +
+ scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
+
+# how to show a different graph for each species, lots of Chelonia is throwing off the data
 ```
 
