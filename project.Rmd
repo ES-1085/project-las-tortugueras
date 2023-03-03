@@ -40,7 +40,7 @@ GTBK_2018_2023 <- read_excel("/cloud/project/data/GTBK_2018_2023.xlsx",
         "text", "text", "text", "text", "text", 
         "text", "numeric"))
 
-buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
+buis_2022 <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
     col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
 
 ```
@@ -206,7 +206,7 @@ count()
 ```
 
 ```{r buis-22-species-measurements}
-buis_turtle_measures %>% 
+buis_2022 %>% 
   mutate(species = case_when(
     sp == "HB" ~ "Eretmochelys imbricata",
     sp == "GR" ~ "Chelonia mydas")
@@ -222,7 +222,7 @@ buis_turtle_measures %>%
        y = "Curved Carapace Length (cm)",
        fill = "Species")
 
-buis_turtle_measures %>% 
+buis_2022 %>% 
   mutate(species = case_when(
     sp == "HB" ~ "Eretmochelys imbricata",
     sp == "GR" ~ "Chelonia mydas")
@@ -331,13 +331,13 @@ GTBK_data %>%
 #   group_by(Especie) %>% 
 #   count(Sexo) 
 
-buis_turtle_measures %>% 
+buis_2022 %>% 
   group_by(sp) %>% 
   count(sex)
 
 ```
 
-```{r sepcies-sex-distribution}
+```{r species-sex-distribution}
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
   count (sexo_correcto)
@@ -366,7 +366,7 @@ visdat::vis_dat(GTBK_data)
 visdat::vis_dat(GTBK_2010_2018)
 visdat::vis_dat(GTBK_2018_2023)
 
-visdat::vis_dat(buis_turtle_measures)
+visdat::vis_dat(buis_2022)
 ```
 ```{r}
 naniar::gg_miss_var(GTBK_data)
