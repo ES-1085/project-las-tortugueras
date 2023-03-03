@@ -335,7 +335,7 @@ ggplot(data = GTBK_data,
        mapping = aes(x = sexo_correcto, 
                      fill = sexo_correcto)) +
   geom_bar() + 
-  facet_wrap( ~ especie_nombre_latino) +
+  facet_wrap( ~ especie_nombre_latino, scales = "free_y") +
    labs(title = "Species and Sex Distribution", 
        subtitle = "of turtles captured in Kino Bay", 
        x = "sex", 
@@ -343,5 +343,22 @@ ggplot(data = GTBK_data,
  scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
 
 # how to show a different graph for each species, lots of Chelonia is throwing off the data
+```
+
+```{r missing-data}
+library(visdat)
+library(naniar)
+
+visdat::vis_dat(GTBK_data)
+visdat::vis_dat(GTBK_2010_2018)
+visdat::vis_dat(GTBK_2018_2023)
+
+visdat::vis_dat(buis_turtle_measures)
+```
+```{r}
+naniar::gg_miss_var(GTBK_data)
+
+visdat::vis_miss(GTBK_data)
+visdat::vis_miss(GTBK_2018_2023)
 ```
 
