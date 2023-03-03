@@ -2367,10 +2367,19 @@ GTBK_2010_2018$no_monitoreo &lt;- as.double(GTBK_2010_2018$no_monitoreo)
 GTBK_2010_2018$l_r_c &lt;- as.double(GTBK_2010_2018$no_monitoreo)
 GTBK_2010_2018$l_r_c &lt;- as.double(GTBK_2010_2018$no_monitoreo)
 GTBK_2010_2018$l_p &lt;- as.double(GTBK_2010_2018$no_monitoreo)</code></pre>
-<pre class="r"><code>GTBK_data &lt;-full_join(GTBK_2018_2023, GTBK_2010_2018)</code></pre>
+<pre class="r"><code>GTBK_data &lt;- full_join(GTBK_2018_2023, GTBK_2010_2018)</code></pre>
 <pre><code>## Joining with `by = join_by(id, no_monitoreo, area_de_monitoreo, fecha,
 ## nombre_tortuga, especie, l_r_c, a_r_c, l_c_c, a_c_c, p_c, l_p, l_t_c, peso,
 ## sexo, marca_derecha, marca_izquierda, observaciones_y_comentarios)`</code></pre>
+<p>Below I am trying to create a clean, concise, merged dataset that
+only includes the columns we are interested in.</p>
+<pre class="r"><code># GTBK_early &lt;- GTBK_2010_2018 %&gt;% 
+#   select(nombre_tortuga, especie, sexo, fecha, estacion, area_de_monitoreo, posicion_lat_long, peso, l_c_c, a_r_c, a_c_c, recaptura, marca_derecha, marca_izquierda)
+# 
+# GTBK_late &lt;- GTBK_2018_2023 %&gt;% 
+#   select(fecha, latitud, longitud)
+# 
+# GTBK &lt;- full_join(GTBK_early, GTBK_late, by = &quot;fecha&quot;)</code></pre>
 <pre class="r"><code>GTBK_data &lt;- GTBK_data %&gt;%
   mutate(especie_nombre_latino = 
            case_when(

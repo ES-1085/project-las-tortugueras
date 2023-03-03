@@ -153,7 +153,19 @@ GTBK_2010_2018$l_p <- as.double(GTBK_2010_2018$no_monitoreo)
 ```
 
 ```{r join-datasets}
-GTBK_data <-full_join(GTBK_2018_2023, GTBK_2010_2018)
+GTBK_data <- full_join(GTBK_2018_2023, GTBK_2010_2018)
+```
+
+Below I am trying to create a clean, concise, merged dataset that only includes the columns we are interested in.
+
+```{r create-clean-master-dataset}
+# GTBK_early <- GTBK_2010_2018 %>% 
+#   select(nombre_tortuga, especie, sexo, fecha, estacion, area_de_monitoreo, posicion_lat_long, peso, l_c_c, a_r_c, a_c_c, recaptura, marca_derecha, marca_izquierda)
+# 
+# GTBK_late <- GTBK_2018_2023 %>% 
+#   select(fecha, latitud, longitud)
+# 
+# GTBK <- full_join(GTBK_early, GTBK_late, by = "fecha")
 ```
 
 ```{r clean-species-variable}
