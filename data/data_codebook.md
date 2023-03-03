@@ -91,12 +91,12 @@ Observations: 471
 - `ID #`: ID Number	
 
 ## buis_2022
-Add description of buis data. 
+This dataset contains morphological information about the Hawksbill and Green sea turtles that were recorded nesting on Buck Island, Saint Croix, USVI during the 2022 nesting season. Each observation represents an individual turtle.
 
-Variables: 11
-Observations: 27
+Variables: 12
+Observations: 56
 
-- `activityno`: unique numerical identifier representing each individual nesting activity from 2022
+- `activityno`: a unique numerical identifier representing each individual nesting activity from 2022
 - `CDate`: date that the sea turtle was measured in 2022
 - `PrimaryTag`: “name” of the turtle (the first tag that the turtle was ever given)
 - `sp`: species
@@ -105,8 +105,9 @@ Observations: 27
 - `cclnucn`: curved carapace length from nuchal notch to notch (cm)
 - `ccw`: curved carapace width (cm)
 - `cclnuct`: curved carapace length from nuchal notch to carapace tip (cm)
-- `cclnott`: curved carapace length from notch to tip (cm)
+- `cclnott`: curved carapace length from notch to carapace tip (cm)
 - `location` : capture location (Buck Island)
+- `sex`: sex of the turtle (female)
 
 
 
