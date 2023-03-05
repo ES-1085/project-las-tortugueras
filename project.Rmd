@@ -16,9 +16,9 @@ library(ggridges)
 library(leaflet)
 library(sf)
 # install.packages("regeoboundaries")
-library(rgeoboundaries)
+# library(rgeoboundaries)
 # install.packages("remotes")
-remotes::install_gitlab("dickoa/rgeoboundaries")
+# remotes::install_gitlab("dickoa/rgeoboundaries")
 ```
 
 ```{r load-data, message = FALSE}
@@ -342,20 +342,25 @@ GTBK_data %>%
   group_by(especie_nombre_latino) %>%
   count (sexo_correcto)
 # how can we make this graph so it just includes individuals no recaptures?
-# how to accurately remove NAs that correlate to 'no data collected' rather than not entered for an observation
 
-ggplot(data = GTBK_data,
-       mapping = aes(x = sexo_correcto, 
+GTBK_data %>%
+filter(especie_nombre_latino != "NA") %>%
+ggplot(aes(x = sexo_correcto, 
                      fill = sexo_correcto)) +
   geom_bar() + 
-  facet_wrap( ~ especie_nombre_latino, scales = "free_y") +
+  facet_wrap( ~ especie_nombre_latino, 
+              # <- fct_relevel(especie_nombre_latino, 
+              #                         "Caretta caretta",
+              #                          "Eretmochelys imbricata", 
+              #                          "Lepidochelys olivacea",
+              #                          "Chelonia mydas"),
+               scales = "free_y") +
    labs(title = "Species and Sex Distribution", 
        subtitle = "of turtles captured in Kino Bay", 
        x = "sex", 
        y = "number of individuals") +
  scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
 
-# how to show a different graph for each species, lots of Chelonia is throwing off the data
 ```
 
 ```{r missing-data}
