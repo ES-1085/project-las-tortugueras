@@ -16,9 +16,9 @@ library(ggridges)
 library(leaflet)
 library(sf)
 # install.packages("regeoboundaries")
-# library(rgeoboundaries)
+#library(rgeoboundaries)
 # install.packages("remotes")
-# remotes::install_gitlab("dickoa/rgeoboundaries")
+#remotes::install_gitlab("dickoa/rgeoboundaries")
 ```
 
 ```{r load-data, message = FALSE}
@@ -159,14 +159,11 @@ GTBK_2010_2018$l_p <- as.double(GTBK_2010_2018$no_monitoreo)
 ```
 
 ```{r join-datasets}
-GTBK_data <- full_join(GTBK_2018_2023, GTBK_2010_2018)
+GTBK_data <- full_join(GTBK_2010_2018, GTBK_2018_2023)
 ```
-
-Below I am trying to create a clean, concise, merged dataset that only includes the columns we are interested in.
-
-```{r create-clean-master-dataset}
-GTBK <- GTBK_data %>% 
-  select()
+```{r create-recapture-column}
+# GTBK_data <- GTBK_data %>% 
+#   mutate(`recaptura?` = )
 ```
 
 ```{r clean-species-variable}
