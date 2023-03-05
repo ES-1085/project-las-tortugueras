@@ -16,15 +16,9 @@ library(ggridges)
 library(leaflet)
 library(sf)
 # install.packages("regeoboundaries")
-<<<<<<< HEAD
 #library(rgeoboundaries)
 # install.packages("remotes")
 #remotes::install_gitlab("dickoa/rgeoboundaries")
-=======
-# library(rgeoboundaries)
-# install.packages("remotes")
-# remotes::install_gitlab("dickoa/rgeoboundaries")
->>>>>>> b85fdc4af62cb73faa79276c93d0ccd78d29c21c
 ```
 
 ```{r load-data, message = FALSE}
