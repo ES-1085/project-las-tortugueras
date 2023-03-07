@@ -393,12 +393,13 @@ buis_2022 %>%
 
 ```{r species-sex-distribution}
 GTBK_data %>%
+  filter(numero_recaptura == 1) %>%
   group_by(especie_nombre_latino) %>%
   count (sexo_correcto)
-# how can we make this graph so it just includes individuals no recaptures?
 
 GTBK_data %>%
 filter(especie_nombre_latino != "NA") %>%
+  filter(numero_recaptura == 1) %>%
 ggplot(aes(x = sexo_correcto, 
                      fill = sexo_correcto)) +
   geom_bar() + 
@@ -412,7 +413,8 @@ ggplot(aes(x = sexo_correcto,
    labs(title = "Species and Sex Distribution", 
        subtitle = "of turtles captured in Kino Bay", 
        x = "sex", 
-       y = "number of individuals") +
+       y = "number of individuals", 
+       fill = "sex") +
  scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
 
 ```
