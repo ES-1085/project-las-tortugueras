@@ -1,13 +1,16 @@
 ---
 title: "Project: Las Torgtugueras"
 authors: "Sophie Chivers, Emily Rose Stringer, Georgia Lattig"
-output: html_document
+output:     html_document
 date: "2023-02-22"
 ---
 
 ## Load Packages and Data
 
 ```{r load-packages , include = FALSE}
+# install.packages("ggridges")
+# install.packages("leaflet")
+# install.packages("sf")
 library(tidyverse)
 library(readxl)
 library(readr)
@@ -17,6 +20,7 @@ library(rlang)
 library(ggridges)
 library(leaflet)
 library(sf)
+library(lubridate)
 # install.packages("regeoboundaries")
 #library(rgeoboundaries)
 # install.packages("remotes")
@@ -182,21 +186,20 @@ GTBK_data <- GTBK_data %>%
 #Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
 ```
 
-<<<<<<< HEAD
 ```{r write-GTBK-data-csv}
 
-write_csv(GTBK_data, file = "/data/GTBK_data")
+#write_csv(GTBK_data, file = "/data/GTBK_data")
   
-)
 ```
 
 
-### Visualizations 
+## Visualizations 
 ```{r count-especie-nombre-latino}
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
 count()  
-=======
+```
+
 ```{r clean-location-create-geography-variable, include = FALSE}
 GTBK_data <- GTBK_data %>%
   mutate(lugar = 
@@ -245,28 +248,28 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Kino nuevo.poste 157" ~ "Playa",
              area_de_monitoreo == "choyudo-I Tiburon" ~ "Isla Tiburon",
              area_de_monitoreo == "Alcaltraz" ~ "Laguna La Cruz",
-             area_de_monitoreo == "y'' griega laguna la Cruz" ~ "Laguna La Cruz",
-             area_de_monitoreo == "Boca de la laguna" ~ "Laguna La Cruz"
-             # area_de_monitoreo == "region delas grandes Islas del G.C." ~ UNKNOWN,
-             # area_de_monitoreo == "A media travesia" ~ UNKNOWN,
-             # area_de_monitoreo == "a unos 8 km al Este de la ispm" ~ UNKNOWN,
-             # area_de_monitoreo == "Poza La Gallina" ~ UNKNOWN,
-             # area_de_monitoreo == "Raya roja" ~ UNKNOWN,
-             # area_de_monitoreo == "Mision del sol" ~ UNKOWN,
-             # area_de_monitoreo == "Liberada en Islandia Marina" ~ UNKNOWN,
-             # area_de_monitoreo == "Mision del Sol" ~ UNKNOWN,
-             # area_de_monitoreo == "Donada" ~ UNKNOWN
+             area_de_monitoreo == "'y' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Boca de la laguna" ~ "Laguna La Cruz",
+             area_de_monitoreo == "region de las grandes Islas del G.C." ~ "Mar Abierto",
+             area_de_monitoreo == "A media travesia" ~ "Mar Abierto",
+             area_de_monitoreo == "a unos 8 km al Este de la ispm" ~ "Mar Abierto",
+             area_de_monitoreo == "Poza La Gallina" ~ "UNKNOWN",
+             area_de_monitoreo == "Raya roja" ~ "Sargento",
+             area_de_monitoreo == "Mision del sol" ~ "Playa",
+             area_de_monitoreo == "Liberada en Islandia Marina" ~ "Playa",
+             area_de_monitoreo == "Mision del Sol" ~ "Playa",
+             area_de_monitoreo == "Donada" ~ "UNKNOWN"
              ))
 
 GTBK_data <- GTBK_data %>%
-  mutate(geografía = 
+  mutate(geografía =
            case_when(
              lugar == "Laguna La Cruz" ~ "estuario",
              lugar == "Sargento" ~ "estuario",
              lugar == "Isla San Pedro Mártir" ~ "isla",
              lugar == "Isla Tiburon" ~ "isla",
              lugar == "Playa" ~ "playa"))
->>>>>>> ff77b56c9ec1863bbcf73de43250acfdf90b3e26
+
 ```
 
 ```{r create-id-variable, include = FALSE}
@@ -435,7 +438,7 @@ ggplot(aes(x = sexo_correcto,
 
 ```
 
-```{r visualizing-missing-data, include = FALSE}
+```{r load_packages_for_missing_data_viz, include = FALSE}
 library(visdat)
 library(naniar)
 
@@ -445,7 +448,8 @@ visdat::vis_dat(GTBK_2018_2023)
 
 visdat::vis_dat(buis_2022)
 ```
-```{r}
+
+```{r visualize_missing_data}
 naniar::gg_miss_var(GTBK_data)
 
 visdat::vis_miss(GTBK_data)
@@ -462,6 +466,32 @@ leaflet(GTBK_data) %>%
                   fillColor = "red",
                   stroke = FALSE)
 ```
+### GTBK Recapture Visualizations
+```{r turtle_recaps_by_month}
+# they went out 880 times total. 
+# There are 188 instances of recaptures 
+GTBK_data <- GTBK_data %>% 
+  mutate(mes = month(fecha, label = TRUE))
+
+GTBK_outings <- GTBK_data %>%
+      group_by(mes) %>%
+      count(mes)
+
+GTBK_recapturas <- GTBK_data %>%
+  filter(numero_recaptura %in% c(2, 3, 4)) %>%
+  group_by(mes) %>%
+  count(mes)
+    
+# GTBK_recapturas %>%
+#   mutate(tortugas_por_esfuerzo = GTBK_recapturas$n/GTBK_outings$n)
+    
+  
+ 
+  
+  
+  
+```
+
 
 ## Turtle Photos/Memes
 
