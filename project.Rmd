@@ -518,6 +518,32 @@ tiempo <- GTBK_data %>%    # of times they went out
 #    geom_col() 
 ```
 
+```{r practice-effort}
+GTBK_data %>%
+  mutate(yearmonth = ym(paste(año, mes, sep = "-")))
+
+tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
+  group_by(fecha, mes, año) %>%
+  drop_na(marca_nombre) %>%
+  summarize(turtles = n()) %>%
+  group_by(mes, año) %>%
+  summarize(total_turtles = sum(turtles, na.rm = T))
+
+tiempo <- GTBK_data %>%    # of times they went out
+  distinct(fecha, mes, año) %>%
+  group_by(mes, año) %>% 
+  summarize(effort = n())
+
+full_join(tortugas_por_tiempo, tiempo) %>%
+   mutate(esfuerzo = total_turtles/effort)
+   # select(mes, tortugas_por_esfuerzo) %>%
+   # ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
+   # geom_col()
+
+```
+
+
 ## Turtle Photos/Memes
 
 ```{r image-1, echo=FALSE, out.width = "50%", fig.cap = "A Green sea turtle hatchling headed toward the sea."}
