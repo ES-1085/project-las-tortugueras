@@ -471,7 +471,8 @@ leaflet(GTBK_data) %>%
 # they went out 880 times total. 
 # There are 188 instances of recaptures 
 GTBK_data <- GTBK_data %>% 
-  mutate(mes = month(fecha, label = TRUE))
+  mutate(mes = month(fecha)) %>%
+  mutate(año = year(fecha))
 
 GTBK_outings <- GTBK_data %>%
       group_by(mes) %>%
@@ -481,17 +482,41 @@ GTBK_recapturas <- GTBK_data %>%
   filter(numero_recaptura %in% c(2, 3, 4)) %>%
   group_by(mes) %>%
   count(mes)
-    
-# GTBK_recapturas %>%
-#   mutate(tortugas_por_esfuerzo = GTBK_recapturas$n/GTBK_outings$n)
-    
-  
- 
-  
-  
-  
+
+full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
+   mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
+   select(mes, tortugas_por_esfuerzo) %>%
+   ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
+   geom_col() 
+
 ```
 
+```{r turtles_per_effort_over_time}
+
+# This code chunk is not to be messed with under any circumstance!
+#GTBK_data <- 
+GTBK_data %>%
+  mutate(yearmonth = ym(paste(año, mes, sep = "-")))
+
+tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
+  group_by(fecha, mes, año) %>%
+  drop_na(marca_nombre) %>%
+  summarize(turtles = n()) %>%
+  group_by(mes, año) %>%
+  summarize(total_turtles = sum(turtles, na.rm = T))
+
+tiempo <- GTBK_data %>%    # of times they went out
+  distinct(fecha, mes, año) %>%
+  group_by(mes, año) %>%
+  summarize(effort = n())
+
+# full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
+#    mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
+#    select(mes, tortugas_por_esfuerzo) %>%
+#    ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
+#    geom_col() 
+```
 
 ## Turtle Photos/Memes
 
