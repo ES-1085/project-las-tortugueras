@@ -184,7 +184,15 @@ GTBK_data <- GTBK_data %>%
 #Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
 ```
 
+```{r write-GTBK-data-csv}
 
+write_csv(GTBK_data, file = "/data/GTBK_data")
+  
+)
+```
+
+
+### Visualizations 
 ```{r count-especie-nombre-latino}
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
