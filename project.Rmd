@@ -1,20 +1,29 @@
 ---
-title: "Project: Data Exploration and Visualization"
+title: "Project: Las Torgtugueras"
+authors: "Sophie Chivers, Emily Rose Stringer, Georgia Lattig"
 output: html_document
 date: "2023-02-22"
 ---
 
-```{r load-packages}
+## Load Packages and Data
+
+```{r load-packages , include = FALSE}
 library(tidyverse)
 library(readxl)
 library(readr)
 library(lubridate)
-#install.packages("janitor")
 library(janitor)
 library(rlang)
+library(ggridges)
+library(leaflet)
+library(sf)
+# install.packages("regeoboundaries")
+#library(rgeoboundaries)
+# install.packages("remotes")
+#remotes::install_gitlab("dickoa/rgeoboundaries")
 ```
 
-```{r load-data, message = FALSE}
+```{r load-data, include = FALSE}
 GTBK_2010_2018 <- read_excel("data/GTBK_2010_2018.xls")
 
 GTBK_2018_2023 <- read_excel("/cloud/project/data/GTBK_2018_2023.xlsx", 
@@ -33,25 +42,14 @@ GTBK_2018_2023 <- read_excel("/cloud/project/data/GTBK_2018_2023.xlsx",
         "text", "text", "text", "text", "text", 
         "text", "numeric"))
 
-buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
+buis_2022 <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
     col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
 
 ```
 
 ## Cleaning Data
-```{r clean-species-variable-GTBK_2018_2023}
-# GTBK_2018_2023 <- GTBK_2018_2023 %>%
-#   mutate(especie_nombre_latino = 
-#            case_when(
-#              Especie == "Verde/Prieta" ~ "Chelonia mydas",
-#              Especie == "Carey" ~ "Eretmochelys imbricata", 
-#              Especie == "Amarilla" ~ "Caretta caretta", 
-#              Especie == "Golfina" ~ "Lepidochelys olivacea"
-#              )
-#          )
-```
 
-```{r clean-GTBK-column-names}
+```{r tidy-column-names, include = FALSE}
 colnames(GTBK_2010_2018) <- c(
   "ID", 
   "Nombre tortuga",
@@ -139,7 +137,7 @@ colnames(GTBK_2018_2023) <- c(
 GTBK_2018_2023 <- clean_names(GTBK_2018_2023)
 ```
 
-```{r coerce-variable-types}
+```{r coerce-variable-types, include = FALSE}
 #GTBK 2018-2023
 GTBK_2018_2023$no_monitoreo <- as.double(GTBK_2018_2023$no_monitoreo)
 
@@ -151,11 +149,11 @@ GTBK_2010_2018$l_p <- as.double(GTBK_2010_2018$no_monitoreo)
 
 ```
 
-```{r join-datasets}
-GTBK_data <-full_join(GTBK_2018_2023, GTBK_2010_2018)
+```{r join-datasets, include = FALSE}
+GTBK_data <- full_join(GTBK_2010_2018, GTBK_2018_2023)
 ```
 
-```{r clean-species-variable}
+```{r clean-species-variable, include = FALSE}
 GTBK_data <- GTBK_data %>%
   mutate(especie_nombre_latino = 
            case_when(
@@ -170,7 +168,7 @@ GTBK_data <- GTBK_data %>%
          )
 ```
 
-```{r clean-sex-variab;e}
+```{r clean-sex-variable, include = FALSE}
 GTBK_data <- GTBK_data %>%
   mutate(sexo_correcto = 
            case_when(
@@ -184,6 +182,7 @@ GTBK_data <- GTBK_data %>%
 #Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
 ```
 
+<<<<<<< HEAD
 ```{r write-GTBK-data-csv}
 
 write_csv(GTBK_data, file = "/data/GTBK_data")
@@ -197,30 +196,107 @@ write_csv(GTBK_data, file = "/data/GTBK_data")
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
 count()  
+=======
+```{r clean-location-create-geography-variable, include = FALSE}
+GTBK_data <- GTBK_data %>%
+  mutate(lugar = 
+           case_when(
+             area_de_monitoreo == "ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Pta. Blanca Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Pasadita I. Choyudo" ~ "Isla Tiburon", 
+             area_de_monitoreo == "Sargento-Desemboque" ~ "Sargento",
+             area_de_monitoreo == "Los Morritos ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Sur de San Lorenzo" ~ "Laguna La Cruz",
+             area_de_monitoreo == "entre S. Esteban y Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "Boca del Estero" ~ "Laguna La Cruz",
+             area_de_monitoreo == "'Y' Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "san nicolas" ~ "Laguna La Cruz",
+             area_de_monitoreo == "la ventana ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Campo Biologo ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Pta circulo Isla Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "La Barra Valla ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "La Ventana - ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Isla Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "ISPM - Campo Biologo" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Las brisas del mar" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Pta. Rabijunco - ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Playa de Kino nuevo" ~ "Playa",
+             area_de_monitoreo == "Campo Biologo - ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "La 'Y' Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "El Cartelon ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Las Almejitas Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Cartelon - R.B. ISPM" ~ "Isla San Pedro Mártir", 
+             area_de_monitoreo == "Pta.Blanca Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "La ventana -  ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Barraballa - ISPM" ~ "Isla San Pedro Mártir", 
+             area_de_monitoreo == "ISPM - Pta. Rabijunco" ~ "Isla San Pedro Mártir",  
+             area_de_monitoreo == "Liberada - Isla Choyudo" ~ "Isla Tiburon",   
+             area_de_monitoreo == "Liberada,Campo biologo-ISPM" ~ "Isla San Pedro Mártir",  
+             area_de_monitoreo == "Cueva de la Reserva- ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Bomba del Dictus" ~ "Laguna La Cruz",
+             area_de_monitoreo == "La Pta. Blanca" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Playa de Kino nuevo poste 88" ~ "Playa",
+             area_de_monitoreo == "'Y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Punta Rabijunco - ISPM" ~ "Isla San Pedro Mártir", 
+             area_de_monitoreo == "Y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Punta Blanca Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Media travesia tiburon-Kino" ~ "Isla Tiburon",
+             area_de_monitoreo == "Kino nuevo.poste 157" ~ "Playa",
+             area_de_monitoreo == "choyudo-I Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "Alcaltraz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Boca de la laguna" ~ "Laguna La Cruz"
+             # area_de_monitoreo == "region delas grandes Islas del G.C." ~ UNKNOWN,
+             # area_de_monitoreo == "A media travesia" ~ UNKNOWN,
+             # area_de_monitoreo == "a unos 8 km al Este de la ispm" ~ UNKNOWN,
+             # area_de_monitoreo == "Poza La Gallina" ~ UNKNOWN,
+             # area_de_monitoreo == "Raya roja" ~ UNKNOWN,
+             # area_de_monitoreo == "Mision del sol" ~ UNKOWN,
+             # area_de_monitoreo == "Liberada en Islandia Marina" ~ UNKNOWN,
+             # area_de_monitoreo == "Mision del Sol" ~ UNKNOWN,
+             # area_de_monitoreo == "Donada" ~ UNKNOWN
+             ))
+
+GTBK_data <- GTBK_data %>%
+  mutate(geografía = 
+           case_when(
+             lugar == "Laguna La Cruz" ~ "estuario",
+             lugar == "Sargento" ~ "estuario",
+             lugar == "Isla San Pedro Mártir" ~ "isla",
+             lugar == "Isla Tiburon" ~ "isla",
+             lugar == "Playa" ~ "playa"))
+>>>>>>> ff77b56c9ec1863bbcf73de43250acfdf90b3e26
 ```
 
+```{r create-id-variable, include = FALSE}
+GTBK_data <- GTBK_data %>%
+  unite(marca_nombre, marca_derecha, marca_previa_derecha, na.rm = TRUE)
 
-```{r species-by-sex-counts}
-GTBK_data %>%
-  group_by(especie_nombre_latino) %>%
-  count (sexo_correcto)
-
-# GTBK_2018_2023 %>% 
-#   group_by(especie_nombre_latino) %>% 
-#   count(Sexo)
-
-# GTBK_2010_2018 %>% 
-#   group_by(Especie) %>% 
-#   count(Sexo) 
-
-buis_turtle_measures %>% 
-  group_by(sp) %>% 
-  count(sex)
-
+number_recapture <- GTBK_data %>%
+  group_by(marca_nombre) %>%
+  count(marca_nombre) %>%
+  arrange(desc(n)) 
 ```
 
-```{r buis-22-species-measurements}
-buis_turtle_measures %>% 
+```{r create-recapture-variable, include = FALSE}
+GTBK_data <- GTBK_data %>% 
+  group_by(marca_nombre) %>% 
+  mutate(numero_recaptura = n())
+```
+
+```{r GTBK-remove-unneeded-variables, include = FALSE}
+GTBK_data <- GTBK_data %>% 
+  subset(select = 
+           -c(id, no_monitoreo, fecha_original, recaptura, observaciones_y_comentarios, responsable, 
+              longidud_red_o_lanceos, pit_tag, pit_nuevo, pit_previo, pit_previo_2, muestra_sangre, muestra_piel, 
+              muestra_cont_estom, muestra_sangre_2, muestra_piel_2, muestra_cont_estom_2, otra_muestra, otra_muestra_2,               especificar, especificar_2, lesiones_balanos, lesiones_balanos_2, foto, foto_2, id_2, id_3))
+```
+
+## Visualizations
+
+```{r buis-22-species-size}
+buis_2022 %>% 
   mutate(species = case_when(
     sp == "HB" ~ "Eretmochelys imbricata",
     sp == "GR" ~ "Chelonia mydas")
@@ -236,7 +312,7 @@ buis_turtle_measures %>%
        y = "Curved Carapace Length (cm)",
        fill = "Species")
 
-buis_turtle_measures %>% 
+buis_2022 %>% 
   mutate(species = case_when(
     sp == "HB" ~ "Eretmochelys imbricata",
     sp == "GR" ~ "Chelonia mydas")
@@ -254,71 +330,145 @@ buis_turtle_measures %>%
 ```
 
 
-```{r GTBK-species-measurements}
-# GTBK_data %>%
-#   filter(especie_nombre_latino == "Chelonia mydas" |
-#          especie_nombre_latino == "Eretmochelys imbricata" |
-#          especie_nombre_latino == "Lepidochelys olivacea" |
-#          especie_nombre_latino == "Caretta caretta") %>%
-#   ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
-#   geom_boxplot() +
-#   scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) +
-#   theme_minimal() +
-#   coord_flip() +
-#   labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
-#        subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2023",
-#        x = "Species",
-#        y = "Curved Carapace Length (cm)",
-#        fill = "Species")
+```{r GTBK-10-23-species-size}
+GTBK_data %>%
+  filter(especie_nombre_latino == "Chelonia mydas" |
+         especie_nombre_latino == "Eretmochelys imbricata" |
+         especie_nombre_latino == "Lepidochelys olivacea" |
+         especie_nombre_latino == "Caretta caretta") %>%
+  ggplot(aes(x = especie_nombre_latino, y = a_c_c, fill = especie_nombre_latino)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) +
+  theme_minimal() +
+  coord_flip() +
+  facet_wrap(~ geografía) +
+  labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
+       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2023",
+       x = "Species",
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+```
 
-# GTBK_2010_2018 %>% 
-#   filter(Especie == "Chelonia mydas" |
-#          Especie == "Eretmochelys imbricata" |
-#          Especie == "Lepidochelys olivacea" |
-#          Especie == "Caretta Caretta") %>% 
-#   ggplot(aes(x = Especie, y = `A.R.C.(cm)`, fill = Especie)) +
-#   geom_boxplot() +
-#   scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) + 
-#   theme_minimal() +
-#   coord_flip() +
-#   labs(title = "Curved Carapace Length Measurements of Three Sea Turtle Species",
-#        subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2018",
-#        x = "Species", 
-#        y = "Curved Carapace Length (cm)",
-#        fill = "Species")
+```{r basic-recaptures-viz}
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(2, 3, 4)) %>% 
+  ggplot(aes(x = numero_recaptura)) +
+  geom_bar()
+
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(2, 3, 4)) %>% 
+  ggplot(aes(x = numero_recaptura, fill = sexo_correcto)) +
+  geom_bar()
+
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>% 
+  filter(especie_nombre_latino == "Chelonia mydas" | 
+         especie_nombre_latino == "Eretmochelys imbricata" |
+         especie_nombre_latino == "Caretta caretta" |
+         especie_nombre_latino == "Lepidochelys olivacea") %>% 
+  ggplot(aes(x = numero_recaptura, fill = especie_nombre_latino)) +
+  geom_bar() +
+  scale_fill_manual(values = c("firebrick2", "darkseagreen", "royalblue4", "yellow2")) +
+  theme_minimal() +
+  labs(title = "Number of Sea Turtle Recaptures by GTBK",
+       subtitle = "Of Four Sea Turtle Species in Kino Bay, Mexico",
+       x = "Number of Times Recaptured",
+       y = "Number of Turtles",
+       fill = "Species")
+```
+
+```{r seasonality}
+# recapture_tibble <- GTBK_data %>%
+#   group_by(marca_nombre) %>%
+#   select(nombre_tortuga, fecha, especie, area_de_monitoreo, marca_nombre)
+# 
+# 
+# recapture_tibble %>%
+#   group_by(marca_nombre) %>%
+#   summarize(marca_nombre)
+```
+
+```{r species-by-sex-counts}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
 
 # GTBK_2018_2023 %>% 
-#   filter(especie_nombre_latino == "Chelonia mydas" |
-#          especie_nombre_latino == "Eretmochelys imbricata" |
-#          especie_nombre_latino == "Lepidochelys olivacea" |
-#          especie_nombre_latino == "Caretta caretta") %>%
-#   ggplot(aes(x = especie_nombre_latino, y = `4.ACC`, fill = especie_nombre_latino)) +
-#   geom_boxplot() +
-#   scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) + 
-#   theme_minimal() +
-#   coord_flip() +
-#   labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
-#        subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2018-2023",
-#        x = "Species", 
-#        y = "Curved Carapace Length (cm)",
-#        fill = "Species")
+#   group_by(especie_nombre_latino) %>% 
+#   count(Sexo)
+
+# GTBK_2010_2018 %>% 
+#   group_by(Especie) %>% 
+#   count(Sexo) 
+
+buis_2022 %>% 
+  group_by(sp) %>% 
+  count(sex)
+
 ```
 
-```{r clean-indentification-marking}
-GTBK_data <- GTBK_data %>%
-  unite(marca_nombre, marca_derecha, marca_previa_derecha, na.rm = TRUE)
+```{r species-sex-distribution}
+GTBK_data %>%
+  filter(numero_recaptura == 1) %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
 
-number_recapture <- GTBK_data %>%
-  group_by(marca_nombre) %>%
-  count(marca_nombre) %>%
-  arrange(desc(n)) 
+GTBK_data %>%
+filter(especie_nombre_latino != "NA") %>%
+  filter(numero_recaptura == 1) %>%
+ggplot(aes(x = sexo_correcto, 
+                     fill = sexo_correcto)) +
+  geom_bar() + 
+  facet_wrap( ~ especie_nombre_latino, 
+              # <- fct_relevel(especie_nombre_latino, 
+              #                         "Caretta caretta",
+              #                          "Eretmochelys imbricata", 
+              #                          "Lepidochelys olivacea",
+              #                          "Chelonia mydas"),
+               scales = "free_y") +
+   labs(title = "Species and Sex Distribution", 
+       subtitle = "of turtles captured in Kino Bay", 
+       x = "sex", 
+       y = "number of individuals", 
+       fill = "sex") +
+ scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
+
 ```
 
-```{r recapture-viz-1}
-number_recapture %>% 
-  filter(n %in% c(2, 3, 4)) %>% 
-  ggplot(aes(x = n)) +
-  geom_bar()
+```{r visualizing-missing-data, include = FALSE}
+library(visdat)
+library(naniar)
+
+visdat::vis_dat(GTBK_data)
+visdat::vis_dat(GTBK_2010_2018)
+visdat::vis_dat(GTBK_2018_2023)
+
+visdat::vis_dat(buis_2022)
+```
+```{r}
+naniar::gg_miss_var(GTBK_data)
+
+visdat::vis_miss(GTBK_data)
+visdat::vis_miss(GTBK_2018_2023)
 ```
 
+```{r map-kino-bay-recaptures, include = FALSE}
+leaflet(GTBK_data) %>%
+  addProviderTiles(providers$Esri.WorldImagery) %>% 
+  setView(lng = -111.936302, 
+          lat = 28.822747,
+          zoom = 1) %>% 
+  addCircleMarkers(~longitud, ~latitud,
+                  fillColor = "red",
+                  stroke = FALSE)
+```
 
+## Turtle Photos/Memes
+
+```{r image-1, echo=FALSE, out.width = "50%", fig.cap = "A Green sea turtle hatchling headed toward the sea."}
+knitr::include_graphics("/cloud/project/images/GreenSeaTurtleHatchlingBUIS.JPG")
+```
+
+```{r image-2, echo=FALSE, out.width = "50%", fig.cap = "A Hawksbill sea turtle laying her nest on Buck Island."}
+knitr::include_graphics("/cloud/project/images/hawksbillseaturtleBISTRP.JPG")
+```
