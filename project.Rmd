@@ -537,9 +537,11 @@ tiempo <- GTBK_data %>%    # of times they went out
 
 full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort)
-   # select(mes, tortugas_por_esfuerzo) %>%
-   # ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
-   # geom_col()
+
+full_join(tortugas_por_tiempo, tiempo) %>%
+   mutate(esfuerzo = total_turtles/effort) %>%
+   ggplot(aes(x = año, y = esfuerzo)) +
+   geom_col()
 
 ```
 
