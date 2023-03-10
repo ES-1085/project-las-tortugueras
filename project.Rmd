@@ -540,8 +540,10 @@ full_join(tortugas_por_tiempo, tiempo) %>%
 
 full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort) %>%
+    # group_by(año) %>%
    ggplot(aes(x = año, y = esfuerzo)) +
-   geom_col()
+   geom_col(position="stack", stat="mes") +
+  scale_fill_viridis_d()
 
 ```
 
