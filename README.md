@@ -4,7 +4,11 @@ by Sophie Chivers, Emily Rose Stringer and Georgia Lattig
 
 ## Summary
 
-Our project looks at turtles.
+Our group worked closely with a community conservation organization in Mexico, El Grupo Tortuguero de Bahía de Kino (GTBK), to help organize and interpret their long term sea turtle monitoring data from the Gulf of California. This group... (mission statement). To accomplish this monitoring... (methods). Sophie spent... (our connection to GTBK).
+
+The target questions we were given by GTBK involved quantifying sea turtle recaptures and calculating survey effort, considering variables like species, sex, seasonality and location. The process of summarizing and visualizing GTBK's data required a lot of data cleaning and tidying. We began by organizing and merging two large datasets (dimensions of each, respectively) that collectively covered the group's sea turtle monitoring efforts from 2010-2022.
+
+Once we had answered GTBK's questions, we had more freedom to do some exploratory data vizualization. This is where we were able to incorporate comparisons between two different sea turtle monitoring projects and their findings. The Buck Island Sea Turtle Research Program (BISTRP) is a longterm conservation and monitoring project by the National Park Service in the U.S. Virgin Islands. The two projects are different in many ways. BISTRP monitors a nesting beach throughout the peak nocturnal nesting season and thus only encounters and surveys nesting females. GTBK conducts opportunistic in-water surveys and thus the demographics of the surveyed sea turtles are much more diverse. 
 
 Write-up of your project and findings go here. Think of this as the text
 of your presentation. The length should be roughly 5 minutes when read
