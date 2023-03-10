@@ -467,12 +467,18 @@ leaflet(GTBK_data) %>%
                   stroke = FALSE)
 ```
 ### GTBK Recapture Visualizations
+880 times went out total, 188 instances of recapture
+
 ```{r turtle_recaps_by_month}
-# they went out 880 times total. 
-# There are 188 instances of recaptures 
-GTBK_data <- GTBK_data %>% 
+GTBK_data <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha))
+
+# GTBK_data %>%
+#   parse_date_time(GTBK_data$mes, "m")
+# 
+# GTBK_data %>% 
+#   parse_date_time(GTBK_data$año, "Y")
 
 GTBK_outings <- GTBK_data %>%
       group_by(mes) %>%
@@ -535,15 +541,23 @@ tiempo <- GTBK_data %>%    # of times they went out
   group_by(mes, año) %>% 
   summarize(effort = n())
 
-full_join(tortugas_por_tiempo, tiempo) %>%
+tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort)
 
 full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort) %>%
     # group_by(año) %>%
-   ggplot(aes(x = año, y = esfuerzo)) +
-   geom_col(position="stack", stat="mes") +
-  scale_fill_viridis_d()
+   ggplot(aes(x = año, y = esfuerzo, fill = mes)) +
+   geom_col(position="stack")
+
+full_join(tortugas_por_tiempo, tiempo) %>%
+   mutate(esfuerzo = total_turtles/effort) %>%
+  group_by(año) %>%
+   ggplot(aes(x = mes, y = esfuerzo, color = as.factor(año))) +
+   geom_line()
+
+#insert heat map
+#heatmap(tortugas_por_esfuerzo)
 
 ```
 
