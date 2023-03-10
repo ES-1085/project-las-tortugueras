@@ -4,6 +4,8 @@ by Sophie Chivers, Emily Rose Stringer and Georgia Lattig
 
 ## Summary
 
+Our project looks at turtles.
+
 Write-up of your project and findings go here. Think of this as the text
 of your presentation. The length should be roughly 5 minutes when read
 out loud. Although pacing varies, a 5-minute speech is roughly 750
