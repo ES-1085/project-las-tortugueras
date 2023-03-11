@@ -111,29 +111,46 @@ turtle_measures %>%
   filter(year == "2022",
          sp == "Chelonia mydas",
          sex == "female") %>% 
-ggbetweenstats(organization, cclnuct)
+ggbetweenstats(organization, cclnuct,
+               plot.type = "boxviolin",
+               title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
+               xlab = "Organization",
+               ylab = "Curved Carapace Length (cm)")
 ```
 
-```{r turtle-demographics-by-organization, fig.width = 8, fig. height = 5}
+```{r turtle-demographics-by-organization, fig.width = 6, fig. height = 4}
 turtle_measures %>% 
+  mutate(species = case_when(
+    sp == "Chelonia mydas" ~ "Chelonia mydas (GR)",
+    sp == "Eretmochelys imbricata" ~ "Eretmochelys imbricata (HB)",
+    sp == "Lepidochelys olivacea" ~ "Lepidochelys olivacea (OR)")) %>% 
   filter(organization == "BISTRP" |
          organization == "GTBK") %>% 
   filter(year == "2022") %>% 
   filter(sp != "NA") %>% 
-  ggplot(aes(x = sp, fill = sp)) +
-  geom_bar() + 
+  ggplot(aes(x = species, fill = species)) +
+  geom_bar(alpha = 0.8) + 
   scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) +
-  scale_x_discrete(labels = c("C.m.", "E.i.", "L.o.")) +
+  scale_x_discrete(labels = c("GR", "HB", "OR")) +
   facet_wrap(~ organization) +
   theme_bw() + 
   labs(title = "Demographics of Sea Turtles Monitored by BISTRP and GTBK",
        subtitle = "During the 2022 Monitoring Season",
        x = "Species",
        y = "Number of Turtles",
-       fill = "Species")
+       fill = "Species") +
+  theme(plot.title = element_text(size = 15, family = "Helvetica"),
+        plot.subtitle = element_text(size = 13, family = "Helvetica"),
+        strip.text.x = element_text(size = 13, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 13, family = "Helvetica", vjust = 0.1),
+        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 0.2),
+        axis.text.x = element_text(size = 11, family = "Helvetica"),
+        axis.text.y = element_text(size = 11, family = "Helvetica"),
+        legend.text = element_text(size = 11, family = "Helvetica"),
+        legend.title = element_text(size = 13, family = "Helvetica")) +
+    guides(color = guide_legend(override.aes = list(size = 1)))
 
 ```
-
 
 ## Final Visualizations
 
