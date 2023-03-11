@@ -28,9 +28,12 @@ library(rgeoboundaries)
 ```{r load-data}
 buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv")
 
-
+GTBK_turtle_measures <- read_csv("/cloud/project/data/GTBK_turtle_measures.csv")
 ```
 
+```{r clean-merge-datasets}
+
+```
 
 
 
