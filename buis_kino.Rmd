@@ -1,0 +1,36 @@
+---
+title: "Comparing BUIS & Kino Bay turtles"
+authors: "Georgia Lattig"
+output:     html_document
+date: "2023-03-11"
+---
+
+## Load Packages and Data
+
+```{r load-packages , include = FALSE}
+library(tidyverse)
+library(readxl)
+library(readr)
+library(lubridate)
+library(janitor)
+library(rlang)
+library(ggridges)
+library(leaflet)
+library(sf)
+library(lubridate)
+# install.packages("regeoboundaries")
+library(rgeoboundaries)
+# install.packages("remotes")
+# remotes::install_gitlab("dickoa/rgeoboundaries")
+```
+
+
+
+
+
+
+
+
+
+
+

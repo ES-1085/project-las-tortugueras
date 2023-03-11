@@ -186,20 +186,6 @@ GTBK_data <- GTBK_data %>%
 #Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
 ```
 
-```{r write-GTBK-data-csv}
-
-#write_csv(GTBK_data, file = "/data/GTBK_data")
-  
-```
-
-
-## Visualizations 
-```{r count-especie-nombre-latino}
-GTBK_data %>%
-  group_by(especie_nombre_latino) %>%
-count()  
-```
-
 ```{r clean-location-create-geography-variable, include = FALSE}
 GTBK_data <- GTBK_data %>%
   mutate(lugar = 
@@ -295,6 +281,20 @@ GTBK_data <- GTBK_data %>%
               longidud_red_o_lanceos, pit_tag, pit_nuevo, pit_previo, pit_previo_2, muestra_sangre, muestra_piel, 
               muestra_cont_estom, muestra_sangre_2, muestra_piel_2, muestra_cont_estom_2, otra_muestra, otra_muestra_2,               especificar, especificar_2, lesiones_balanos, lesiones_balanos_2, foto, foto_2, id_2, id_3))
 ```
+
+```{r write-GTBK-data-csv}
+
+write_csv(GTBK_data, file = "data/GTBK_data")
+  
+```
+
+## Counts
+```{r count-especie-nombre-latino}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+count()  
+```
+
 
 ## Visualizations
 
