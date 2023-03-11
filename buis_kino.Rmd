@@ -105,6 +105,15 @@ turtle_measures %>%
 
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
+
+```{r statistical-analysis-box-violin}
+turtle_measures %>% 
+  filter(year == "2022",
+         sp == "Chelonia mydas",
+         sex == "female") %>% 
+ggbetweenstats(organization, cclnuct)
+```
+
 ```{r turtle-demographics-by-organization, fig.width = 8, fig. height = 5}
 turtle_measures %>% 
   filter(organization == "BISTRP" |
@@ -114,23 +123,15 @@ turtle_measures %>%
   ggplot(aes(x = sp, fill = sp)) +
   geom_bar() + 
   scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) +
+  scale_x_discrete(labels = c("C.m.", "E.i.", "L.o.")) +
   facet_wrap(~ organization) +
-  theme_minimal() + 
+  theme_bw() + 
   labs(title = "Demographics of Sea Turtles Monitored by BISTRP and GTBK",
-       subtitle = "During the 2022 Field Season",
+       subtitle = "During the 2022 Monitoring Season",
        x = "Species",
        y = "Number of Turtles",
        fill = "Species")
 
-```
-
-
-```{r statistical-analysis-box-violin}
-turtle_measures %>% 
-  filter(year == "2022",
-         sp == "Chelonia mydas",
-         sex == "female") %>% 
-ggbetweenstats(organization, cclnuct)
 ```
 
 
