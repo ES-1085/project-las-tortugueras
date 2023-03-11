@@ -1,6 +1,6 @@
 ---
 title: "Comparing BISTRP and GTBK"
-authors: "Georgia Lattig"
+authors: "Georgia Lattig, Sophie Chivers, Emily Rose Stringer"
 output:     html_document
 date: "2023-03-11"
 ---
@@ -72,8 +72,19 @@ buis_turtle_measures <- buis_turtle_measures %>%
 ```{r merge-turtle-measures}
 turtle_measures <- full_join(GTBK_turtle_measures, buis_turtle_measures)
 ```
+## Exploratory Data Visualization
+
+```{r}
+
+```
 
 
+
+## Final Visualizations
+
+```{r}
+
+```
 
 
 
