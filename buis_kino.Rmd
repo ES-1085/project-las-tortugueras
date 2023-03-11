@@ -20,6 +20,9 @@ library(sf)
 library(lubridate)
 library(forcats)
 library(RColorBrewer)
+install.packages("ggstats")
+install.packages("ggstatsplot")
+library(ggstats)
 # install.packages("regeoboundaries")
 library(rgeoboundaries)
 # install.packages("remotes")
@@ -91,7 +94,7 @@ turtle_measures %>%
          year == "2022",
          location != "NA") %>% 
   ggplot(aes(x = sp, y = cclnuct)) +
-  geom_violin(fill = "chartreuse4") +
+  geom_violin(fill = "chartreuse4", alpha = 0.7) +
   facet_wrap(~ location) +
   theme_minimal() +
   labs(title = "Curved Carapace Length of Female Green Sea Turtles",
@@ -101,6 +104,33 @@ turtle_measures %>%
        fill = "Species")
 
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
+```
+```{r turtle-demographics-by-organization, fig.width = 8, fig. height = 5}
+turtle_measures %>% 
+  filter(organization == "BISTRP" |
+         organization == "GTBK") %>% 
+  filter(year == "2022") %>% 
+  filter(sp != "NA") %>% 
+  ggplot(aes(x = sp, fill = sp)) +
+  geom_bar() + 
+  scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) +
+  facet_wrap(~ organization) +
+  theme_minimal() + 
+  labs(title = "Demographics of Sea Turtles Monitored by BISTRP and GTBK",
+       subtitle = "During the 2022 Field Season",
+       x = "Species",
+       y = "Number of Turtles",
+       fill = "Species")
+
+```
+
+
+```{r statistical-analysis-box-violin}
+turtle_measures %>% 
+  filter(year == "2022",
+         sp == "Chelonia mydas",
+         sex == "female") %>% 
+ggbetweenstats(organization, cclnuct)
 ```
 
 
