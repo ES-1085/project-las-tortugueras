@@ -188,6 +188,7 @@ GTBK_data <- GTBK_data %>%
 ```
 
 ```{r clean-location-create-geography-variable, include = FALSE}
+
 GTBK_data <- GTBK_data %>%
   mutate(lugar = 
            case_when(
@@ -200,7 +201,7 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Sur de San Lorenzo" ~ "Laguna La Cruz",
              area_de_monitoreo == "entre S. Esteban y Tiburon" ~ "Isla Tiburon",
              area_de_monitoreo == "Boca del Estero" ~ "Laguna La Cruz",
-             area_de_monitoreo == "'Y' Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "`Y` Laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "san nicolas" ~ "Laguna La Cruz",
              area_de_monitoreo == "la ventana ISPM" ~ "Isla San Pedro Mártir",
              area_de_monitoreo == "Campo Biologo ISPM" ~ "Isla San Pedro Mártir",
@@ -213,7 +214,7 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Pta. Rabijunco - ISPM" ~ "Isla San Pedro Mártir",
              area_de_monitoreo == "Playa de Kino nuevo" ~ "Playa",
              area_de_monitoreo == "Campo Biologo - ISPM" ~ "Isla San Pedro Mártir",
-             area_de_monitoreo == "La 'Y' Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "La `Y` Laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "El Cartelon ISPM" ~ "Isla San Pedro Mártir",
              area_de_monitoreo == "Las Almejitas Laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Cartelon - R.B. ISPM" ~ "Isla San Pedro Mártir", 
@@ -227,15 +228,15 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Bomba del Dictus" ~ "Laguna La Cruz",
              area_de_monitoreo == "La Pta. Blanca" ~ "Laguna La Cruz",
              area_de_monitoreo == "Playa de Kino nuevo poste 88" ~ "Playa",
-             area_de_monitoreo == "'Y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "`Y` griega laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Punta Rabijunco - ISPM" ~ "Isla San Pedro Mártir", 
-             area_de_monitoreo == "Y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "`Y` griega laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Punta Blanca Laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Media travesia tiburon-Kino" ~ "Isla Tiburon",
              area_de_monitoreo == "Kino nuevo.poste 157" ~ "Playa",
              area_de_monitoreo == "choyudo-I Tiburon" ~ "Isla Tiburon",
              area_de_monitoreo == "Alcaltraz" ~ "Laguna La Cruz",
-             area_de_monitoreo == "'y' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "`y` griega laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Boca de la laguna" ~ "Laguna La Cruz",
              area_de_monitoreo == "region de las grandes Islas del G.C." ~ "Mar Abierto",
              area_de_monitoreo == "A media travesia" ~ "Mar Abierto",

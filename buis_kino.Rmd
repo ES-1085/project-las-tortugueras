@@ -18,6 +18,8 @@ library(ggridges)
 library(leaflet)
 library(sf)
 library(lubridate)
+library(forcats)
+library(RColorBrewer)
 # install.packages("regeoboundaries")
 library(rgeoboundaries)
 # install.packages("remotes")
@@ -71,10 +73,28 @@ buis_turtle_measures <- buis_turtle_measures %>%
 
 ```{r merge-turtle-measures}
 turtle_measures <- full_join(GTBK_turtle_measures, buis_turtle_measures)
+
+turtle_measures <- turtle_measures %>% 
+  mutate(year = year(CDate))
 ```
+
 ## Exploratory Data Visualization
 
-```{r}
+```{r comparisons-GR-females-2022}
+turtle_measures %>% 
+  filter(sp == "Chelonia mydas",
+         sex == "female",
+         year == "2022") %>% 
+  ggplot(aes(x = sp, y = cclnuct)) +
+  geom_violin() +
+  facet_wrap(~ location) +
+  scale_fill_manual(values = c("chartreuse4")) + 
+  theme_minimal() +
+  labs(title = "Curved Carapace Length of Female Green Sea Turtles",
+       subtitle = "Measured on Buck Island, USVI and in Kino Bay, Mexico",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
 
 ```
 

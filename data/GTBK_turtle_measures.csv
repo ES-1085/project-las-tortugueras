@@ -671,56 +671,56 @@ NA,Recod,GT 16991,Chelonia mydas,1,55.5,53,Laguna La Cruz,estuario,Indefinido
 2021-06-30T00:00:00Z,Noel,GT 17832,Chelonia mydas,1,59,62.6,Laguna La Cruz,estuario,Indefinido
 2021-06-30T00:00:00Z,Calambrina,GT 16996,Chelonia mydas,2,73.5,77,Laguna La Cruz,estuario,Hembra
 2021-06-30T00:00:00Z,Porfin,GT 17834,Chelonia mydas,1,64.3,65,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Sofoco,GT 17836,Chelonia mydas,1,67.3,70,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Lidia-recaptura,GT 11587,Chelonia mydas,2,67,71,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Hans-Rodolph-recaptura,GT 11469,Chelonia mydas,1,68.5,73.5,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Sara-recaptura,GT 11589,Chelonia mydas,2,72,79,Laguna La Cruz,estuario,Hembra
-2021-07-17T00:00:00Z,Jango-recaptura,GT 11489,Chelonia mydas,3,82,89,Laguna La Cruz,estuario,Hembra
-2021-07-17T00:00:00Z,La Paz,GT 17838,Chelonia mydas,1,63,68.5,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Yayoi-recaptura,GT 17840,Chelonia mydas,1,78,83.5,Laguna La Cruz,estuario,Hembra
-2021-07-17T00:00:00Z,China,GT  17841,Chelonia mydas,1,59,64.6,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Cachanilla,GT 17843,Chelonia mydas,1,64.3,67.5,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Brianda,GT 17845,Chelonia mydas,1,77.5,84,Laguna La Cruz,estuario,Hembra
-2021-07-17T00:00:00Z,Tacoma,GT 17847,Chelonia mydas,1,64,72.2,Laguna La Cruz,estuario,Indefinido
-2021-07-17T00:00:00Z,Jeeniffer-recaptura-3,GT 10870,Chelonia mydas,2,60.2,68.5,Laguna La Cruz,estuario,Indefinido
+2021-07-17T00:00:00Z,Sofoco,GT 17836,Chelonia mydas,1,67.3,70,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Lidia-recaptura,GT 11587,Chelonia mydas,2,67,71,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Hans-Rodolph-recaptura,GT 11469,Chelonia mydas,1,68.5,73.5,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Sara-recaptura,GT 11589,Chelonia mydas,2,72,79,NA,NA,Hembra
+2021-07-17T00:00:00Z,Jango-recaptura,GT 11489,Chelonia mydas,3,82,89,NA,NA,Hembra
+2021-07-17T00:00:00Z,La Paz,GT 17838,Chelonia mydas,1,63,68.5,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Yayoi-recaptura,GT 17840,Chelonia mydas,1,78,83.5,NA,NA,Hembra
+2021-07-17T00:00:00Z,China,GT  17841,Chelonia mydas,1,59,64.6,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Cachanilla,GT 17843,Chelonia mydas,1,64.3,67.5,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Brianda,GT 17845,Chelonia mydas,1,77.5,84,NA,NA,Hembra
+2021-07-17T00:00:00Z,Tacoma,GT 17847,Chelonia mydas,1,64,72.2,NA,NA,Indefinido
+2021-07-17T00:00:00Z,Jeeniffer-recaptura-3,GT 10870,Chelonia mydas,2,60.2,68.5,NA,NA,Indefinido
 2021-07-25T00:00:00Z,Irian Bebe,GT 17849,Chelonia mydas,1,48.5,50,Isla San Pedro Mártir,isla,Indefinido
 2021-07-29T00:00:00Z,Viky,GT 15871,Chelonia mydas,2,57.5,62,Isla San Pedro Mártir,isla,Indefinido
-2021-07-30T00:00:00Z,Paquito,GT 17853,Chelonia mydas,1,69,74.5,Laguna La Cruz,estuario,Hembra
-2021-07-30T00:00:00Z,Oakley-recaptura,GT 11472,Chelonia mydas,2,80.2,87,Laguna La Cruz,estuario,Hembra
-2021-07-30T00:00:00Z,Misteriosa,GT 17855,Chelonia mydas,1,55,57.3,Laguna La Cruz,estuario,Indefinido
-2021-07-30T00:00:00Z,La mentira,GT 17857,Chelonia mydas,1,74.6,80,Laguna La Cruz,estuario,Hembra
+2021-07-30T00:00:00Z,Paquito,GT 17853,Chelonia mydas,1,69,74.5,NA,NA,Hembra
+2021-07-30T00:00:00Z,Oakley-recaptura,GT 11472,Chelonia mydas,2,80.2,87,NA,NA,Hembra
+2021-07-30T00:00:00Z,Misteriosa,GT 17855,Chelonia mydas,1,55,57.3,NA,NA,Indefinido
+2021-07-30T00:00:00Z,La mentira,GT 17857,Chelonia mydas,1,74.6,80,NA,NA,Hembra
 2021-08-12T00:00:00Z,Foley,GT 17860,Lepidochelys olivacea,1,74,68.7,Mar Abierto,NA,Macho
 2021-08-12T00:00:00Z,La Estrenada,GT 17861,Chelonia mydas,1,76.5,81,Isla San Pedro Mártir,isla,Hembra
 2021-08-16T00:00:00Z,Fiona,GT 17874,Chelonia mydas,1,80.8,88,Laguna La Cruz,estuario,Hembra
 2021-08-16T00:00:00Z,Chikis,GT 17863,Chelonia mydas,1,54,54.4,Laguna La Cruz,estuario,Indefinido
-2021-08-30T00:00:00Z,Yurico,GT 17865,Chelonia mydas,1,65.6,66,Laguna La Cruz,estuario,Indefinido
+2021-08-30T00:00:00Z,Yurico,GT 17865,Chelonia mydas,1,65.6,66,NA,NA,Indefinido
 2021-09-14T00:00:00Z,Romina Irian,GT 17868,Chelonia mydas,1,65,69,Laguna La Cruz,estuario,Indefinido
 2021-09-27T00:00:00Z,Fam. Cortez,GT 17869,Chelonia mydas,1,58.5,65,Isla San Pedro Mártir,isla,Indefinido
 2021-09-27T00:00:00Z,Tilin,GT 17871,Chelonia mydas,1,64.5,67.5,Isla San Pedro Mártir,isla,Indefinido
 2021-09-27T00:00:00Z,Carlitos MF,GT 17876,Chelonia mydas,1,62,65,Isla San Pedro Mártir,isla,Indefinido
 2021-09-28T00:00:00Z,Natalia,GT 17878,Chelonia mydas,1,62.5,67,Laguna La Cruz,estuario,Indefinido
 2021-09-28T00:00:00Z,Clohe,GT 17880,Chelonia mydas,1,68.1,72,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Selena,GT 17882,Chelonia mydas,1,66.4,67.5,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Yolanda Saldivar,GT 17884,Chelonia mydas,1,67.8,72,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Lozano,GT 17886,Chelonia mydas,1,61.5,64.8,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Eusebio,GT 17888,Chelonia mydas,1,60.2,62.5,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Anabell,GT 17890,Chelonia mydas,1,57.5,61.5,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Lupito,GT 17892,Chelonia mydas,1,54.5,58.7,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Aristoteles,GT 17894,Chelonia mydas,1,67.7,68,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Magdalena,GT 17898,Chelonia mydas,1,83.8,92,Laguna La Cruz,estuario,Hembra
-2021-10-13T00:00:00Z,Saturno,GT 17896,Chelonia mydas,1,61.5,66.5,Laguna La Cruz,estuario,Indefinido
-2021-10-13T00:00:00Z,Rita - recaptura,GT 17873,Chelonia mydas,2,70.6,74,Laguna La Cruz,estuario,Hembra
-2021-10-13T00:00:00Z,Chiquilina - Recaptura,GT 5259,Chelonia mydas,2,72,75.2,Laguna La Cruz,estuario,Hembra
-2021-10-30T00:00:00Z,Gloria-recapturas,GT 16969,Chelonia mydas,2,60.3,64.2,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Zumyko,GT 17902,Chelonia mydas,1,58,65,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Trinidad,GT 17904,Chelonia mydas,2,64,65.1,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Jose A.,GT 17905,Chelonia mydas,1,74.5,83.4,Laguna La Cruz,estuario,Hembra
-2021-10-30T00:00:00Z,La Mosca,GT 17908,Chelonia mydas,1,68.8,74,Laguna La Cruz,estuario,Hembra
-2021-10-30T00:00:00Z,Ema-recaptura,GT 16966,Chelonia mydas,2,61.2,65,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Cesilia,GT 17910,Chelonia mydas,1,64,70,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Pilar,GT 17912,Chelonia mydas,2,63.5,69,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Meredith,GT 17914,Chelonia mydas,2,64,65.7,Laguna La Cruz,estuario,Indefinido
-2021-10-30T00:00:00Z,Alicia B.,GT 17916,Chelonia mydas,1,66,68.7,Laguna La Cruz,estuario,Indefinido
+2021-10-13T00:00:00Z,Selena,GT 17882,Chelonia mydas,1,66.4,67.5,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Yolanda Saldivar,GT 17884,Chelonia mydas,1,67.8,72,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Lozano,GT 17886,Chelonia mydas,1,61.5,64.8,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Eusebio,GT 17888,Chelonia mydas,1,60.2,62.5,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Anabell,GT 17890,Chelonia mydas,1,57.5,61.5,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Lupito,GT 17892,Chelonia mydas,1,54.5,58.7,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Aristoteles,GT 17894,Chelonia mydas,1,67.7,68,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Magdalena,GT 17898,Chelonia mydas,1,83.8,92,NA,NA,Hembra
+2021-10-13T00:00:00Z,Saturno,GT 17896,Chelonia mydas,1,61.5,66.5,NA,NA,Indefinido
+2021-10-13T00:00:00Z,Rita - recaptura,GT 17873,Chelonia mydas,2,70.6,74,NA,NA,Hembra
+2021-10-13T00:00:00Z,Chiquilina - Recaptura,GT 5259,Chelonia mydas,2,72,75.2,NA,NA,Hembra
+2021-10-30T00:00:00Z,Gloria-recapturas,GT 16969,Chelonia mydas,2,60.3,64.2,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Zumyko,GT 17902,Chelonia mydas,1,58,65,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Trinidad,GT 17904,Chelonia mydas,2,64,65.1,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Jose A.,GT 17905,Chelonia mydas,1,74.5,83.4,NA,NA,Hembra
+2021-10-30T00:00:00Z,La Mosca,GT 17908,Chelonia mydas,1,68.8,74,NA,NA,Hembra
+2021-10-30T00:00:00Z,Ema-recaptura,GT 16966,Chelonia mydas,2,61.2,65,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Cesilia,GT 17910,Chelonia mydas,1,64,70,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Pilar,GT 17912,Chelonia mydas,2,63.5,69,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Meredith,GT 17914,Chelonia mydas,2,64,65.7,NA,NA,Indefinido
+2021-10-30T00:00:00Z,Alicia B.,GT 17916,Chelonia mydas,1,66,68.7,NA,NA,Indefinido
 2021-11-06T00:00:00Z,Lucio,GT 17917,Chelonia mydas,1,62.5,63.8,Isla San Pedro Mártir,isla,Indefinido
 2021-11-06T00:00:00Z,Dakk,GT 17920,Chelonia mydas,1,51.2,54.2,Isla San Pedro Mártir,isla,Indefinido
 2021-11-06T00:00:00Z,Paylu,GT 17922,Chelonia mydas,1,50.5,51,Isla San Pedro Mártir,isla,Indefinido
@@ -731,13 +731,13 @@ NA,Recod,GT 16991,Chelonia mydas,1,55.5,53,Laguna La Cruz,estuario,Indefinido
 2021-11-10T00:00:00Z,Lilian-recaptura,GT 15719,Chelonia mydas,2,68.5,73.4,Laguna La Cruz,estuario,Indefinido
 2021-11-10T00:00:00Z,Tayson,GT 17931,Chelonia mydas,1,63,65.9,Laguna La Cruz,estuario,Indefinido
 2021-11-10T00:00:00Z,Sasha,GT 17933,Chelonia mydas,2,53.7,60,Laguna La Cruz,estuario,Indefinido
-2021-11-27T00:00:00Z,Delfina,GT 17936,Chelonia mydas,1,68.7,69.6,Laguna La Cruz,estuario,Indefinido
-2021-11-27T00:00:00Z,Patty,GT 17938,Chelonia mydas,1,84.6,90.5,Laguna La Cruz,estuario,Hembra
-2021-11-27T00:00:00Z,Ximena,GT 17940,Chelonia mydas,1,71.5,71.5,Laguna La Cruz,estuario,Indefinido
-2021-11-27T00:00:00Z,Carlota,GT 17942,Chelonia mydas,1,61.7,69.1,Laguna La Cruz,estuario,Indefinido
-2021-11-27T00:00:00Z,Sasha-recaptura,GT 17933,Chelonia mydas,2,53.5,60,Laguna La Cruz,estuario,Indefinido
-2021-11-27T00:00:00Z,Diabla azul-recaptura,GT 11484,Chelonia mydas,2,73,78,Laguna La Cruz,estuario,Hembra
-2021-11-27T00:00:00Z,Irene,GT 17943,Chelonia mydas,1,56,59,Laguna La Cruz,estuario,Indefinido
+2021-11-27T00:00:00Z,Delfina,GT 17936,Chelonia mydas,1,68.7,69.6,NA,NA,Indefinido
+2021-11-27T00:00:00Z,Patty,GT 17938,Chelonia mydas,1,84.6,90.5,NA,NA,Hembra
+2021-11-27T00:00:00Z,Ximena,GT 17940,Chelonia mydas,1,71.5,71.5,NA,NA,Indefinido
+2021-11-27T00:00:00Z,Carlota,GT 17942,Chelonia mydas,1,61.7,69.1,NA,NA,Indefinido
+2021-11-27T00:00:00Z,Sasha-recaptura,GT 17933,Chelonia mydas,2,53.5,60,NA,NA,Indefinido
+2021-11-27T00:00:00Z,Diabla azul-recaptura,GT 11484,Chelonia mydas,2,73,78,NA,NA,Hembra
+2021-11-27T00:00:00Z,Irene,GT 17943,Chelonia mydas,1,56,59,NA,NA,Indefinido
 2021-12-03T00:00:00Z,Renata Valentina,GT 17945,Caretta caretta,1,60,65,Isla Tiburon,isla,Indefinido
 2021-12-23T00:00:00Z,Regina Estrella,GT 17947,Chelonia mydas,1,62,68.5,Isla San Pedro Mártir,isla,Indefinido
 2021-12-23T00:00:00Z,Niko,GT 17949,Chelonia mydas,1,59,61,Isla San Pedro Mártir,isla,Indefinido
@@ -749,42 +749,42 @@ NA,Recod,GT 16991,Chelonia mydas,1,55.5,53,Laguna La Cruz,estuario,Indefinido
 2021-12-23T00:00:00Z,Guadalupe-recaptura,GT 10153,Chelonia mydas,2,64,72.3,Isla San Pedro Mártir,isla,Indefinido
 2021-12-27T00:00:00Z,X,X,NA,9,NA,NA,Laguna La Cruz,estuario,NA
 2022-02-08T00:00:00Z,X,X,NA,9,NA,NA,Laguna La Cruz,estuario,NA
-2023-02-24T00:00:00Z,Amelie,GT 17962,Chelonia mydas,1,71,81,Laguna La Cruz,estuario,Hembra
-2022-03-09T00:00:00Z,X,X,NA,9,NA,NA,Laguna La Cruz,estuario,NA
-2022-03-11T00:00:00Z,Anguel-recaptura,GT 16908,Chelonia mydas,2,63,68,Laguna La Cruz,estuario,Indefinido
-2022-03-11T00:00:00Z,Cochise,GT 17963,Chelonia mydas,2,62,66,Laguna La Cruz,estuario,Indefinido
-2022-03-26T00:00:00Z,Pablo,GT 17965,Chelonia mydas,1,61,67.5,Laguna La Cruz,estuario,Indefinido
-2022-03-26T00:00:00Z,Sasha,GT 17967,Chelonia mydas,1,64,69.5,Laguna La Cruz,estuario,Indefinido
-2022-03-26T00:00:00Z,M. Boyer,GT 17969,Chelonia mydas,1,63.5,67.5,Laguna La Cruz,estuario,Indefinido
-2022-03-26T00:00:00Z,Big Berta,GT 17971,Chelonia mydas,1,74.3,84,Laguna La Cruz,estuario,Hembra
-2022-03-26T00:00:00Z,Gallejo,GT 17973,Chelonia mydas,1,60,63.4,Laguna La Cruz,estuario,Indefinido
-2022-03-26T00:00:00Z,Pioneras,GT 17975,Chelonia mydas,2,71,76.5,Laguna La Cruz,estuario,Hembra
-2022-03-26T00:00:00Z,Blanquita,GT 17977,Chelonia mydas,1,62.3,63.5,Laguna La Cruz,estuario,Indefinido
-2022-03-26T00:00:00Z,Sarahi,GT 17979,Chelonia mydas,1,68.7,68,Laguna La Cruz,estuario,Indefinido
+2023-02-24T00:00:00Z,Amelie,GT 17962,Chelonia mydas,1,71,81,NA,NA,Hembra
+2022-03-09T00:00:00Z,X,X,NA,9,NA,NA,NA,NA,NA
+2022-03-11T00:00:00Z,Anguel-recaptura,GT 16908,Chelonia mydas,2,63,68,NA,NA,Indefinido
+2022-03-11T00:00:00Z,Cochise,GT 17963,Chelonia mydas,2,62,66,NA,NA,Indefinido
+2022-03-26T00:00:00Z,Pablo,GT 17965,Chelonia mydas,1,61,67.5,NA,NA,Indefinido
+2022-03-26T00:00:00Z,Sasha,GT 17967,Chelonia mydas,1,64,69.5,NA,NA,Indefinido
+2022-03-26T00:00:00Z,M. Boyer,GT 17969,Chelonia mydas,1,63.5,67.5,NA,NA,Indefinido
+2022-03-26T00:00:00Z,Big Berta,GT 17971,Chelonia mydas,1,74.3,84,NA,NA,Hembra
+2022-03-26T00:00:00Z,Gallejo,GT 17973,Chelonia mydas,1,60,63.4,NA,NA,Indefinido
+2022-03-26T00:00:00Z,Pioneras,GT 17975,Chelonia mydas,2,71,76.5,NA,NA,Hembra
+2022-03-26T00:00:00Z,Blanquita,GT 17977,Chelonia mydas,1,62.3,63.5,NA,NA,Indefinido
+2022-03-26T00:00:00Z,Sarahi,GT 17979,Chelonia mydas,1,68.7,68,NA,NA,Indefinido
 2022-03-30T00:00:00Z,Bean Groover,GT 17981,Chelonia mydas,1,71,74,Isla San Pedro Mártir,isla,Macho
-2022-04-09T00:00:00Z,Suzyq,GT 17983,Chelonia mydas,1,61.6,69.5,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,La Cruz,GT 17985,Chelonia mydas,1,69.5,71.9,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Bisbee,GT 17987,Chelonia mydas,1,68.2,73.3,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Jieyi,GT 17989,Chelonia mydas,1,65.5,70,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Pluton,GT 17991,Chelonia mydas,1,64.5,67,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Nano - Recaptura,GT 16989,Chelonia mydas,2,62.5,67.5,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,guasimodo,GT 17993,Chelonia mydas,1,65.2,67.5,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Amira,GT 17995,Chelonia mydas,1,68.2,73,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Pandemia - Recaptura,GT 17997,Chelonia mydas,1,63,64,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Cochise - recaptura,GT 17963,Chelonia mydas,2,63,67,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Toby,GT 17998,Chelonia mydas,2,63,67,Laguna La Cruz,estuario,Indefinido
-2022-04-09T00:00:00Z,Malena,GT 18000,Chelonia mydas,1,72,72,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Jose Eduardo,GT 18801,Chelonia mydas,1,65,65.5,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Albus,GT 18803,Chelonia mydas,1,71.3,74,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Tete,GT 18805,Chelonia mydas,1,60.7,69.4,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Ramiro-recaptura,GT 15701,Chelonia mydas,2,67,70.6,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Lola,GT 18807,Chelonia mydas,1,66.5,74,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Franky,GT 18809,Chelonia mydas,1,56.3,60,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Amelie-recaptura,GT 17961,Chelonia mydas,1,71.5,81,Laguna La Cruz,estuario,Hembra
-2022-05-07T00:00:00Z,Pioneras-recaptura,GT 17975,Chelonia mydas,2,70.2,76.8,Laguna La Cruz,estuario,Hembra
-2022-05-07T00:00:00Z,Jordan,GT 18811,Chelonia mydas,1,57.3,62.5,Laguna La Cruz,estuario,Indefinido
-2022-05-07T00:00:00Z,Calambrina-recaptura,GT 16996,Chelonia mydas,2,74,77.5,Laguna La Cruz,estuario,Hembra
-2022-05-07T00:00:00Z,Juan Santiego,GT 11527,Chelonia mydas,1,51.3,58,Laguna La Cruz,estuario,Indefinido
+2022-04-09T00:00:00Z,Suzyq,GT 17983,Chelonia mydas,1,61.6,69.5,NA,NA,Indefinido
+2022-04-09T00:00:00Z,La Cruz,GT 17985,Chelonia mydas,1,69.5,71.9,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Bisbee,GT 17987,Chelonia mydas,1,68.2,73.3,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Jieyi,GT 17989,Chelonia mydas,1,65.5,70,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Pluton,GT 17991,Chelonia mydas,1,64.5,67,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Nano - Recaptura,GT 16989,Chelonia mydas,2,62.5,67.5,NA,NA,Indefinido
+2022-04-09T00:00:00Z,guasimodo,GT 17993,Chelonia mydas,1,65.2,67.5,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Amira,GT 17995,Chelonia mydas,1,68.2,73,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Pandemia - Recaptura,GT 17997,Chelonia mydas,1,63,64,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Cochise - recaptura,GT 17963,Chelonia mydas,2,63,67,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Toby,GT 17998,Chelonia mydas,2,63,67,NA,NA,Indefinido
+2022-04-09T00:00:00Z,Malena,GT 18000,Chelonia mydas,1,72,72,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Jose Eduardo,GT 18801,Chelonia mydas,1,65,65.5,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Albus,GT 18803,Chelonia mydas,1,71.3,74,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Tete,GT 18805,Chelonia mydas,1,60.7,69.4,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Ramiro-recaptura,GT 15701,Chelonia mydas,2,67,70.6,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Lola,GT 18807,Chelonia mydas,1,66.5,74,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Franky,GT 18809,Chelonia mydas,1,56.3,60,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Amelie-recaptura,GT 17961,Chelonia mydas,1,71.5,81,NA,NA,Hembra
+2022-05-07T00:00:00Z,Pioneras-recaptura,GT 17975,Chelonia mydas,2,70.2,76.8,NA,NA,Hembra
+2022-05-07T00:00:00Z,Jordan,GT 18811,Chelonia mydas,1,57.3,62.5,NA,NA,Indefinido
+2022-05-07T00:00:00Z,Calambrina-recaptura,GT 16996,Chelonia mydas,2,74,77.5,NA,NA,Hembra
+2022-05-07T00:00:00Z,Juan Santiego,GT 11527,Chelonia mydas,1,51.3,58,NA,NA,Indefinido
 2022-05-08T00:00:00Z,Tecateras,GT 18813,Chelonia mydas,1,76.2,84.5,Laguna La Cruz,estuario,Hembra
 2022-05-08T00:00:00Z,Ultra-recaptura,GT 15845,Chelonia mydas,2,56.8,62,Laguna La Cruz,estuario,Indefinido
 2022-05-08T00:00:00Z,Michel,GT 18824,Chelonia mydas,1,80.5,89,Laguna La Cruz,estuario,Hembra
@@ -814,12 +814,12 @@ NA,Recod,GT 16991,Chelonia mydas,1,55.5,53,Laguna La Cruz,estuario,Indefinido
 2022-06-05T00:00:00Z,Karina,GT 18847,Chelonia mydas,1,57.4,60.5,Laguna La Cruz,estuario,Indefinido
 2022-06-05T00:00:00Z,Hector Adrian.Recaptura,GT 16942,Chelonia mydas,2,60.8,68,Laguna La Cruz,estuario,Indefinido
 2022-06-05T00:00:00Z,Lucero Virgen,GT 18851,Chelonia mydas,1,61,67,Laguna La Cruz,estuario,Indefinido
-2022-06-21T00:00:00Z,Griselda,GT 15738,Chelonia mydas,2,61,64,Laguna La Cruz,estuario,Indefinido
-2022-06-21T00:00:00Z,Juan Santiego-Recaptura,GT 11528,Chelonia mydas,1,52.2,58.3,Laguna La Cruz,estuario,Indefinido
-2022-06-21T00:00:00Z,Iker,GT 18855,Chelonia mydas,1,65.5,67,Laguna La Cruz,estuario,Indefinido
-2022-06-21T00:00:00Z,Anwar,GT 18857,Chelonia mydas,1,67,70.5,Laguna La Cruz,estuario,Indefinido
-2022-06-21T00:00:00Z,Iris Daniela,GT 18859,Chelonia mydas,1,77.4,77.8,Laguna La Cruz,estuario,Hembra
-2022-06-21T00:00:00Z,Manuel Luna,GT 18861,Chelonia mydas,1,60.6,63.7,Laguna La Cruz,estuario,Indefinido
+2022-06-21T00:00:00Z,Griselda,GT 15738,Chelonia mydas,2,61,64,NA,NA,Indefinido
+2022-06-21T00:00:00Z,Juan Santiego-Recaptura,GT 11528,Chelonia mydas,1,52.2,58.3,NA,NA,Indefinido
+2022-06-21T00:00:00Z,Iker,GT 18855,Chelonia mydas,1,65.5,67,NA,NA,Indefinido
+2022-06-21T00:00:00Z,Anwar,GT 18857,Chelonia mydas,1,67,70.5,NA,NA,Indefinido
+2022-06-21T00:00:00Z,Iris Daniela,GT 18859,Chelonia mydas,1,77.4,77.8,NA,NA,Hembra
+2022-06-21T00:00:00Z,Manuel Luna,GT 18861,Chelonia mydas,1,60.6,63.7,NA,NA,Indefinido
 2022-06-22T00:00:00Z,Tomioka,GT 18862,Chelonia mydas,1,72,73,Laguna La Cruz,estuario,Indefinido
 2022-06-22T00:00:00Z,Samy.Recaptura,GT 15792,Chelonia mydas,2,NA,79,Laguna La Cruz,estuario,Hembra
 2022-06-22T00:00:00Z,Simon,GT 18864,Chelonia mydas,1,70,72.5,Laguna La Cruz,estuario,Indefinido
@@ -852,7 +852,7 @@ NA,Recod,GT 16991,Chelonia mydas,1,55.5,53,Laguna La Cruz,estuario,Indefinido
 2022-08-06T00:00:00Z,Roseli,GT 19107,Chelonia mydas,1,65.5,68,Laguna La Cruz,estuario,Indefinido
 2022-08-18T00:00:00Z,X,X,NA,9,NA,NA,Laguna La Cruz,estuario,NA
 2022-09-03T00:00:00Z,Sina,GT 19110,Chelonia mydas,1,67.3,70.5,Laguna La Cruz,estuario,Indefinido
-2022-09-03T00:00:00Z,Jango-recaptura,GT 11489,Chelonia mydas,3,83,88.5,Laguna La Cruz,estuario,Hembra
+2022-09-03T00:00:00Z,Jango-recaptura,GT 11489,Chelonia mydas,3,83,88.5,NA,NA,Hembra
 2022-09-06T00:00:00Z,Amayrani,GT 19112,Lepidochelys olivacea,1,72,64,Playa,playa,Hembra
 2022-09-11T00:00:00Z,Rugal,GT 19114,Chelonia mydas,1,73.5,79.4,Isla San Pedro Mártir,isla,Macho
 2022-09-11T00:00:00Z,Bastian,GT 19116,Chelonia mydas,1,59.6,63,Isla San Pedro Mártir,isla,Indefinido
@@ -870,12 +870,12 @@ NA,Recod,GT 16991,Chelonia mydas,1,55.5,53,Laguna La Cruz,estuario,Indefinido
 2022-10-16T00:00:00Z,Cochiwera-recaptura,GT 16906,Chelonia mydas,2,66.3,67.8,NA,NA,Indefinido
 2022-10-16T00:00:00Z,Kaleca,GT 19135,Chelonia mydas,1,67.5,67.2,NA,NA,Indefinido
 2022-10-16T00:00:00Z,Valentin V.,GT 19137,Chelonia mydas,1,65.2,70.7,Laguna La Cruz,estuario,Indefinido
-2022-11-01T00:00:00Z,TGN-Recaptura,GT 15814,Chelonia mydas,2,76,84,Laguna La Cruz,estuario,Hembra
+2022-11-01T00:00:00Z,TGN-Recaptura,GT 15814,Chelonia mydas,2,76,84,NA,NA,Hembra
 2022-11-08T00:00:00Z,Cathy-recaptura,GT 1587,Chelonia mydas,1,65.2,70.6,Isla San Pedro Mártir,isla,Indefinido
 2022-11-08T00:00:00Z,Zophia,GT 19139,Chelonia mydas,1,62,70.8,Isla San Pedro Mártir,isla,Indefinido
 2022-11-08T00:00:00Z,Celine Dian,GT 19142,Chelonia mydas,1,60,63,Isla San Pedro Mártir,isla,Indefinido
 2022-11-18T00:00:00Z,Pablo,GT 19144,Chelonia mydas,1,75,77.3,Laguna La Cruz,estuario,Hembra
 2022-11-18T00:00:00Z,Carmela-recaptura,GT 19145,Chelonia mydas,1,86.1,89,Laguna La Cruz,estuario,Hembra
 2022-11-18T00:00:00Z,Pancho Villa,GT 19147,Chelonia mydas,1,70,76,Laguna La Cruz,estuario,Hembra
-2022-11-29T00:00:00Z,Michelle,GT 19199,Chelonia mydas,1,74,83,Laguna La Cruz,estuario,Hembra
-2022-11-29T00:00:00Z,Alicia-recaptura,GT 12249,Chelonia mydas,2,60,62.5,Laguna La Cruz,estuario,Indefinido
+2022-11-29T00:00:00Z,Michelle,GT 19199,Chelonia mydas,1,74,83,NA,NA,Hembra
+2022-11-29T00:00:00Z,Alicia-recaptura,GT 12249,Chelonia mydas,2,60,62.5,NA,NA,Indefinido
