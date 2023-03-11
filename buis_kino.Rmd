@@ -76,6 +76,10 @@ turtle_measures <- full_join(GTBK_turtle_measures, buis_turtle_measures)
 
 turtle_measures <- turtle_measures %>% 
   mutate(year = year(CDate))
+
+turtle_measures <- turtle_measures %>% 
+  mutate(organization = 
+           if_else(location == "Buck Island", "BISTRP", "GTBK"))
 ```
 
 ## Exploratory Data Visualization
@@ -84,11 +88,11 @@ turtle_measures <- turtle_measures %>%
 turtle_measures %>% 
   filter(sp == "Chelonia mydas",
          sex == "female",
-         year == "2022") %>% 
+         year == "2022",
+         location != "NA") %>% 
   ggplot(aes(x = sp, y = cclnuct)) +
-  geom_violin() +
+  geom_violin(fill = "chartreuse4") +
   facet_wrap(~ location) +
-  scale_fill_manual(values = c("chartreuse4")) + 
   theme_minimal() +
   labs(title = "Curved Carapace Length of Female Green Sea Turtles",
        subtitle = "Measured on Buck Island, USVI and in Kino Bay, Mexico",
@@ -96,8 +100,8 @@ turtle_measures %>%
        y = "Curved Carapace Length (cm)",
        fill = "Species")
 
+#The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
-
 
 
 ## Final Visualizations
