@@ -282,10 +282,12 @@ GTBK_data <- GTBK_data %>%
               muestra_cont_estom, muestra_sangre_2, muestra_piel_2, muestra_cont_estom_2, otra_muestra, otra_muestra_2,               especificar, especificar_2, lesiones_balanos, lesiones_balanos_2, foto, foto_2, id_2, id_3))
 ```
 
-```{r write-GTBK-data-csv}
+```{r write-csv-GTBK-measures}
 
-write_csv(GTBK_data, file = "data/GTBK_data")
+GTBK_turtle_measures <- GTBK_data %>%
+  select(fecha, nombre_tortuga, marca_nombre, especie_nombre_latino, numero_recaptura, a_c_c,, l_c_c, lugar, geografía, sexo_correcto)
   
+write_csv(GTBK_turtle_measures, file = ("data/GTBK_turtle_measures"))
 ```
 
 ## Counts
