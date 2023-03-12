@@ -495,8 +495,8 @@ full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
 
 # This code chunk is not to be messed with under any circumstance!
 #GTBK_data <- 
-GTBK_data %>%
-  mutate(yearmonth = ym(paste(año, mes, sep = "-")))
+# GTBK_data %>%
+#   mutate(yearmonth = ym(paste(año, mes, sep = "-")))
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
   filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
@@ -506,12 +506,15 @@ tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
   group_by(mes, año) %>%
   summarize(total_turtles = sum(turtles, na.rm = T))
 
-tiempo <- GTBK_data %>%    # of times they went out
+tiempo <- 
+  GTBK_data %>%    # of times they went out
   distinct(fecha, mes, año) %>%
   group_by(mes, año) %>%
   summarize(effort = n())
 
-# full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
+full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año")) #%>%
+
+# It looks like something is going on where the "tiempo" data frame is returning the same values for each year, month as the tortugas_por_tiempo dataframe, which means one of them isn't returning the right numbers (I have no idea which one is the problem). I think we need to sit down with Laurie again. 
 #    mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
 #    select(mes, tortugas_por_esfuerzo) %>%
 #    ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
