@@ -28,6 +28,7 @@ library(gganimate)
 library(ggimage)
 library(ggplot2)
 library(gifski)
+library(png)
 ```
 
 
@@ -36,6 +37,8 @@ buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv",
     col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
 
 GTBK_turtle_measures <- read_csv("/cloud/project/data/GTBK_turtle_measures.csv")
+
+GTBK <- read_csv("/cloud/project/data/GTBK_data.csv")
 ```
 
 ## Data Cleaning
@@ -111,33 +114,33 @@ turtle_measures %>%
 
 ## Finalize this visualization, edit color and text, etc.
 
-turtle_measures %>% 
-  filter(year == "2022",
-         sp == "Chelonia mydas",
-         sex == "female") %>% 
-ggbetweenstats(organization, cclnuct,
-               plot.type = "boxviolin",
-               title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
-               subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
-               xlab = "Organization",
-               ylab = "Curved Carapace Length (cm)",
-               results.subtitle = FALSE,
-               package = "RColorBrewer",
-               palette = "Dark2") +
-  theme(
-    axis.ticks = element_blank(),
-    axis.line = element_line(colour = "grey50"),
-    panel.grid = element_line(color = "#b4aea9"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(linetype = "dashed"),
-    panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
-    plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
-
-# source: https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html
+# turtle_measures %>% 
+#   filter(year == "2022",
+#          sp == "Chelonia mydas",
+#          sex == "female") %>% 
+# ggbetweenstats(organization, cclnuct,
+#                plot.type = "boxviolin",
+#                title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
+#                subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
+#                xlab = "Organization",
+#                ylab = "Curved Carapace Length (cm)",
+#                results.subtitle = FALSE,
+#                package = "RColorBrewer",
+#                palette = "Dark2") +
+#   theme(
+#     axis.ticks = element_blank(),
+#     axis.line = element_line(colour = "grey50"),
+#     panel.grid = element_line(color = "#b4aea9"),
+#     panel.grid.minor = element_blank(),
+#     panel.grid.major.x = element_blank(),
+#     panel.grid.major.y = element_line(linetype = "dashed"),
+#     panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
+#     plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
+# 
+# # source: https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html
 ```
 
-```{r turtle-demographics-by-organization, fig.width = 6, fig. height = 4}
+```{r turtle-demographics-by-organization, fig.width = 6, fig.height = 4}
 turtle_measures %>% 
   mutate(species = case_when(
     sp == "Chelonia mydas" ~ "Chelonia mydas (GR)",
@@ -221,12 +224,45 @@ turtle_measures %>%
 ```
 
 
-```{r GTBK-time-enabled-individual-growth}
-turtle_measures %>%
-  group_by(PrimaryTag) %>%
-  count(cclnuct) %>%
-  filter(n >= 2)
+```{r GTBK-time-enabled-turtle-growth}
+GTBK$fecha = as.Date(GTBK$fecha)
 
+GTBK <- GTBK %>% 
+  mutate(year = year(fecha))
+
+GTBK <- GTBK %>% 
+  subset(select = c(fecha, year, lugar, geografía, marca_nombre, nombre_tortuga, especie_nombre_latino, sexo_correcto, l_c_c, a_c_c, p_c, l_t_c, numero_recaptura))
+
+GTBK %>% 
+  group_by(marca_nombre) %>% 
+  filter(numero_recaptura >= 3) %>% 
+  count()
+
+
+
+# GTBK %>% 
+#   filter(marca_nombre == "GT 12261" |            #Juana
+#        marca_nombre == "GT 1569" |               #originally Julian, now Pepe (lol)
+#        marca_nombre == "GT 5297" )  %>%          #Elvia
+#   mutate(marca_nombre = case_when(
+#     marca_nombre == "GT 12261" ~ "JUANA (GT 12261)",
+#     marca_nombre == "GT 1569" ~ "PEPE (GT 1569)",
+#     marca_nombre == "GT 5297" ~ "ELVIA (GT 5297)"
+#   )) %>% 
+#   ggplot(aes(x = year, y = l_c_c, size = l_c_c, group = marca_nombre, color = marca_nombre)) +
+#   # geom_line(size = 1, show.legend = FALSE) +
+#   geom_point(alpha = 0.7, show.legend = FALSE) +
+#   geom_path() +
+#   scale_size(range = c(2, 6)) +
+#   scale_colour_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
+#   # facet_wrap(~ marca_nombre) +
+#   coord_fixed(ratio = 0.3) +
+#   labs(title = "Growth of 3 Individual Female Green Sea Turtles Over Time",
+#        subtitle = "in Laguna la Cruz, Kino Bay, Mexico",
+#        x = "Year",
+#        y = "Curved Carapace Length (cm)") +
+#   theme_bw() +
+#   transition_reveal(fecha)
 
 ```
 
