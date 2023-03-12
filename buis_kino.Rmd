@@ -23,6 +23,9 @@ library(RColorBrewer)
 install.packages("ggstats")
 install.packages("ggstatsplot")
 library(ggstats)
+library(GGally)
+library(gganimate)
+library(gifski)
 # install.packages("regeoboundaries")
 library(rgeoboundaries)
 # install.packages("remotes")
@@ -114,8 +117,23 @@ turtle_measures %>%
 ggbetweenstats(organization, cclnuct,
                plot.type = "boxviolin",
                title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
+               subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
                xlab = "Organization",
-               ylab = "Curved Carapace Length (cm)")
+               ylab = "Curved Carapace Length (cm)",
+               results.subtitle = FALSE,
+               package = "RColorBrewer",
+               palette = "Dark2") +
+  theme(
+    axis.ticks = element_blank(),
+    axis.line = element_line(colour = "grey50"),
+    panel.grid = element_line(color = "#b4aea9"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linetype = "dashed"),
+    panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
+    plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
+
+# source: https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html
 ```
 
 ```{r turtle-demographics-by-organization, fig.width = 6, fig. height = 4}
@@ -134,7 +152,7 @@ turtle_measures %>%
   scale_x_discrete(labels = c("GR", "HB", "OR")) +
   facet_wrap(~ organization) +
   theme_bw() + 
-  labs(title = "Demographics of Sea Turtles Monitored by BISTRP and GTBK",
+  labs(title = "Species Demographics of Sea Turtles Monitored by BISTRP and GTBK",
        subtitle = "During the 2022 Monitoring Season",
        x = "Species",
        y = "Number of Turtles",
@@ -149,6 +167,67 @@ turtle_measures %>%
         legend.text = element_text(size = 11, family = "Helvetica"),
         legend.title = element_text(size = 13, family = "Helvetica")) +
     guides(color = guide_legend(override.aes = list(size = 1)))
+
+```
+
+```{r GTBK-turtle-demographics-by-location}
+turtle_measures %>% 
+  mutate(species = case_when(
+    sp == "Chelonia mydas" ~ "Chelonia mydas (GR)",
+    sp == "Eretmochelys imbricata" ~ "Eretmochelys imbricata (HB)",
+    sp == "Lepidochelys olivacea" ~ "Lepidochelys olivacea (OR)")) %>% 
+  filter(organization == "BISTRP" |
+         organization == "GTBK") %>% 
+  filter(year == "2022") %>% 
+  filter(sp != "NA") %>% 
+  ggplot(aes(x = species, fill = sex)) +
+  geom_bar(alpha = 0.8) + 
+  scale_fill_manual(values = c("mediumorchid4", "goldenrod1", "aquamarine3")) +
+  scale_x_discrete(labels = c("GR", "HB", "OR")) +
+  facet_wrap(~ organization) +
+  theme_bw() + 
+  labs(title = "Sex Distribution of Sea Turtles Monitored by BISTRP and GTBK",
+       subtitle = "During the 2022 Monitoring Season",
+       x = "Species",
+       y = "Number of Turtles",
+       fill = "Sex") +
+  theme(plot.title = element_text(size = 15, family = "Helvetica"),
+        plot.subtitle = element_text(size = 13, family = "Helvetica"),
+        strip.text.x = element_text(size = 13, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 13, family = "Helvetica", vjust = 0.1),
+        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 0.2),
+        axis.text.x = element_text(size = 11, family = "Helvetica"),
+        axis.text.y = element_text(size = 11, family = "Helvetica"),
+        legend.text = element_text(size = 11, family = "Helvetica"),
+        legend.title = element_text(size = 13, family = "Helvetica")) +
+    guides(color = guide_legend(override.aes = list(size = 1)))
+
+```
+
+```{r GTBK-measurements-parallel-coordinates}
+turtle_measures %>% 
+  filter(year == "2022") %>%
+  ggparcoord(columns = 5:6, groupColumn = 3,
+             showPoints = TRUE,
+             alphaLines = 0.3
+             )
+  
+#learn more about this type of plot. what is the y axis? then maybe use a parallel coordinates chart to map 4 measurements GTBK recorded on each turtle. decide what filters to apply to the data and which groups to compare (species? sex?)
+```
+```{r GTBK-time-enabled-individual-growth}
+#use gganimate to focus in on between 3-5 individual turtles and time enable a geom_point/geom_line graph of their growth
+
+# Make a ggplot, but add frame=year: one image per year
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  # Here comes the gganimate specific bits
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year) +
+  ease_aes('linear')
 
 ```
 
