@@ -29,6 +29,7 @@ library(ggimage)
 library(ggplot2)
 library(gifski)
 library(png)
+library(transformr)
 ```
 
 
@@ -208,7 +209,7 @@ turtle_measures %>%
 
 ```
 
-```{r GTBK-measurements-parallel-coordinates}
+```{r GTBK-measurements-parallel-coordinates-experiment}
 turtle_measures %>% 
   filter(year == "2022" |
          year == "2016" |
@@ -224,7 +225,7 @@ turtle_measures %>%
 ```
 
 
-```{r GTBK-time-enabled-turtle-growth}
+```{r GTBK-static-turtle-growth, fig.width = 10, fig.height = 6}
 GTBK$fecha = as.Date(GTBK$fecha)
 
 GTBK <- GTBK %>% 
@@ -240,29 +241,56 @@ GTBK %>%
 
 
 
-# GTBK %>% 
-#   filter(marca_nombre == "GT 12261" |            #Juana
-#        marca_nombre == "GT 1569" |               #originally Julian, now Pepe (lol)
-#        marca_nombre == "GT 5297" )  %>%          #Elvia
-#   mutate(marca_nombre = case_when(
-#     marca_nombre == "GT 12261" ~ "JUANA (GT 12261)",
-#     marca_nombre == "GT 1569" ~ "PEPE (GT 1569)",
-#     marca_nombre == "GT 5297" ~ "ELVIA (GT 5297)"
-#   )) %>% 
-#   ggplot(aes(x = year, y = l_c_c, size = l_c_c, group = marca_nombre, color = marca_nombre)) +
-#   # geom_line(size = 1, show.legend = FALSE) +
-#   geom_point(alpha = 0.7, show.legend = FALSE) +
-#   geom_path() +
-#   scale_size(range = c(2, 6)) +
-#   scale_colour_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
-#   # facet_wrap(~ marca_nombre) +
-#   coord_fixed(ratio = 0.3) +
-#   labs(title = "Growth of 3 Individual Female Green Sea Turtles Over Time",
-#        subtitle = "in Laguna la Cruz, Kino Bay, Mexico",
-#        x = "Year",
-#        y = "Curved Carapace Length (cm)") +
-#   theme_bw() +
-#   transition_reveal(fecha)
+GTBK %>%
+  filter(marca_nombre == "GT 12261" |            #Juana
+       marca_nombre == "GT 1569" |               #originally Julian, now Pepe (lol)
+       marca_nombre == "GT 5297" )  %>%          #Elvia
+  mutate(marca_nombre = case_when(
+    marca_nombre == "GT 12261" ~ "JUANA (GT 12261)",
+    marca_nombre == "GT 1569" ~ "PEPE (GT 1569)",
+    marca_nombre == "GT 5297" ~ "ELVIA (GT 5297)"
+  )) %>%
+  ggplot(aes(x = year, y = l_c_c, size = l_c_c, color = marca_nombre)) +
+  geom_line(linewidth = 1, show.legend = FALSE) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_size(range = c(2, 6)) +
+  scale_colour_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
+  facet_wrap(~ marca_nombre) +
+  coord_fixed(ratio = 0.3) +
+  labs(title = "Growth of 3 Individual Female Green Sea Turtles Over Time",
+       subtitle = "in Laguna la Cruz, Kino Bay, Mexico",
+       x = "Year",
+       y = "Curved Carapace Length (cm)") +
+  theme_bw() 
+
+```
+
+```{r time-enabled-turtle-growth, fig.width = 10, fig.height = 6}
+GTBK$year = as.integer(GTBK$year)
+
+GTBK %>%
+  filter(marca_nombre %in% c(
+    "GT 12261",
+    "GT 1569",
+    "GT 5297")) %>%
+  mutate(marca_nombre = case_when(
+    marca_nombre == "GT 12261" ~ "JUANA (GT 12261)",
+    marca_nombre == "GT 1569" ~ "PEPE (GT 1569)",
+    marca_nombre == "GT 5297" ~ "ELVIA (GT 5297)"
+  )) %>%
+  ggplot(aes(year, l_c_c, color = marca_nombre)) +
+  geom_line(size = 1, alpha = 0.9, show.legend = FALSE) +
+  geom_point(aes(group = year), size = 4, alpha = 0.7, show.legend = FALSE) +
+    scale_color_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
+    facet_wrap(~ marca_nombre) +
+  coord_fixed(ratio = 0.3) +
+  theme_bw() +
+  labs(title = "Growth of 3 Individual Female Green Sea Turtles in Laguna la Cruz, Mexico",
+       subtitle = "Year: {frame_time}",
+       x = "Year",
+       y = "Curved Carapace Length (cm)") +
+  transition_reveal(along = year) +
+  ease_aes('linear')
 
 ```
 
