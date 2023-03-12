@@ -206,7 +206,11 @@ turtle_measures %>%
 
 ```{r GTBK-measurements-parallel-coordinates}
 turtle_measures %>% 
-  filter(year == "2022") %>%
+  filter(year == "2022" |
+         year == "2016" |
+         year == "2018" |
+         year == "2020",
+         organization == "GTBK") %>%
   ggparcoord(columns = 5:6, groupColumn = 3,
              showPoints = TRUE,
              alphaLines = 0.3
@@ -214,6 +218,8 @@ turtle_measures %>%
   
 #learn more about this type of plot. what is the y axis? then maybe use a parallel coordinates chart to map 4 measurements GTBK recorded on each turtle. decide what filters to apply to the data and which groups to compare (species? sex?)
 ```
+
+
 ```{r GTBK-time-enabled-individual-growth}
 #use gganimate to focus in on between 3-5 individual turtles and time enable a geom_point/geom_line graph of their growth
 
