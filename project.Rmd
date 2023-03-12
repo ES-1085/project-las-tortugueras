@@ -477,11 +477,10 @@ GTBK_data <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha))
 
-# GTBK_data %>%
-#   parse_date_time(GTBK_data$mes, "m")
-# 
-# GTBK_data %>% 
-#   parse_date_time(GTBK_data$año, "Y")
+
+as.integer(GTBK_data$mes)
+as.integer(GTBK_data$año)
+
 
 GTBK_outings <- GTBK_data %>%
       group_by(mes) %>%
@@ -497,6 +496,27 @@ full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
    select(mes, tortugas_por_esfuerzo) %>%
    ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
    geom_col() 
+
+```
+
+```{r individual_recaps_sankey}
+# install.packages("ggalluvial")
+# library(ggalluvial)
+
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(3,4)) %>%
+  mutate(yearmonth = paste(año, mes, sep = "-")) %>%
+  select(marca_nombre, año) %>%
+  group_by(marca_nombre) %>%
+  pivot_wider(
+    names_from = año,
+    values_from = año
+  ) %>%
+  # ggplot(
+  #      aes(y = marca_nombre, axis1 = 2014, axis2 = 2015, axis3 = 2016, axis4 = 2017, axis5 = 2018, axis6 = 2019, axis7 = 2020, axis8 = 2021, axis9 = 2022)) +
+  # geom_alluvium()
+  
+  
 
 ```
 
