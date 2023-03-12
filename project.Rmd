@@ -290,6 +290,7 @@ GTBK_turtle_measures <- GTBK_data %>%
   select(fecha, nombre_tortuga, marca_nombre, especie_nombre_latino, numero_recaptura, a_c_c,, l_c_c, lugar, geografía, sexo_correcto)
   
 write_csv(GTBK_turtle_measures, file = ("data/GTBK_turtle_measures.csv"))
+
 ```
 
 ## Counts
