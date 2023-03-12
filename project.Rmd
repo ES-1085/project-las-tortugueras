@@ -291,6 +291,7 @@ GTBK_turtle_measures <- GTBK_data %>%
   
 write_csv(GTBK_turtle_measures, file = ("data/GTBK_turtle_measures.csv"))
 
+write_csv(GTBK_data, file = ("data/GTBK_data.csv"))
 ```
 
 ## Counts
