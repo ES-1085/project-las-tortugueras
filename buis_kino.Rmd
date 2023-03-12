@@ -1,0 +1,163 @@
+---
+title: "Comparing BISTRP and GTBK"
+authors: "Georgia Lattig, Sophie Chivers, Emily Rose Stringer"
+output:     html_document
+date: "2023-03-11"
+---
+
+## Load Packages and Data
+
+```{r load-packages , include = FALSE}
+library(tidyverse)
+library(readxl)
+library(readr)
+library(lubridate)
+library(janitor)
+library(rlang)
+library(ggridges)
+library(leaflet)
+library(sf)
+library(lubridate)
+library(forcats)
+library(RColorBrewer)
+install.packages("ggstats")
+install.packages("ggstatsplot")
+library(ggstats)
+# install.packages("regeoboundaries")
+library(rgeoboundaries)
+# install.packages("remotes")
+# remotes::install_gitlab("dickoa/rgeoboundaries")
+```
+
+
+```{r load-data, message = FALSE}
+buis_turtle_measures <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
+    col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
+
+GTBK_turtle_measures <- read_csv("/cloud/project/data/GTBK_turtle_measures.csv")
+```
+
+## Data Cleaning
+
+```{r clean-GTBK-turtle-measures}
+translate <- c(CDate = "fecha", PrimaryTag = "marca_nombre", sp = "especie_nombre_latino", location = "lugar", sex = "sexo_correcto", ccw = "a_c_c", cclnuct = "l_c_c")
+
+GTBK_turtle_measures <- rename(GTBK_turtle_measures, all_of(translate))
+
+GTBK_turtle_measures <- GTBK_turtle_measures %>% 
+  mutate(`Remi?` =
+           if_else(numero_recaptura > 1, "yes", "no"))
+
+GTBK_turtle_measures <- GTBK_turtle_measures %>% 
+  subset(select = -c(nombre_tortuga, geografía, numero_recaptura))
+
+GTBK_turtle_measures <- GTBK_turtle_measures %>% 
+  mutate(sex =
+           case_when(
+             sex == "Hembra" ~ "female",
+             sex == "Macho" ~ "male",
+             sex == "Indefinido" ~ "juvenile"
+           ))
+
+GTBK_turtle_measures <- GTBK_turtle_measures[, c(1,2,3,8,4,5,6,7)]
+```
+
+```{r clean-buis-turtle-measures}
+buis_turtle_measures <- buis_turtle_measures %>% 
+  subset(select = -c(activityno, ApplyDate, cclnucn, cclnott))
+
+buis_turtle_measures <- buis_turtle_measures %>% 
+  mutate(sp =
+           case_when(
+             sp == "GR" ~ "Chelonia mydas",
+             sp == "HB" ~ "Eretmochelys imbricata"
+           ))
+```
+
+```{r merge-turtle-measures}
+turtle_measures <- full_join(GTBK_turtle_measures, buis_turtle_measures)
+
+turtle_measures <- turtle_measures %>% 
+  mutate(year = year(CDate))
+
+turtle_measures <- turtle_measures %>% 
+  mutate(organization = 
+           if_else(location == "Buck Island", "BISTRP", "GTBK"))
+```
+
+## Exploratory Data Visualization
+
+```{r comparisons-GR-females-2022}
+turtle_measures %>% 
+  filter(sp == "Chelonia mydas",
+         sex == "female",
+         year == "2022",
+         location != "NA") %>% 
+  ggplot(aes(x = sp, y = cclnuct)) +
+  geom_violin(fill = "chartreuse4", alpha = 0.7) +
+  facet_wrap(~ location) +
+  theme_minimal() +
+  labs(title = "Curved Carapace Length of Female Green Sea Turtles",
+       subtitle = "Measured on Buck Island, USVI and in Kino Bay, Mexico",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+
+#The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
+```
+
+```{r statistical-analysis-box-violin}
+turtle_measures %>% 
+  filter(year == "2022",
+         sp == "Chelonia mydas",
+         sex == "female") %>% 
+ggbetweenstats(organization, cclnuct,
+               plot.type = "boxviolin",
+               title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
+               xlab = "Organization",
+               ylab = "Curved Carapace Length (cm)")
+```
+
+```{r turtle-demographics-by-organization, fig.width = 6, fig. height = 4}
+turtle_measures %>% 
+  mutate(species = case_when(
+    sp == "Chelonia mydas" ~ "Chelonia mydas (GR)",
+    sp == "Eretmochelys imbricata" ~ "Eretmochelys imbricata (HB)",
+    sp == "Lepidochelys olivacea" ~ "Lepidochelys olivacea (OR)")) %>% 
+  filter(organization == "BISTRP" |
+         organization == "GTBK") %>% 
+  filter(year == "2022") %>% 
+  filter(sp != "NA") %>% 
+  ggplot(aes(x = species, fill = species)) +
+  geom_bar(alpha = 0.8) + 
+  scale_fill_manual(values = c("chartreuse4", "hotpink4", "goldenrod1")) +
+  scale_x_discrete(labels = c("GR", "HB", "OR")) +
+  facet_wrap(~ organization) +
+  theme_bw() + 
+  labs(title = "Demographics of Sea Turtles Monitored by BISTRP and GTBK",
+       subtitle = "During the 2022 Monitoring Season",
+       x = "Species",
+       y = "Number of Turtles",
+       fill = "Species") +
+  theme(plot.title = element_text(size = 15, family = "Helvetica"),
+        plot.subtitle = element_text(size = 13, family = "Helvetica"),
+        strip.text.x = element_text(size = 13, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 13, family = "Helvetica", vjust = 0.1),
+        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 0.2),
+        axis.text.x = element_text(size = 11, family = "Helvetica"),
+        axis.text.y = element_text(size = 11, family = "Helvetica"),
+        legend.text = element_text(size = 11, family = "Helvetica"),
+        legend.title = element_text(size = 13, family = "Helvetica")) +
+    guides(color = guide_legend(override.aes = list(size = 1)))
+
+```
+
+## Final Visualizations
+
+```{r}
+
+```
+
+
+
+

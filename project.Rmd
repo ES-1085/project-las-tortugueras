@@ -25,6 +25,7 @@ library(lubridate)
 #library(rgeoboundaries)
 # install.packages("remotes")
 #remotes::install_gitlab("dickoa/rgeoboundaries")
+#csv_dir = '/Users/georgia.lattig/Desktop/graphs'
 ```
 
 ```{r load-data, include = FALSE}
@@ -186,21 +187,8 @@ GTBK_data <- GTBK_data %>%
 #Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
 ```
 
-```{r write-GTBK-data-csv}
-
-#write_csv(GTBK_data, file = "/data/GTBK_data")
-  
-```
-
-
-## Visualizations 
-```{r count-especie-nombre-latino}
-GTBK_data %>%
-  group_by(especie_nombre_latino) %>%
-count()  
-```
-
 ```{r clean-location-create-geography-variable, include = FALSE}
+
 GTBK_data <- GTBK_data %>%
   mutate(lugar = 
            case_when(
@@ -213,7 +201,7 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Sur de San Lorenzo" ~ "Laguna La Cruz",
              area_de_monitoreo == "entre S. Esteban y Tiburon" ~ "Isla Tiburon",
              area_de_monitoreo == "Boca del Estero" ~ "Laguna La Cruz",
-             area_de_monitoreo == "'Y' Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == '"Y" Laguna la Cruz' ~ "Laguna La Cruz",
              area_de_monitoreo == "san nicolas" ~ "Laguna La Cruz",
              area_de_monitoreo == "la ventana ISPM" ~ "Isla San Pedro Mártir",
              area_de_monitoreo == "Campo Biologo ISPM" ~ "Isla San Pedro Mártir",
@@ -226,7 +214,7 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Pta. Rabijunco - ISPM" ~ "Isla San Pedro Mártir",
              area_de_monitoreo == "Playa de Kino nuevo" ~ "Playa",
              area_de_monitoreo == "Campo Biologo - ISPM" ~ "Isla San Pedro Mártir",
-             area_de_monitoreo == "La 'Y' Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == 'La "Y" Laguna la Cruz' ~ "Laguna La Cruz",
              area_de_monitoreo == "El Cartelon ISPM" ~ "Isla San Pedro Mártir",
              area_de_monitoreo == "Las Almejitas Laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Cartelon - R.B. ISPM" ~ "Isla San Pedro Mártir", 
@@ -240,15 +228,15 @@ GTBK_data <- GTBK_data %>%
              area_de_monitoreo == "Bomba del Dictus" ~ "Laguna La Cruz",
              area_de_monitoreo == "La Pta. Blanca" ~ "Laguna La Cruz",
              area_de_monitoreo == "Playa de Kino nuevo poste 88" ~ "Playa",
-             area_de_monitoreo == "'Y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == '"Y" griega laguna la Cruz' ~ "Laguna La Cruz",
              area_de_monitoreo == "Punta Rabijunco - ISPM" ~ "Isla San Pedro Mártir", 
-             area_de_monitoreo == "Y'' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == '"Y" griega laguna la Cruz' ~ "Laguna La Cruz",
              area_de_monitoreo == "Punta Blanca Laguna la Cruz" ~ "Laguna La Cruz",
              area_de_monitoreo == "Media travesia tiburon-Kino" ~ "Isla Tiburon",
              area_de_monitoreo == "Kino nuevo.poste 157" ~ "Playa",
              area_de_monitoreo == "choyudo-I Tiburon" ~ "Isla Tiburon",
              area_de_monitoreo == "Alcaltraz" ~ "Laguna La Cruz",
-             area_de_monitoreo == "'y' griega laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == '"y" griega laguna la Cruz' ~ "Laguna La Cruz",
              area_de_monitoreo == "Boca de la laguna" ~ "Laguna La Cruz",
              area_de_monitoreo == "region de las grandes Islas del G.C." ~ "Mar Abierto",
              area_de_monitoreo == "A media travesia" ~ "Mar Abierto",
@@ -294,6 +282,21 @@ GTBK_data <- GTBK_data %>%
            -c(id, no_monitoreo, fecha_original, recaptura, observaciones_y_comentarios, responsable, 
               longidud_red_o_lanceos, pit_tag, pit_nuevo, pit_previo, pit_previo_2, muestra_sangre, muestra_piel, 
               muestra_cont_estom, muestra_sangre_2, muestra_piel_2, muestra_cont_estom_2, otra_muestra, otra_muestra_2,               especificar, especificar_2, lesiones_balanos, lesiones_balanos_2, foto, foto_2, id_2, id_3))
+```
+
+```{r create-GTBK-measures}
+
+GTBK_turtle_measures <- GTBK_data %>%
+  select(fecha, nombre_tortuga, marca_nombre, especie_nombre_latino, numero_recaptura, a_c_c,, l_c_c, lugar, geografía, sexo_correcto)
+  
+write_csv(GTBK_turtle_measures, file = ("data/GTBK_turtle_measures.csv"))
+```
+
+## Counts
+```{r count-especie-nombre-latino}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+count()  
 ```
 
 ## Visualizations
@@ -467,12 +470,18 @@ leaflet(GTBK_data) %>%
                   stroke = FALSE)
 ```
 ### GTBK Recapture Visualizations
+880 times went out total, 188 instances of recapture
+
 ```{r turtle_recaps_by_month}
-# they went out 880 times total. 
-# There are 188 instances of recaptures 
-GTBK_data <- GTBK_data %>% 
+GTBK_data <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha))
+
+# GTBK_data %>%
+#   parse_date_time(GTBK_data$mes, "m")
+# 
+# GTBK_data %>% 
+#   parse_date_time(GTBK_data$año, "Y")
 
 GTBK_outings <- GTBK_data %>%
       group_by(mes) %>%
@@ -538,14 +547,25 @@ tiempo <- GTBK_data %>%    # of times they went out
   group_by(mes, año) %>% 
   summarize(effort = n())
 
-full_join(tortugas_por_tiempo, tiempo) %>%
+tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort)
-   # select(mes, tortugas_por_esfuerzo) %>%
-   # ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
-   # geom_col()
+
+full_join(tortugas_por_tiempo, tiempo) %>%
+   mutate(esfuerzo = total_turtles/effort) %>%
+    # group_by(año) %>%
+   ggplot(aes(x = año, y = esfuerzo, fill = mes)) +
+   geom_col(position="stack")
+
+full_join(tortugas_por_tiempo, tiempo) %>%
+   mutate(esfuerzo = total_turtles/effort) %>%
+  group_by(año) %>%
+   ggplot(aes(x = mes, y = esfuerzo, color = as.factor(año))) +
+   geom_line()
+
+#insert heat map
+#heatmap(tortugas_por_esfuerzo)
 
 ```
-
 
 ## Turtle Photos/Memes
 

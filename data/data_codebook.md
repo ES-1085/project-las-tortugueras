@@ -27,10 +27,10 @@ Observations: 409
 - `Peso (Kg)': weight (kg)	
 - `Sexo`: sex	
 - `L.R.C. (cm)`: carapace length 	
-- `L.C.C.(cm)`: carapace width	
-- `A.R.C.(cm)`: curved carapace length	
+- `L.C.C.(cm)`: curved carapace length
+- `A.R.C.(cm)`: carapace width	
 - `A.C.C.(cm)`: curved carapace width 	
-- `P.C (cm)`: carapace width	
+- `P.C (cm)`: plastron depth	
 - `L.P (cm)`: plastron length	
 - `LTC (cm)`: tail length 	
 - `¿Posee marca? (Recaptura)`: recapture? (yes/no)
@@ -40,7 +40,7 @@ Observations: 409
 
 
 ## GTBK_2018_2023
-This dataset is the work from Grupo Tortugero Bahía de Kino from 2010 to 2023. It includes recapture data, turtle identification, and effort-based data. 
+This dataset is the work from Grupo Tortugero Bahía de Kino from 2018 to 2023. It includes recapture data, turtle identification, and effort-based data. 
 
 Variables: 54
 Observations: 471
@@ -65,8 +65,8 @@ Observations: 471
 - `Especie`: species	
 - `LRC`: carapace length	
 - `ARC`: carapace width	
-- `LCC`: curved carapace width
-- `ACC`: curved carapace length	
+- `LCC`: curved carapace length
+- `ACC`: curved carapace width
 - `Profundidad cuerpo`: carapace depth	
 - `Longitud plastron`: plastron length
 - `Longitud total cola`: total tail length 
