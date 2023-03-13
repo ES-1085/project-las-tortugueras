@@ -639,38 +639,34 @@ tortugas_por_esfuerzo %>%
 ```
 
 ```{r captures-by-area}
+# overview graph
+lugar_de_tortugas <- GTBK_data %>%
+  mutate(mes = month(fecha)) %>%
+  mutate(año = year(fecha)) %>%
+  select(marca_nombre, lugar, geografía, numero_recaptura, mes, año)
 
-# estuario, isla, playa
-# GTBK_data <- GTBK_data %>%
-#   mutate(geografía =
-#            case_when(
-#              lugar == "Laguna La Cruz" ~ "estuario",
-#              lugar == "Sargento" ~ "estuario",
-#              lugar == "Isla San Pedro Mártir" ~ "isla",
-#              lugar == "Isla Tiburon" ~ "isla",
-#              lugar == "Playa" ~ "playa"))
+ggplot(data = lugar_de_tortugas, 
+       mapping = aes(x = año, fill = geografía)) +
+  geom_bar() +
+  labs(title = "Spacial Overview",
+       subtitle = "Turtles Captured by Location",
+       x = "year", y = "turtles captured",
+       fill = "geography") + 
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) + 
+  scale_fill_manual(values = c("cyan4", "cyan2", "coral1")) +
+   theme_bw()
 
-
-# ggplot(GTBK_data$tortugas_por_esfuerzo, aes(x = mes_nombre, y = año)) + 
-#   geom_point() +
-#   facet_grid( ~ geografía)
-# 
-# tortugas_por_esfuerzo %>%
-#   mutate(mes_nombre = factor(mes_nombre, levels = c("jan", "feb", "mar", "apr","may","jun","jul","aug","sep","oct","nov","dec"))) %>% 
-#   drop_na() %>%
-#    ggplot(aes(x = mes_nombre, y = año, fill = esfuerzo)) +
-#    geom_tile() +
-#   facet_wrap( ~ geografía) +
-#    labs(title = "Turtle captures", 
-#        subtitle = "represented by effort over year and month", 
-#        x = "month", 
-#        y = "year", 
-#        fill = "turtles per effort") 
-# # + 
-#     # scale_fill_gradient(low = "yellow", high = "cyan4") +
-#                       # limits = c(0,NA)) + 
-#   # scale_y_continuous(breaks = c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)) + 
-#   # theme_bw()
+#facet graph
+ggplot(data = lugar_de_tortugas, 
+       mapping = aes(x = año, fill = geografía)) +
+  geom_bar() +
+  facet_grid( ~ geografía) +
+  labs(title = "Spacial Overview",
+       subtitle = "Turtles Captured by Location",
+       x = "year", y = "turtles captured",
+       fill = "geography") + 
+scale_fill_manual(values = c("cyan4", "cyan4", "cyan4", "cyan4")) +
+   theme_bw()
 
 ```
 
