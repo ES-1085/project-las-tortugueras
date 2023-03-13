@@ -461,6 +461,12 @@ visdat::vis_miss(GTBK_data)
 visdat::vis_miss(GTBK_2018_2023)
 ```
 
+```{r missing-data-visual}
+GTBK_used_variables <- GTBK_data %>%
+  select(marca_nombre, fecha, area_de_monitoreo, especie, sexo)
+```
+
+
 ```{r map-kino-bay-recaptures, include = FALSE}
 leaflet(GTBK_data) %>%
   addProviderTiles(providers$Esri.WorldImagery) %>% 
@@ -609,8 +615,7 @@ full_join(tortugas_por_tiempo, tiempo) %>%
 
 ```
 
-```{r practice-heat-map}
-# preliminary heat map
+```{r capture-heat-map}
 as.integer(tortugas_por_esfuerzo$mes)
 as.integer(tortugas_por_esfuerzo$año)
 
@@ -631,13 +636,41 @@ tortugas_por_esfuerzo %>%
   scale_y_continuous(breaks = c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)) + 
   theme_bw()
 
-# tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
-#    mutate(esfuerzo = total_turtles/effort) %>%
-#   ggplot(aes(x = año, y = esfuerzo, fill = mes)) +
-#    geom_tile() +
-#   theme_classic()
+```
+
+```{r captures-by-area}
+
+# estuario, isla, playa
+# GTBK_data <- GTBK_data %>%
+#   mutate(geografía =
+#            case_when(
+#              lugar == "Laguna La Cruz" ~ "estuario",
+#              lugar == "Sargento" ~ "estuario",
+#              lugar == "Isla San Pedro Mártir" ~ "isla",
+#              lugar == "Isla Tiburon" ~ "isla",
+#              lugar == "Playa" ~ "playa"))
+
+
+# ggplot(GTBK_data$tortugas_por_esfuerzo, aes(x = mes_nombre, y = año)) + 
+#   geom_point() +
+#   facet_grid( ~ geografía)
 # 
-# heatmap(tortugas_por_esfuerzo)
+# tortugas_por_esfuerzo %>%
+#   mutate(mes_nombre = factor(mes_nombre, levels = c("jan", "feb", "mar", "apr","may","jun","jul","aug","sep","oct","nov","dec"))) %>% 
+#   drop_na() %>%
+#    ggplot(aes(x = mes_nombre, y = año, fill = esfuerzo)) +
+#    geom_tile() +
+#   facet_wrap( ~ geografía) +
+#    labs(title = "Turtle captures", 
+#        subtitle = "represented by effort over year and month", 
+#        x = "month", 
+#        y = "year", 
+#        fill = "turtles per effort") 
+# # + 
+#     # scale_fill_gradient(low = "yellow", high = "cyan4") +
+#                       # limits = c(0,NA)) + 
+#   # scale_y_continuous(breaks = c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)) + 
+#   # theme_bw()
 
 ```
 
