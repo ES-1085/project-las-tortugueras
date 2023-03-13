@@ -99,7 +99,7 @@ turtle_measures %>%
          year == "2022",
          location != "NA") %>% 
   ggplot(aes(x = sp, y = cclnuct)) +
-  geom_violin(fill = "chartreuse4", alpha = 0.7) +
+  geom_violin(fill = "chartreuse4", alpha = 0.7) + 
   facet_wrap(~ location) +
   theme_minimal() +
   labs(title = "Curved Carapace Length of Female Green Sea Turtles",
@@ -115,28 +115,28 @@ turtle_measures %>%
 
 ## Finalize this visualization, edit color and text, etc.
 
-# turtle_measures %>% 
-#   filter(year == "2022",
-#          sp == "Chelonia mydas",
-#          sex == "female") %>% 
-# ggbetweenstats(organization, cclnuct,
-#                plot.type = "boxviolin",
-#                title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
-#                subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
-#                xlab = "Organization",
-#                ylab = "Curved Carapace Length (cm)",
-#                results.subtitle = FALSE,
-#                package = "RColorBrewer",
-#                palette = "Dark2") +
-#   theme(
-#     axis.ticks = element_blank(),
-#     axis.line = element_line(colour = "grey50"),
-#     panel.grid = element_line(color = "#b4aea9"),
-#     panel.grid.minor = element_blank(),
-#     panel.grid.major.x = element_blank(),
-#     panel.grid.major.y = element_line(linetype = "dashed"),
-#     panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
-#     plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
+turtle_measures %>%
+  filter(year == "2022",
+         sp == "Chelonia mydas",
+         sex == "female") %>%
+ggbetweenstats(organization, cclnuct,
+               plot.type = "boxviolin",
+               title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
+               subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
+               xlab = "Organization",
+               ylab = "Curved Carapace Length (cm)",
+               results.subtitle = FALSE,
+               package = "RColorBrewer",
+               palette = "Dark2") +
+  theme(
+    axis.ticks = element_blank(),
+    axis.line = element_line(colour = "grey50"),
+    panel.grid = element_line(color = "#b4aea9"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linetype = "dashed"),
+    panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
+    plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
 # 
 # # source: https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html
 ```
