@@ -99,7 +99,7 @@ turtle_measures %>%
          year == "2022",
          location != "NA") %>% 
   ggplot(aes(x = sp, y = cclnuct)) +
-  geom_violin(fill = "chartreuse4", alpha = 0.7) +
+  geom_violin(fill = "chartreuse4", alpha = 0.7) + 
   facet_wrap(~ location) +
   theme_minimal() +
   labs(title = "Curved Carapace Length of Female Green Sea Turtles",
@@ -111,33 +111,35 @@ turtle_measures %>%
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
 
-```{r statistical-analysis-box-violin}
+```{r statistical-analysis-box-violin, fig.width = 12, fig.height = 8}
 
 ## Finalize this visualization, edit color and text, etc.
 
-# turtle_measures %>% 
-#   filter(year == "2022",
-#          sp == "Chelonia mydas",
-#          sex == "female") %>% 
-# ggbetweenstats(organization, cclnuct,
-#                plot.type = "boxviolin",
-#                title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
-#                subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
-#                xlab = "Organization",
-#                ylab = "Curved Carapace Length (cm)",
-#                results.subtitle = FALSE,
-#                package = "RColorBrewer",
-#                palette = "Dark2") +
-#   theme(
-#     axis.ticks = element_blank(),
-#     axis.line = element_line(colour = "grey50"),
-#     panel.grid = element_line(color = "#b4aea9"),
-#     panel.grid.minor = element_blank(),
-#     panel.grid.major.x = element_blank(),
-#     panel.grid.major.y = element_line(linetype = "dashed"),
-#     panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
-#     plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
-# 
+turtle_measures %>%
+  filter(year == "2022",
+         sp == "Chelonia mydas",
+         sex == "female") %>%
+ggbetweenstats(organization, cclnuct,
+               plot.type = "boxviolin",
+               title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
+               subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
+               xlab = "Organization",
+               ylab = "Curved Carapace Length (cm)",
+               results.subtitle = FALSE,
+               package = "RColorBrewer",
+               palette = "Dark2") +
+  theme(
+    axis.ticks = element_blank(),
+    axis.line = element_line(colour = "grey50"),
+    panel.grid = element_line(color = "#b4aea9"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linetype = "dashed"),
+    panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
+    plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
+
+ggsave("final_visualizations/ccl_geographical_comparison.jpg", device = "jpg", dpi = 500)
+
 # # source: https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html
 ```
 
@@ -281,33 +283,69 @@ ggsave("final_visualizations/individual_growth_over_time.jpg", device = "jpg", d
 ```{r time-enabled-turtle-growth, fig.width = 10, fig.height = 6}
 GTBK$year = as.integer(GTBK$year)
 
-#The issue with the animation below is that it leaves out a point in all three turtles' graphs until the end of the animation. Why?
+#The issue with the animation below is that it leaves out a point in all three turtles' graphs until the end of the animation. Why? Is that because of the argument transition_reveal or is there a way I can work around it?
 
-# GTBK %>%
-#   filter(marca_nombre %in% c(
-#     "GT 12261",
-#     "GT 1569",
-#     "GT 5297")) %>%
-#   mutate(marca_nombre = case_when(
-#     marca_nombre == "GT 12261" ~ "JUANA",
-#     marca_nombre == "GT 1569" ~ "PEPE",
-#     marca_nombre == "GT 5297" ~ "ELVIA"
-#   )) %>%
-#   ggplot(aes(year, l_c_c, color = marca_nombre)) +
-#   geom_point(aes(year, l_c_c, group = year), size = 4, alpha = 0.7, show.legend = FALSE) +
-#   geom_line(size = 1, alpha = 0.9, show.legend = FALSE) +
-#     scale_color_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
-#     facet_wrap(~ marca_nombre) +
-#   coord_fixed(ratio = 0.3) +
-#   theme_bw() +
-#   labs(title = "Growth of 3 Individual Female Green Sea Turtles",
-#        subtitle = "Caught by GTBK in Laguna la Cruz, Mexico",
-#        x = "Year",
-#        y = "Curved Carapace Length (cm)") +
-#   transition_reveal(along = year, keep_last = TRUE) +
-#   ease_aes('linear')
+GTBK %>%
+  filter(marca_nombre %in% c(
+    "GT 12261",
+    "GT 1569",
+    "GT 5297")) %>%
+  mutate(marca_nombre = case_when(
+    marca_nombre == "GT 12261" ~ "JUANA",
+    marca_nombre == "GT 1569" ~ "PEPE",
+    marca_nombre == "GT 5297" ~ "ELVIA"
+  )) %>%
+  ggplot(aes(year, l_c_c, color = marca_nombre)) +
+  geom_point(aes(year, l_c_c, group = year), size = 4, alpha = 0.7, show.legend = FALSE) +
+  geom_line(size = 1, alpha = 0.9, show.legend = FALSE) +
+    scale_color_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
+    facet_wrap(~ marca_nombre) +
+  coord_fixed(ratio = 0.3) +
+  theme_bw() +
+  labs(title = "Growth of 3 Individual Female Green Sea Turtles",
+       subtitle = "Caught by GTBK in Laguna la Cruz, Mexico",
+       x = "Year",
+       y = "Curved Carapace Length (cm)") +
+  transition_reveal(along = year) +
+  ease_aes('linear') +
+  theme(plot.title = element_text(size = 14, family = "Helvetica"),
+        plot.subtitle = element_text(size = 12, family = "Helvetica"),
+        strip.text.x = element_text(size = 11, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 11, family = "Helvetica", vjust = -1),
+        axis.title.y = element_text(size = 11, family = "Helvetica", vjust = 1),
+        axis.text.x = element_text(size = 9, family = "Helvetica"),
+        axis.text.y = element_text(size = 10, family = "Helvetica"),
+        legend.title = element_text(size = 11, family = "Helvetica"),
+        legend.text = element_text(size = 10, family = "Helvetica"),
+        panel.spacing = unit(1, "lines"))
 
-# animate(p, fps=8, renderer = gifski_renderer(loop = FALSE))
+# animate(p, fps = 8, renderer = gifski_renderer(loop = FALSE))
+
+
+#new attempt using transition_manual; this one will not allow me to add a geom_line because each frame is discrete and cannot be linked to other frames. This animation at least includes all three points per turtle but I wish there was some line or something at the end
+
+GTBK %>%
+  filter(marca_nombre %in% c(
+    "GT 12261",
+    "GT 1569",
+    "GT 5297")) %>%
+  mutate(marca_nombre = case_when(
+    marca_nombre == "GT 12261" ~ "JUANA",
+    marca_nombre == "GT 1569" ~ "PEPE",
+    marca_nombre == "GT 5297" ~ "ELVIA"
+  )) %>%
+  ggplot(aes(year, l_c_c, color = marca_nombre)) +
+  geom_point(aes(year, l_c_c, group = year), size = 4, alpha = 0.7, show.legend = FALSE) +
+  geom_line(aes(group = marca_nombre), size = 1, alpha = 0.9, show.legend = FALSE) +
+    scale_color_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
+    facet_wrap(~ marca_nombre) +
+  coord_fixed(ratio = 0.3) +
+  theme_bw() +
+  labs(title = "Growth of 3 Individual Female Green Sea Turtles",
+       subtitle = "Caught by GTBK in Laguna la Cruz, Mexico",
+       x = "Year",
+       y = "Curved Carapace Length (cm)") +
+  transition_manual(year, cumulative = FALSE)
 
 ```
 
