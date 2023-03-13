@@ -111,7 +111,7 @@ turtle_measures %>%
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
 
-```{r statistical-analysis-box-violin}
+```{r statistical-analysis-box-violin, fig.width = 12, fig.height = 8}
 
 ## Finalize this visualization, edit color and text, etc.
 
@@ -137,7 +137,9 @@ ggbetweenstats(organization, cclnuct,
     panel.grid.major.y = element_line(linetype = "dashed"),
     panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
     plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
-# 
+
+ggsave("final_visualizations/ccl_geographical_comparison.jpg", device = "jpg", dpi = 500)
+
 # # source: https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html
 ```
 
