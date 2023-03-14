@@ -324,7 +324,7 @@ GTBK$year = as.integer(GTBK$year)
 
 #The issue with the animation below is that it leaves out a point in all three turtles' graphs until the end of the animation. Why? Is that because of the argument transition_reveal or is there a way I can work around it?
 
-GTBK %>%
+p <- GTBK %>%
   filter(marca_nombre %in% c(
     "GT 12261",
     "GT 1569",
@@ -335,7 +335,7 @@ GTBK %>%
     marca_nombre == "GT 5297" ~ "ELVIA"
   )) %>%
   ggplot(aes(year, l_c_c, color = marca_nombre)) +
-  geom_point(size = 4, alpha = 0.7, show.legend = FALSE) +
+  geom_point(size = 5, alpha = 0.7, show.legend = FALSE) +
   # geom_line(size = 1, alpha = 0.9, show.legend = FALSE) +
     scale_color_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
     facet_wrap(~ marca_nombre) +
@@ -346,7 +346,7 @@ GTBK %>%
        x = "Year",
        y = "Curved Carapace Length (cm)") +
   transition_reveal(along = year, keep_last = TRUE) +
-  shadow_mark(color = "black", past = TRUE) +
+  # shadow_mark(color = "black") +
   ease_aes('linear') +
   theme(plot.title = element_text(size = 14, family = "Helvetica"),
         plot.subtitle = element_text(size = 12, family = "Helvetica"),
@@ -359,7 +359,7 @@ GTBK %>%
         legend.text = element_text(size = 10, family = "Helvetica"),
         panel.spacing = unit(1, "lines")) 
 
-animate(p, nframe = 8, fps = 1, renderer = gifski_renderer(loop = FALSE))
+animate(p, nframe = 8, fps = 1, renderer = gifski_renderer(loop = FALSE)) 
 
 
 #new attempt using transition_manual; this one will not allow me to add a geom_line because each frame is discrete and cannot be linked to other frames. This animation at least includes all three points per turtle but I wish there was some line or something at the end
