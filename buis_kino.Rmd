@@ -197,24 +197,29 @@ turtle_measures %>%
 #There were 77 unique Green turtles captured by GTBK during the 2022 season. Two turtles were captured twice.
 ```
 
-```{r GTBK-turtle-demographics-by-location}
+```{r GTBK-turtle-demographics-by-location, fig.width = 10, fig.height = 6}
 turtle_measures %>% 
   mutate(species = case_when(
     sp == "Chelonia mydas" ~ "Chelonia mydas (GR)",
     sp == "Eretmochelys imbricata" ~ "Eretmochelys imbricata (HB)",
     sp == "Lepidochelys olivacea" ~ "Lepidochelys olivacea (OR)")) %>% 
+  mutate(sex = factor(sex, levels = c("female","male","juvenile"))) %>% 
   filter(organization == "BISTRP" |
          organization == "GTBK") %>% 
+  mutate(organization = case_when(
+    organization == "GTBK" ~ "Grupo Tortuguero de Bahía Kino",
+    organization == "BISTRP" ~ "Buck Island Sea Turtle Research Program")) %>% 
   filter(year == "2022") %>% 
   filter(sp != "NA") %>% 
   ggplot(aes(x = species, fill = sex)) +
   geom_bar(alpha = 0.8) + 
-  scale_fill_manual(values = c("mediumorchid4", "goldenrod1", "aquamarine3")) +
-  scale_x_discrete(labels = c("GR", "HB", "OR")) +
+  # geom_text(aes(group = sex, label = after_stat(count)), stat = "count", position = position_stack(vjust = 0.5), size = 5) +
+  scale_fill_manual(values = c("darkorchid4", "aquamarine3", "goldenrod1")) +
+  scale_x_discrete(labels = c("Green", "Hawksbill", "Olive Ridley")) +
+  scale_y_continuous(breaks = seq(0, 80, by = 10)) +
   facet_wrap(~ organization) +
   theme_bw() + 
-  labs(title = "Sex Distribution of Sea Turtles Monitored by BISTRP and GTBK",
-       subtitle = "During the 2022 Monitoring Season",
+  labs(title = "Demographics of Sea Turtles Monitored by Two Research Programs During the 2022 Season",
        x = "Species",
        y = "Number of Turtles",
        fill = "Sex") +
@@ -222,12 +227,14 @@ turtle_measures %>%
         plot.subtitle = element_text(size = 13, family = "Helvetica"),
         strip.text.x = element_text(size = 13, family = "Helvetica", face = "bold"),
         axis.title.x = element_text(size = 13, family = "Helvetica", vjust = 0.1),
-        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 0.2),
+        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 1),
         axis.text.x = element_text(size = 11, family = "Helvetica"),
         axis.text.y = element_text(size = 11, family = "Helvetica"),
         legend.text = element_text(size = 11, family = "Helvetica"),
         legend.title = element_text(size = 13, family = "Helvetica")) +
     guides(color = guide_legend(override.aes = list(size = 1)))
+
+ggsave("final_visualizations/organization_turtle_demographics_sex.jpg", device = "jpg", dpi = 500)
 
 ```
 
