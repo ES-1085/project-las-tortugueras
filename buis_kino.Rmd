@@ -111,7 +111,7 @@ turtle_measures %>%
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
 
-```{r statistical-analysis-box-violin, fig.width = 12, fig.height = 8}
+```{r statistical-analysis-box-violin}
 
 ## Finalize this visualization, edit color and text, etc.
 
@@ -122,12 +122,15 @@ turtle_measures %>%
 ggbetweenstats(organization, cclnuct,
                plot.type = "boxviolin",
                title = "Curved Carapace Length Measurements of Female Green Sea Turtles",
-               subtitle = "Measured by BISTRP and GTBK During the 2022 Monitoring Season",
+               subtitle = "Measured by BISTRP and GTBK During the 2022 Season",
                xlab = "Organization",
                ylab = "Curved Carapace Length (cm)",
                results.subtitle = FALSE,
                package = "RColorBrewer",
-               palette = "PRGn") +
+               palette = "Dark2",
+               centrality.point.args = list(size = 5, color = "darkred"),
+               centrality.label.args = list(size = 3.5, family ="Helvetica",
+                                            nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0)) +
   theme(
     axis.ticks = element_blank(),
     axis.line = element_line(colour = "grey50"),
@@ -136,7 +139,17 @@ ggbetweenstats(organization, cclnuct,
     panel.grid.major.x = element_blank(),
     panel.grid.major.y = element_line(linetype = "dashed"),
     panel.background = element_rect(fill = "white", color = "white"),
-    plot.background = element_rect(fill = "white", color = "white"))
+    plot.background = element_rect(fill = "white", color = "white"),
+    text = element_text(family = "Helvetica", size = 12, color = "black"),
+    plot.title = element_text(
+      family = "Helvetica", 
+      size = 13,
+      face = "bold",
+      color = "black"),
+    axis.text.x = element_text(family = "Helvetica", size = 11, color = "black"),
+    axis.title.x = element_text(family = "Helvetica", size = 12, face = "bold"),
+    axis.title.y = element_text(family = "Helvetica", size = 12, face = "bold")
+    )
 
 ggsave("final_visualizations/ccl_geographical_comparison.jpg", device = "jpg", dpi = 500)
 
