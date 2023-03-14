@@ -550,8 +550,13 @@ full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
     ) %>%
   drop_na() %>%
    ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
-   geom_col() 
+   geom_col(fill = "seagreen4") +
+  labs(title = "Seasonality of Sea Turtle Recaptures by GTBK",
+       subtitle = "Per Effort Hour",
+       x = "Month",
+       y = "Turtle Per Effort Hour")
 
+ggsave("final_visualizations/seasonality_of_recaptures.jpg", device = "jpg", dpi = 500)
 ```
 
 ```{r individual_recaps_sankey}
