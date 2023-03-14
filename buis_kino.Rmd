@@ -127,7 +127,7 @@ ggbetweenstats(organization, cclnuct,
                ylab = "Curved Carapace Length (cm)",
                results.subtitle = FALSE,
                package = "RColorBrewer",
-               palette = "Dark2") +
+               palette = "PRGn") +
   theme(
     axis.ticks = element_blank(),
     axis.line = element_line(colour = "grey50"),
@@ -135,8 +135,8 @@ ggbetweenstats(organization, cclnuct,
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank(),
     panel.grid.major.y = element_line(linetype = "dashed"),
-    panel.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"),
-    plot.background = element_rect(fill = "#fbf9f4", color = "#fbf9f4"))
+    panel.background = element_rect(fill = "white", color = "white"),
+    plot.background = element_rect(fill = "white", color = "white"))
 
 ggsave("final_visualizations/ccl_geographical_comparison.jpg", device = "jpg", dpi = 500)
 
@@ -145,6 +145,7 @@ ggsave("final_visualizations/ccl_geographical_comparison.jpg", device = "jpg", d
 
 ```{r turtle-demographics-by-organization, fig.width = 8, fig.height = 5}
 turtle_measures %>% 
+  group_by(PrimaryTag) %>% 
   mutate(species = case_when(
     sp == "Chelonia mydas" ~ "Chelonia mydas (GR)",
     sp == "Eretmochelys imbricata" ~ "Eretmochelys imbricata (HB)",
@@ -177,6 +178,23 @@ turtle_measures %>%
 
 ggsave("final_visualizations/organization_turtle_demographics.jpg", device = "jpg", dpi = 500)
 
+#Check to see if this graph includes duplicates of turtles that were recaptured within the 2022 nesting season.
+
+turtle_measures %>% 
+  filter(year == "2022") %>% 
+  filter(organization == "GTBK") %>% 
+  group_by(sp) %>% 
+  count(sp)
+
+#There were 79 Green turtles and 1 Olive Ridley turtle captured by GTBK during the 2022 season.
+
+turtle_measures %>% 
+  filter(year == "2022") %>% 
+  filter(organization == "GTBK") %>% 
+  filter(sp == "Chelonia mydas") %>% 
+  count(PrimaryTag)
+
+#There were 77 unique Green turtles captured by GTBK during the 2022 season. Two turtles were captured twice.
 ```
 
 ```{r GTBK-turtle-demographics-by-location}
