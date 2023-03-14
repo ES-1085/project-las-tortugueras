@@ -501,20 +501,37 @@ full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
 
 ```{r individual_recaps_sankey}
 # install.packages("ggalluvial")
-# library(ggalluvial)
+library(ggalluvial)
 
-GTBK_data %>% 
+Sankey <- GTBK_data %>% 
   filter(numero_recaptura %in% c(3,4)) %>%
   mutate(yearmonth = paste(año, mes, sep = "-")) %>%
   select(marca_nombre, año) %>%
+  group_by(marca_nombre, año) %>%
+  summarize(n = n()) %>%
+  arrange(año) #%>%
+  # pivot_wider(
+  #   names_from = año,
+  #   values_from = n
+  # ) 
+
+Sankey <- replace(Sankey,is.na(Sankey),0) %>%
+   mutate(frequency = n())
+
+
+Sankey %>%
   group_by(marca_nombre) %>%
-  pivot_wider(
-    names_from = año,
-    values_from = año
-  ) %>%
-  # ggplot(
-  #      aes(y = marca_nombre, axis1 = 2014, axis2 = 2015, axis3 = 2016, axis4 = 2017, axis5 = 2018, axis6 = 2019, axis7 = 2020, axis8 = 2021, axis9 = 2022)) +
-  # geom_alluvium()
+  ggplot(
+    aes(
+         y = n, 
+         axis1 = año, 
+         axis2 = marca_nombre
+         )
+       ) +
+  geom_alluvium(aes(fill = marca_nombre)) + 
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", aes(label = after_stat(stratum))) #+
+  #scale_x_discrete(limits = c("GT 1569", "GT 3843", "GT 3845", "GT 5297", "GT 8120", "GT 8187", "GT 11489", "GT 12261", "GT 15826"))
   
   
 
