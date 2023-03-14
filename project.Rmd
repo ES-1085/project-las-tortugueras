@@ -462,8 +462,11 @@ visdat::vis_miss(GTBK_2018_2023)
 ```
 
 ```{r missing-data-visual}
-GTBK_used_variables <- GTBK_data %>%
-  select(marca_nombre, fecha, area_de_monitoreo, especie, sexo)
+GTBK_used_variables <- 
+  GTBK_data %>%
+   select(marca_nombre, fecha, area_de_monitoreo, especie, sexo, l_r_c, l_c_c, a_r_c, a_c_c, p_c, l_p, l_t_c)
+
+visdat::vis_miss(GTBK_used_variables)
 ```
 
 
