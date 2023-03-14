@@ -483,15 +483,13 @@ leaflet(GTBK_data) %>%
 ### GTBK Recapture Visualizations
 880 times went out total, 188 instances of recapture
 
-```{r turtle_recaps_by_month}
+```{r recaptures-per-month}
 GTBK_data <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha))
 
-
 as.integer(GTBK_data$mes)
 as.integer(GTBK_data$año)
-
 
 GTBK_outings <- GTBK_data %>%
       group_by(mes) %>%
@@ -535,13 +533,14 @@ Sankey %>%
   ggplot(
     aes(
          y = n, 
-         axis1 = año, 
-         axis2 = marca_nombre
+         axis1 = marca_nombre, 
+         axis2 = año
          )
        ) +
   geom_alluvium(aes(fill = marca_nombre)) + 
   geom_stratum(width = 1/12, fill = "black", color = "grey") +
-  geom_label(stat = "stratum", aes(label = after_stat(stratum))) #+
+  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_fill_viridis_d()
   #scale_x_discrete(limits = c("GT 1569", "GT 3843", "GT 3845", "GT 5297", "GT 8120", "GT 8187", "GT 11489", "GT 12261", "GT 15826"))
 
 # library(ggalluvial)
@@ -562,13 +561,43 @@ Sankey %>%
   
 
 ```
-### GTBK Turtle Capture Visualizations
-```{r turtles_per_effort_over_time}
+```{r sankey_2}
+library(ggalluvial)
 
-# This code chunk is not to be messed with under any circumstance!
-#GTBK_data <- 
-# GTBK_data %>%
-#   mutate(yearmonth = ym(paste(año, mes, sep = "-")))
+Sankey <- GTBK_data %>% 
+  filter(numero_recaptura %in% c(3,4)) %>%
+  mutate(yearmonth = paste(año, mes, sep = "-")) %>%
+  select(marca_nombre, año) %>%
+  group_by(marca_nombre, año) %>%
+  summarize(n = n()) %>%
+  arrange(año) #%>%
+  # pivot_wider(
+  #   names_from = año,
+  #   values_from = n
+  # ) 
+
+Sankey <- replace(Sankey,is.na(Sankey),0) %>%
+   mutate(frequency = n())
+
+
+Sankey %>%
+  group_by(marca_nombre) %>%
+  ggplot(
+    aes(
+         y = n, 
+         axis1 = marca_nombre, 
+         axis2 = año
+         )
+       ) +
+  geom_alluvium(aes(fill = marca_nombre)) + 
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_fill_viridis_d()
+```
+
+
+### GTBK Turtle Capture Visualizations
+```{r create-effort-variables}
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
   filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
@@ -577,21 +606,16 @@ tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
   summarize(turtles = n()) %>%
   group_by(mes, año) %>%
   summarize(total_turtles = sum(turtles, na.rm = T))
-
-tiempo <- GTBK_data %>%    # of times they went out
-  distinct(fecha, mes, año) %>%
-  group_by(mes, año) %>%
-  summarize(effort = n())
-
-full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año")) #%>%
-
-#    mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
-#    select(mes, tortugas_por_esfuerzo) %>%
-#    ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
-#    geom_col() 
+# 
+# tiempo <- GTBK_data %>%    # of times they went out
+#   distinct(fecha, mes, año) %>%
+#   group_by(mes, año) %>%
+#   summarize(effort = n())
+# 
+# full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año"))
 ```
 
-```{r Turtles per effort over time}
+```{r effort-over-time}
 library(lubridate)
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
@@ -608,7 +632,7 @@ tiempo <- GTBK_data %>%    # of times they went out
   summarize(effort = n())
 
 Capturas_y_ezfuerzo <- full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año")) %>%
-  mutate(tortugas_por_esfuerzo = total_turtles/effort) %>%
+  mutate(tortugas_por_esfuerzo = effort/total_turtles) %>%
   mutate(year_month = ym(paste(año, mes, sep = "-"))) 
   
 
@@ -651,40 +675,8 @@ tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort) %>%
   drop_na()
 
-# wanted to add this so that the graph below would not have to be continuous, more defined
 
-tortugas_por_esfuerzo <- tortugas_por_esfuerzo %>%
-  mutate(mes_nombre =
-           case_when(
-             mes == "1" ~ "jan",
-             mes == "2" ~ "feb",
-             mes == "3" ~ "mar",
-             mes == "4" ~ "apr",
-             mes == "5" ~ "may",
-             mes == "6" ~ "jun",
-             mes == "7" ~ "jul",
-             mes == "8" ~ "aug",
-             mes == "9" ~ "sep",
-             mes == "10" ~ "oct",
-             mes == "11" ~ "nov",
-             mes == "12" ~ "dec")         ) 
-
-tortugas_por_esfuerzo %>%
-  group_by(año, mes) %>%
-   ggplot(aes(x = año, y = esfuerzo))+
-   geom_point()
-
-
-#scale_fill_gradient(low = "coral1", high = "dodgerblue4")
-
-
-full_join(tortugas_por_tiempo, tiempo) %>%
-   mutate(esfuerzo = total_turtles/effort) %>%
-   ggplot(aes(x = año, y = esfuerzo, fill = mes)) +
-   geom_col(position="stack") +
- scale_fill_gradient(low = "coral1", high = "dodgerblue4")
-                   
-#I wish this wasnt continuous so moths could be more distinct
+                  
 
 ```
 
@@ -712,14 +704,15 @@ tortugas_por_esfuerzo %>%
 ```
 
 ```{r captures-by-area}
-# overview graph
 lugar_de_tortugas <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha)) %>%
-  select(marca_nombre, lugar, geografía, numero_recaptura, mes, año)
+  select(marca_nombre, lugar, geografía, numero_recaptura, mes, año, especie_nombre_latino)
 
-ggplot(data = lugar_de_tortugas, 
-       mapping = aes(x = año, fill = geografía)) +
+# overview graph
+lugar_de_tortugas %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = geografía)) +
   geom_bar() +
   labs(title = "Spacial Overview",
        subtitle = "Turtles Captured by Location",
@@ -730,16 +723,43 @@ ggplot(data = lugar_de_tortugas,
    theme_bw()
 
 #facet graph
-ggplot(data = lugar_de_tortugas, 
-       mapping = aes(x = año, fill = geografía)) +
+lugar_de_tortugas %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = especie_nombre_latino)) +
   geom_bar() +
   facet_grid( ~ geografía) +
   labs(title = "Spacial Overview",
        subtitle = "Turtles Captured by Location",
        x = "year", y = "turtles captured",
        fill = "geography") + 
-scale_fill_manual(values = c("cyan4", "cyan4", "cyan4", "cyan4")) +
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen")) +
    theme_bw()
+
+#isla graph
+lugar_de_tortugas %>%
+  filter(geografía == "isla") %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = especie_nombre_latino)) +
+  geom_bar() +
+  labs(title = "Species Distribution on the Islands",
+       x = "year", y = "number of turtles",
+       fill = "species") + 
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) + 
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+
+theme_bw()
+
+#estuario graph
+lugar_de_tortugas %>%
+  filter(geografía == "estuario") %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = especie_nombre_latino)) +
+  geom_bar() +
+  labs(title = "Species Distribution in the Estuaries",
+       x = "year", y = "number of turtles",
+       fill = "species") + 
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023))+ 
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+ 
+  theme_bw()
 
 ```
 
