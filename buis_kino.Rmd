@@ -112,7 +112,7 @@ turtle_measures %>%
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
 
-```{r statistical-analysis-box-violin}
+```{r statistical-analysis-box-violin, fig.width = 11, fig.height = 6}
 
 ## Finalize this visualization, edit color and text, etc.
 
