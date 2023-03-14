@@ -482,8 +482,21 @@ leaflet(GTBK_data) %>%
 
 ```{r recaptures-per-month}
 GTBK_data <- GTBK_data %>%
+  mutate(año = year(fecha)) %>%
   mutate(mes = month(fecha)) %>%
-  mutate(año = year(fecha))
+  mutate(mes_nombre = case_when(
+        mes == "1" ~ "jan",
+        mes == "2" ~ "feb",
+        mes == "3" ~ "mar",
+        mes == "4" ~ "apr",
+        mes == "5" ~ "may",
+        mes == "6" ~ "jun",
+        mes == "7" ~ "jul",
+        mes == "8" ~ "aug",
+        mes == "9" ~ "sep",
+        mes == "10" ~ "oct",
+        mes == "11" ~ "nov",
+        mes == "12" ~ "dec"))
 
 as.integer(GTBK_data$mes)
 as.integer(GTBK_data$año)
@@ -492,14 +505,50 @@ GTBK_outings <- GTBK_data %>%
       group_by(mes) %>%
       count(mes)
 
+
 GTBK_recapturas <- GTBK_data %>%
   filter(numero_recaptura %in% c(2, 3, 4)) %>%
   group_by(mes) %>%
   count(mes)
 
+as.integer(GTBK_outings$mes)
+as.integer(GTBK_recapturas$mes)
+
 full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
-   mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
-   select(mes, tortugas_por_esfuerzo) %>%
+  mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
+  select(mes, tortugas_por_esfuerzo) %>%
+  mutate(mes = case_when(
+        mes == "1" ~ "jan",
+        mes == "2" ~ "feb",
+        mes == "3" ~ "mar",
+        mes == "4" ~ "apr",
+        mes == "5" ~ "may",
+        mes == "6" ~ "jun",
+        mes == "7" ~ "jul",
+        mes == "8" ~ "aug",
+        mes == "9" ~ "sep",
+        mes == "10" ~ "oct",
+        mes == "11" ~ "nov",
+        mes == "12" ~ "dec"
+    )) %>% 
+  mutate(
+    mes = factor(mes, levels = c(
+      "jan", 
+      "feb", 
+      "mar", 
+      "apr",
+      "may",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "oct",
+      "nov",
+      "dec"
+      )
+      )
+    ) %>%
+  drop_na() %>%
    ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
    geom_col() 
 
@@ -516,21 +565,19 @@ Sankey <- GTBK_data %>%
   group_by(marca_nombre, año) %>%
   summarize(n = n()) %>%
   arrange(año) #%>%
-  # pivot_wider(
-  #   names_from = año,
-  #   values_from = n
-  # ) 
-
-Sankey <- replace(Sankey,is.na(Sankey),0) %>%
-   mutate(frequency = n())
-
+#    pivot_wider(
+#      names_from = año,
+#      values_from = n
+#  )
+# 
+# Sankey <- replace(Sankey,is.na(Sankey),0) %>%
+#    mutate(frequency = n())
 
 Sankey %>%
-  group_by(marca_nombre) %>%
   ggplot(
     aes(
          y = n, 
-         axis1 = marca_nombre, 
+         axis1 = marca_nombre,
          axis2 = año
          )
        ) +
@@ -560,39 +607,6 @@ Sankey %>%
   
 
 ```
-```{r sankey_2}
-library(ggalluvial)
-
-Sankey <- GTBK_data %>% 
-  filter(numero_recaptura %in% c(3,4)) %>%
-  mutate(yearmonth = paste(año, mes, sep = "-")) %>%
-  select(marca_nombre, año) %>%
-  group_by(marca_nombre, año) %>%
-  summarize(n = n()) %>%
-  arrange(año) #%>%
-  # pivot_wider(
-  #   names_from = año,
-  #   values_from = n
-  # ) 
-
-Sankey <- replace(Sankey,is.na(Sankey),0) %>%
-   mutate(frequency = n())
-
-
-Sankey %>%
-  group_by(marca_nombre) %>%
-  ggplot(
-    aes(
-         y = n, 
-         axis1 = marca_nombre, 
-         axis2 = año
-         )
-       ) +
-  geom_alluvium(aes(fill = marca_nombre)) + 
-  geom_stratum(width = 1/12, fill = "black", color = "grey") +
-  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
-  scale_fill_viridis_d()
-```
 
 
 ### GTBK Turtle Capture Visualizations
@@ -614,7 +628,7 @@ tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
 # full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año"))
 ```
 
-```{r effort-over-time}
+```{r captures_per_effort_over_time}
 library(lubridate)
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
@@ -633,15 +647,6 @@ tiempo <- GTBK_data %>%    # of times they went out
 Capturas_y_ezfuerzo <- full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año")) %>%
   mutate(tortugas_por_esfuerzo = effort/total_turtles) %>%
   mutate(year_month = ym(paste(año, mes, sep = "-"))) 
-  
-
-Capturas_y_ezfuerzo %>% 
-  ggplot(
-    aes(x = year_month,
-        y = tortugas_por_esfuerzo
-      )
-  ) +
-  geom_line()
 
 Capturas_y_ezfuerzo %>% 
   ggplot(
@@ -651,6 +656,8 @@ Capturas_y_ezfuerzo %>%
   ) +
   geom_col()
 
+ggsave("final_visualizations/captures_per_effort_over_time.jpg", device = "jpg", dpi = 500)
+
 ```
 
 ```{r practice-effort}
@@ -659,15 +666,15 @@ GTBK_data %>%
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
   filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
-  group_by(fecha, mes, año) %>%
+  group_by(fecha, mes_nombre, año) %>%
   drop_na(marca_nombre) %>%
   summarize(turtles = n()) %>%
-  group_by(mes, año) %>%
+  group_by(mes_nombre, año) %>%
   summarize(total_turtles = sum(turtles, na.rm = T))
 
 tiempo <- GTBK_data %>%    # of times they went out
-  distinct(fecha, mes, año) %>%
-  group_by(mes, año) %>% 
+  distinct(fecha, mes_nombre, año) %>%
+  group_by(mes_nombre, año) %>% 
   summarize(effort = n())
 
 tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
@@ -699,6 +706,8 @@ tortugas_por_esfuerzo %>%
   coord_fixed(ratio = 1) + 
   scale_y_continuous(breaks = c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)) + 
   theme_bw()
+
+ggsave("final_visualizations/heat_map.jpg", device = "jpg", dpi = 500)
 
 ```
 
