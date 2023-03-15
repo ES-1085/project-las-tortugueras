@@ -112,7 +112,7 @@ turtle_measures %>%
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
 
-```{r statistical-analysis-box-violin}
+```{r statistical-analysis-box-violin, fig.width = 11, fig.height = 6}
 
 ## Finalize this visualization, edit color and text, etc.
 
@@ -324,7 +324,7 @@ GTBK$year = as.integer(GTBK$year)
 
 #The issue with the animation below is that it leaves out a point in all three turtles' graphs until the end of the animation. Why? Is that because of the argument transition_reveal or is there a way I can work around it?
 
-GTBK %>%
+p <- GTBK %>%
   filter(marca_nombre %in% c(
     "GT 12261",
     "GT 1569",
@@ -335,7 +335,7 @@ GTBK %>%
     marca_nombre == "GT 5297" ~ "ELVIA"
   )) %>%
   ggplot(aes(year, l_c_c, color = marca_nombre)) +
-  geom_point(size = 4, alpha = 0.7, show.legend = FALSE) +
+  geom_point(size = 11, alpha = 0.7, show.legend = FALSE) +
   # geom_line(size = 1, alpha = 0.9, show.legend = FALSE) +
     scale_color_manual(values = c("indianred3", "goldenrod", "palegreen4")) +
     facet_wrap(~ marca_nombre) +
@@ -345,22 +345,21 @@ GTBK %>%
        subtitle = "Caught by GTBK in Laguna la Cruz, Mexico",
        x = "Year",
        y = "Curved Carapace Length (cm)") +
-  transition_reveal(along = year, keep_last = TRUE) +
-  shadow_mark(color = "black", past = TRUE) +
+  transition_reveal(along = year, keep_last = FALSE) +
+  # shadow_mark(color = "black", alpha = 0.3, size = 0.5, future = FALSE, past = TRUE) +
   ease_aes('linear') +
-  theme(plot.title = element_text(size = 14, family = "Helvetica"),
-        plot.subtitle = element_text(size = 12, family = "Helvetica"),
-        strip.text.x = element_text(size = 11, family = "Helvetica", face = "bold"),
-        axis.title.x = element_text(size = 11, family = "Helvetica", vjust = -1),
-        axis.title.y = element_text(size = 11, family = "Helvetica", vjust = 1),
-        axis.text.x = element_text(size = 9, family = "Helvetica"),
-        axis.text.y = element_text(size = 10, family = "Helvetica"),
-        legend.title = element_text(size = 11, family = "Helvetica"),
-        legend.text = element_text(size = 10, family = "Helvetica"),
+  theme(plot.title = element_text(size = 20, family = "Helvetica"),
+        plot.subtitle = element_text(size = 18, family = "Helvetica"),
+        strip.text.x = element_text(size = 18, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 18, family = "Helvetica", vjust = -1),
+        axis.title.y = element_text(size = 18, family = "Helvetica", vjust = 1),
+        axis.text.x = element_text(size = 16, family = "Helvetica"),
+        axis.text.y = element_text(size = 16, family = "Helvetica"),
         panel.spacing = unit(1, "lines")) 
 
-animate(p, nframe = 8, fps = 1, renderer = gifski_renderer(loop = FALSE))
+animate(p, width = 900, height = 500, nframe = 8, fps = 1, renderer = gifski_renderer(loop = TRUE))
 
+anim_save("final_visualizations/turtlegrowth.gif", dpi = 1000)
 
 #new attempt using transition_manual; this one will not allow me to add a geom_line because each frame is discrete and cannot be linked to other frames. This animation at least includes all three points per turtle but I wish there was some line or something at the end
 
