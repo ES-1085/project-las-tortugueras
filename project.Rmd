@@ -1,11 +1,11 @@
 ---
-title: "Project: Las Torgtugueras"
-authors: "Sophie Chivers, Emily Rose Stringer, Georgia Lattig"
-output:     html_document
+title: "Las Torgtugueras"
+author: "Sophie Chivers, Emily Rose Stringer, Georgia Lattig"
 date: "2023-02-22"
+output: html_document
 ---
 
-## Load Packages and Data
+#### Load Packages and Data
 
 ```{r load-packages , include = FALSE}
 # install.packages("ggridges")
@@ -52,7 +52,7 @@ buis_2022 <- read_csv("/cloud/project/data/buis_turtle_measures.csv",
 
 ```
 
-## Cleaning Data
+#### Clean Data
 
 ```{r tidy-column-names, include = FALSE}
 colnames(GTBK_2010_2018) <- c(
@@ -284,7 +284,7 @@ GTBK_data <- GTBK_data %>%
               muestra_cont_estom, muestra_sangre_2, muestra_piel_2, muestra_cont_estom_2, otra_muestra, otra_muestra_2,               especificar, especificar_2, lesiones_balanos, lesiones_balanos_2, foto, foto_2, id_2, id_3))
 ```
 
-```{r create-GTBK-measures}
+```{r create-GTBK-measures, include = FALSE}
 
 GTBK_turtle_measures <- GTBK_data %>%
   select(fecha, nombre_tortuga, marca_nombre, especie_nombre_latino, numero_recaptura, a_c_c,, l_c_c, lugar, geografía, sexo_correcto)
@@ -294,8 +294,8 @@ write_csv(GTBK_turtle_measures, file = ("data/GTBK_turtle_measures.csv"))
 write_csv(GTBK_data, file = ("data/GTBK_data.csv"))
 ```
 
-## Counts
-```{r count-especie-nombre-latino}
+#### Counts
+```{r count-especie-nombre-latino, include = FALSE}
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
 count()  
@@ -303,7 +303,29 @@ count()
 
 ## Visualizations
 
-```{r buis-22-species-size}
+### Missing Data
+```{r load_packages_for_missing_data_viz, include = FALSE}
+library(visdat)
+library(naniar)
+
+visdat::vis_dat(GTBK_data)
+visdat::vis_dat(GTBK_2010_2018)
+visdat::vis_dat(GTBK_2018_2023)
+
+visdat::vis_dat(buis_2022)
+```
+
+```{r visualize_missing_data, echo = FALSE}
+# naniar::gg_miss_var(GTBK_data)
+
+visdat::vis_miss(GTBK_data) 
+
+ggsave("final_visualizations/missingdata.jpg", device = "jpg", dpi = 500)
+# visdat::vis_miss(GTBK_2018_2023)
+```
+
+### Species, Sex, and Size Distributions
+```{r buis-22-species-size, echo = FALSE}
 buis_2022 %>% 
   mutate(species = case_when(
     sp == "HB" ~ "Eretmochelys imbricata",
@@ -338,7 +360,7 @@ buis_2022 %>%
 ```
 
 
-```{r GTBK-10-23-species-size}
+```{r GTBK-10-23-species-size, echo = FALSE}
 GTBK_data %>%
   filter(especie_nombre_latino == "Chelonia mydas" |
          especie_nombre_latino == "Eretmochelys imbricata" |
@@ -357,17 +379,61 @@ GTBK_data %>%
        fill = "Species")
 ```
 
-```{r basic-recaptures-viz}
+```{r species-sex-distribution, echo = FALSE}
+GTBK_data %>%
+  filter(numero_recaptura == 1) %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
+
+GTBK_data %>%
+filter(especie_nombre_latino != "NA") %>%
+  filter(numero_recaptura == 1) %>%
+ggplot(aes(x = sexo_correcto, 
+                     fill = sexo_correcto)) +
+  geom_bar() + 
+  facet_wrap( ~ especie_nombre_latino, 
+              # <- fct_relevel(especie_nombre_latino, 
+              #                         "Caretta caretta",
+              #                          "Eretmochelys imbricata", 
+              #                          "Lepidochelys olivacea",
+              #                          "Chelonia mydas"),
+               scales = "free_y") +
+   labs(title = "Species and Sex Distribution", 
+       subtitle = "of turtles captured in Kino Bay", 
+       x = "sex", 
+       y = "number of individuals", 
+       fill = "sex") +
+ scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
+
+```
+
+### Captures and Recaptures
+```{r basic-recaptures-viz, echo = FALSE}
+# recapture bar graph
 GTBK_data %>% 
   filter(numero_recaptura %in% c(2, 3, 4)) %>% 
   ggplot(aes(x = numero_recaptura)) +
-  geom_bar()
+  geom_bar() + 
+  labs(title = "Recaptures of Sea Turtles",
+       x = "Number of Times Captured",
+       y = "Number of Turtles")
 
+# sex distribution bar graph
 GTBK_data %>% 
   filter(numero_recaptura %in% c(2, 3, 4)) %>% 
   ggplot(aes(x = numero_recaptura, fill = sexo_correcto)) +
-  geom_bar()
+  geom_bar() + 
+  labs(title = "Sex Distribution of Recaptured Sea Turtles",
+       subtitle = "from 2010-2023",
+       x = "Number of Times Captured",
+       y = "Number of Turtles",
+       fill = "Sex") +
+scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81"))
 
+# ggsave("final_visualizations/GTBKcapturesbyspecies.jpg", device = "jpg", dpi = 500)
+```
+
+```{r overall-turtle-captures, echo=FALSE}
 GTBK_data %>% 
   filter(numero_recaptura %in% c(1, 2, 3, 4)) %>% 
   filter(especie_nombre_latino == "Chelonia mydas" | 
@@ -402,10 +468,10 @@ GTBK_data %>%
    guides(color = guide_legend(override.aes = list(size = 0.5)))
 
 
-ggsave("final_visualizations/GTBKcapturesbyspecies.jpg", device = "jpg", dpi = 500)
+# ggsave("final_visualizations/GTBKcapturesbyspecies.jpg", device = "jpg", dpi = 500)
 ```
 
-```{r seasonality}
+```{r seasonality, include = FALSE}
 recapture_tibble <- GTBK_data %>%
   group_by(marca_nombre) %>%
   select(nombre_tortuga, fecha, especie, area_de_monitoreo, marca_nombre)
@@ -416,7 +482,7 @@ recapture_tibble %>%
   summarize(marca_nombre)
 ```
 
-```{r species-by-sex-counts}
+```{r species-by-sex-counts, include = FALSE}
 GTBK_data %>%
   group_by(especie_nombre_latino) %>%
   count (sexo_correcto)
@@ -435,55 +501,6 @@ buis_2022 %>%
 
 ```
 
-```{r species-sex-distribution}
-GTBK_data %>%
-  filter(numero_recaptura == 1) %>%
-  group_by(especie_nombre_latino) %>%
-  count (sexo_correcto)
-
-GTBK_data %>%
-filter(especie_nombre_latino != "NA") %>%
-  filter(numero_recaptura == 1) %>%
-ggplot(aes(x = sexo_correcto, 
-                     fill = sexo_correcto)) +
-  geom_bar() + 
-  facet_wrap( ~ especie_nombre_latino, 
-              # <- fct_relevel(especie_nombre_latino, 
-              #                         "Caretta caretta",
-              #                          "Eretmochelys imbricata", 
-              #                          "Lepidochelys olivacea",
-              #                          "Chelonia mydas"),
-               scales = "free_y") +
-   labs(title = "Species and Sex Distribution", 
-       subtitle = "of turtles captured in Kino Bay", 
-       x = "sex", 
-       y = "number of individuals", 
-       fill = "sex") +
- scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
-
-```
-
-```{r load_packages_for_missing_data_viz, include = FALSE}
-library(visdat)
-library(naniar)
-
-visdat::vis_dat(GTBK_data)
-visdat::vis_dat(GTBK_2010_2018)
-visdat::vis_dat(GTBK_2018_2023)
-
-visdat::vis_dat(buis_2022)
-```
-
-```{r visualize_missing_data}
-# naniar::gg_miss_var(GTBK_data)
-
-visdat::vis_miss(GTBK_data) 
-
-ggsave("final_visualizations/missingdata.jpg", device = "jpg", dpi = 500)
-# visdat::vis_miss(GTBK_2018_2023)
-```
-
-
 ```{r map-kino-bay-recaptures, include = FALSE}
 leaflet(GTBK_data) %>%
   addProviderTiles(providers$Esri.WorldImagery) %>% 
@@ -494,10 +511,11 @@ leaflet(GTBK_data) %>%
                   fillColor = "red",
                   stroke = FALSE)
 ```
-### GTBK Recapture Visualizations
-880 times went out total, 188 instances of recapture
 
-```{r recaptures-per-month}
+### GTBK Recapture Visualizations
+They went out 880 times total and there were 188 instances of recapture
+
+```{r recaptures-per-month, echo=FALSE}
 GTBK_data <- GTBK_data %>%
   mutate(año = year(fecha)) %>%
   mutate(mes = month(fecha)) %>%
@@ -580,10 +598,10 @@ full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
         axis.text.x = element_text(size = 11, family = "Helvetica"),
         axis.text.y = element_text(size = 11, family = "Helvetica"))
 
-ggsave("final_visualizations/seasonality_of_recaptures.jpg", device = "jpg", dpi = 500)
+# ggsave("final_visualizations/seasonality_of_recaptures.jpg", device = "jpg", dpi = 500)
 ```
 
-```{r individual_recaps_sankey}
+```{r individual_recaps_sankey, echo=FALSE}
 # install.packages("ggalluvial")
 library(ggalluvial)
 
@@ -631,15 +649,11 @@ Sankey %>%
 #   ggplot(
 #        aes(y = marca_nombre, axis1 = 2014, axis2 = 2015, axis3 = 2016, axis4 = 2017, axis5 = 2018, axis6 = 2019, axis7 = 2020, axis8 = 2021, axis9 = 2022)) +
 #   geom_alluvium()
-
-  
-  
-
 ```
 
 
 ### GTBK Turtle Capture Visualizations
-```{r create-effort-variables}
+```{r create-effort-variables, include=FALSE}
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
   filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
@@ -657,7 +671,7 @@ tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
 # full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año"))
 ```
 
-```{r captures_per_effort_over_time}
+```{r captures_per_effort_over_time, echo=FALSE}
 library(lubridate)
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
@@ -683,13 +697,16 @@ Capturas_y_ezfuerzo %>%
         y = tortugas_por_esfuerzo
       )
   ) +
-  geom_col()
+  geom_col() +
+  labs(title = "Captures per Effort over Time", 
+       x = "month and year", 
+       y = "turtles per effort")
 
-ggsave("final_visualizations/captures_per_effort_over_time.jpg", device = "jpg", dpi = 500)
+# ggsave("final_visualizations/captures_per_effort_over_time.jpg", device = "jpg", dpi = 500)
 
 ```
 
-```{r practice-effort}
+```{r practice-effort, include = FALSE}
 GTBK_data %>%
   mutate(yearmonth = ym(paste(año, mes, sep = "-")))
 
@@ -710,12 +727,9 @@ tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
    mutate(esfuerzo = total_turtles/effort) %>%
   drop_na()
 
-
-                  
-
 ```
 
-```{r capture-heat-map}
+```{r capture-heat-map, echo=FALSE}
 as.integer(tortugas_por_esfuerzo$mes)
 as.integer(tortugas_por_esfuerzo$año)
 
@@ -736,11 +750,11 @@ tortugas_por_esfuerzo %>%
   scale_y_continuous(breaks = c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)) + 
   theme_bw()
 
-ggsave("final_visualizations/heat_map.jpg", device = "jpg", dpi = 500)
+ggsave("final_heat_map.jpg", device = "jpg", dpi = 500)
 
 ```
 
-```{r captures-by-area}
+```{r captures-by-area, echo=FALSE}
 lugar_de_tortugas <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha)) %>%
@@ -754,23 +768,25 @@ ggplot(aes(x = año, fill = geografía)) +
   labs(title = "Spacial Overview",
        subtitle = "Turtles Captured by Location",
        x = "year", y = "turtles captured",
-       fill = "geography") + 
-  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) + 
+       fill = "geography") +
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) +
   scale_fill_manual(values = c("cyan4", "cyan2", "coral1")) +
    theme_bw()
+ggsave("final_spacial_overview.jpg", device = "jpg", dpi = 500)
 
-#facet graph
+# facet graph
 lugar_de_tortugas %>%
   drop_na() %>%
 ggplot(aes(x = año, fill = especie_nombre_latino)) +
   geom_bar() +
   facet_grid( ~ geografía) +
-  labs(title = "Spacial Overview",
-       subtitle = "Turtles Captured by Location",
+  labs(title = "Captures by Location",
+       subtitle = "and Species Distribution",
        x = "year", y = "turtles captured",
-       fill = "geography") + 
+       fill = "geography") +
 scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen")) +
    theme_bw()
+ggsave("final_spacial_species_breakdown.jpg", device = "jpg", dpi = 500)
 
 #isla graph
 lugar_de_tortugas %>%
@@ -780,12 +796,12 @@ ggplot(aes(x = año, fill = especie_nombre_latino)) +
   geom_bar() +
   labs(title = "Species Distribution on the Islands",
        x = "year", y = "number of turtles",
-       fill = "species") + 
-  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) + 
+       fill = "species") +
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) +
 scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+
 theme_bw()
 
-#estuario graph
+# estuario graph
 lugar_de_tortugas %>%
   filter(geografía == "estuario") %>%
   drop_na() %>%
@@ -793,15 +809,13 @@ ggplot(aes(x = año, fill = especie_nombre_latino)) +
   geom_bar() +
   labs(title = "Species Distribution in the Estuaries",
        x = "year", y = "number of turtles",
-       fill = "species") + 
-  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023))+ 
-scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+ 
+       fill = "species") +
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023))+
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+
   theme_bw()
-
 ```
 
-
-## Turtle Photos/Memes
+## Turtle Media
 
 ```{r image-1, echo=FALSE, out.width = "50%", fig.cap = "A Green sea turtle hatchling headed toward the sea."}
 knitr::include_graphics("/cloud/project/images/GreenSeaTurtleHatchlingBUIS.JPG")
@@ -810,3 +824,4 @@ knitr::include_graphics("/cloud/project/images/GreenSeaTurtleHatchlingBUIS.JPG")
 ```{r image-2, echo=FALSE, out.width = "50%", fig.cap = "A Hawksbill sea turtle laying her nest on Buck Island."}
 knitr::include_graphics("/cloud/project/images/hawksbillseaturtleBISTRP.JPG")
 ```
+
