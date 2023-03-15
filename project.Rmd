@@ -617,16 +617,21 @@ Sankey %>%
   ggplot(
     aes(
          y = n, 
-         axis1 = marca_nombre,
-         axis2 = año
+         axis1 = año,
+         axis2 = marca_nombre
          )
        ) +
   geom_alluvium(aes(fill = marca_nombre)) + 
   geom_stratum(width = 1/12, fill = "black", color = "grey") +
-  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
-  scale_fill_viridis_d()
+  geom_label(stat = "stratum", label.size = 0.1, aes(label = after_stat(stratum))) +
+  scale_fill_viridis_d() + 
+  coord_flip() +
+  labs(title = "Individual Turtle Captures By GTBK Over time") +
+  ylab("Number of Captures") +
+  theme(axis.text.y = element_blank(),
+      axis.ticks.y = element_blank())
  
-ggsave("final_visualizations/turtle_recap_sankey.jpg", device = "jpg", dpi = 500)
+ggsave("final_visualizations/turtle_recap_sankey.jpg", device = "jpg", width = 15, height = 7, dpi = 500)
 ```
 
 ```{r individual_recaps_line, echo = FALSE}
