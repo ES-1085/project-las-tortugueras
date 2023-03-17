@@ -434,7 +434,7 @@ scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81"))
 # ggsave("final_visualizations/GTBKcapturesbyspecies.jpg", device = "jpg", dpi = 500)
 ```
 
-```{r overall-turtle-captures, echo=FALSE}
+```{r overall-turtle-captures,fig.alt = "This bar chart demonstrates the number of turtles that have been recaptured 1, 2, 3, or 4 times. Each bar represents the number of turtles that have been recaptured that number of times. The chart is also stacked by species. The majority of the turtles are green turtles and have only been captured once. A smaller amount of the turtles have been captured twice", echo=FALSE}
 GTBK_data %>% 
   filter(numero_recaptura %in% c(1, 2, 3, 4)) %>% 
   filter(especie_nombre_latino == "Chelonia mydas" | 
@@ -516,7 +516,7 @@ leaflet(GTBK_data) %>%
 ### GTBK Recapture Visualizations
 They went out 880 times total and there were 188 instances of recapture
 
-```{r recaptures-per-month, echo=FALSE}
+```{r recaptures-per-month,  fig.alt = "This is a bar chart representing the seasonality of overall sea turtle recaptures Each bar represents the total number of recaptures per outing per month. There is a roughly even seasonal distribution of recaptures.", echo=FALSE}
 GTBK_data <- GTBK_data %>%
   mutate(año = year(fecha)) %>%
   mutate(mes = month(fecha)) %>%
@@ -602,7 +602,7 @@ full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
 # ggsave("final_visualizations/seasonality_of_recaptures.jpg", device = "jpg", dpi = 500)
 ```
 
-```{r individual_recaps_sankey, echo=FALSE}
+```{r individual_recaps_sankey, fig.alt = "This sankey diagram tracks the 9 most frequently recaptured over time from 2014 to 2021. Each turtle is labled with it's tag number. Generally it seems that individual's recaptures are clustered together, but some are more spread apart", echo=FALSE}
 # install.packages("ggalluvial")
 library(ggalluvial)
 
@@ -675,7 +675,7 @@ tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
 # full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año"))
 ```
 
-```{r captures_per_effort_over_time, echo=FALSE}
+```{r captures_per_effort_over_time,  fig.alt = "This bar chart demonstrates the number of turtle recaptures per outing from 2010 to 2023. Recaptures per effort have stayed roughly the same through time.", echo=FALSE}
 library(lubridate)
 
 tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
