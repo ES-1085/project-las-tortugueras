@@ -29,7 +29,7 @@ library(lubridate)
 ```
 
 ```{r load-data, include = FALSE}
-GTBK_2010_2018 <- read_excel("data/GTBK_2010_2018.xls")
+GTBK_2010_2018 <- read_excel("/cloud/project/data/GTBK_2010_2018.xls")
 
 GTBK_2018_2023 <- read_excel("/cloud/project/data/GTBK_2018_2023.xlsx", 
     col_types = c("text", "text", "text", 
@@ -285,13 +285,13 @@ GTBK_data <- GTBK_data %>%
 ```
 
 ```{r create-GTBK-measures, include = FALSE}
-
-GTBK_turtle_measures <- GTBK_data %>%
+GTBK_turtle_measures <- 
+  GTBK_data %>%
   select(fecha, nombre_tortuga, marca_nombre, especie_nombre_latino, numero_recaptura, a_c_c,, l_c_c, lugar, geografía, sexo_correcto)
   
-write_csv(GTBK_turtle_measures, file = ("data/GTBK_turtle_measures.csv"))
+write_csv(GTBK_turtle_measures, file = ("/cloud/project/data/GTBK_turtle_measures.csv"))
 
-write_csv(GTBK_data, file = ("data/GTBK_data.csv"))
+write_csv(GTBK_data, file = ("/cloud/project/data/GTBK_data.csv"))
 ```
 
 #### Counts
@@ -315,7 +315,7 @@ visdat::vis_dat(GTBK_2018_2023)
 visdat::vis_dat(buis_2022)
 ```
 
-```{r visualize_missing_data, echo = FALSE}
+```{r visualize_missing_data, echo = FALSE, fig.alt= "Bar graph showing each variable in the GTBK data set and what percent of the data is missing. Overall 26.2% of data is missing."}
 # naniar::gg_miss_var(GTBK_data)
 
 visdat::vis_miss(GTBK_data) 
@@ -732,7 +732,7 @@ tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
 
 ```
 
-```{r capture-heat-map, echo=FALSE}
+```{r capture-heat-map, echo=FALSE, fig.alt= "Heat map graph showing the overall turtle captures. X axis representes year and Y axis represents month in which turtles were caught. Total captures is represented by effort (turtles caught/outing). There is a range between 0.7 and 1.1 turtles per outing."}
 as.integer(tortugas_por_esfuerzo$mes)
 as.integer(tortugas_por_esfuerzo$año)
 
@@ -757,7 +757,8 @@ ggsave("final_heat_map.jpg", device = "jpg", dpi = 500)
 
 ```
 
-```{r captures-by-area, echo=FALSE}
+```{r captures-by-area, echo=FALSE, fig.alt= "Segmented bar graph showing which of three locations turtles were caught in from 2010 to 2023. The locations are estuary, island, and beach. Over two thirds of turtles were caught in the estuary"}
+
 lugar_de_tortugas <- GTBK_data %>%
   mutate(mes = month(fecha)) %>%
   mutate(año = year(fecha)) %>%
@@ -776,6 +777,9 @@ ggplot(aes(x = año, fill = geografía)) +
   scale_fill_manual(values = c("cyan4", "cyan2", "coral1")) +
    theme_bw()
 ggsave("final_spacial_overview.jpg", device = "jpg", dpi = 500)
+```
+
+```{r captures-by-area-and-species, echo = FALSE, fig.alt= "Segmented bar graph showing species of turtles caught over the years. The graph is faceted by location: estuary, island, and beach, and the bars are segmented by species (Caretta caretta, Chelonia mydas, and Lepidochelys olivacea). Over two thirds of all turtles were caught in the estuary and the majority of all turtles caught were Chelonia mydas species."}
 
 # facet graph
 lugar_de_tortugas %>%
@@ -791,6 +795,9 @@ scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolive
    theme_bw()
 ggsave("final_spacial_species_breakdown.jpg", device = "jpg", dpi = 500)
 
+```
+
+```{r captures-by-area-isla, echo = FALSE}
 #isla graph
 lugar_de_tortugas %>%
   filter(geografía == "isla") %>%
@@ -803,7 +810,9 @@ ggplot(aes(x = año, fill = especie_nombre_latino)) +
   scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) +
 scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+
 theme_bw()
+```
 
+```{r captures-by-area-estuario, echo = FALSE}
 # estuario graph
 lugar_de_tortugas %>%
   filter(geografía == "estuario") %>%
