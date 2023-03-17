@@ -26,7 +26,9 @@ Our data:
 - Grupo Tortuguero Bahía de Kino, 2023, 2018-2023 Turtle Monitoring Dataset, data file. 
 - Buck Island Sea Turtle Research Program, 2022, 2022 Female Sea Turtle Measurements Dataset, data file.
 
-## References
+## Acknowledgements
 
-Groupo Tortuguero Bahia de Kino (GTBK)
-Buck Island Sea Turtle Research Program (BISTRP)
+We would like to extend a special thank you to Lorayne and Cosme and El Grupo Tortuguero Bahia de Kino (GTBK) for trusting us with their data and providing us with questions that challenged us and helped us grow our data visualization skills. We would also like to thank the Buck Island Sea Turtle Research Program (BISTRP) and all of the researchers who endured long nights, spiny plants, and wet and sandy feet in order to collect this data and inform the conservation of the sea turtles on Buck Island. Thank you to Laurie Baker for her instruction and advice. And the biggest thank you of all goes to the sea turtles who made this project possible, their charming lives were a most delightful thing to fixate on for a final project.
+
+- Grupo Tortuguero Bahia de Kino (GTBK)
+- Buck Island Sea Turtle Research Program (BISTRP)
