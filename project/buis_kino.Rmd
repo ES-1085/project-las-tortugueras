@@ -113,7 +113,7 @@ turtle_measures %>%
 #The issue here is that some values from area_de_monitorio had quotation marks in them and until I figure out how R will read them, a bunch of other 
 ```
 
-```{r statistical-analysis-box-violin, fig.width = 11, fig.height = 6, alt}
+```{r statistical-analysis-box-violin, fig.width = 11, fig.height = 6, fig.alt = "This chart displays each organization's distribution of female Green sea turtle Curved Carapace Length (CCL) measurements taken during the 2022 Season. The chart plots each measurement as a point and overlays both a boxplot and a violin plot to provide a lot of information about the data distributions. Female Green sea turtles measured by BISTRP were much larger,  with an average CCL of 110.69 cm while GTBK's female Greens had an average CCL of 81.90 cm. This plot also tells the sample size of each distribution. BISTRP measured 23 female Greens while GTBK measured 17."}
 
 ## Finalize this visualization, edit color and text, etc.
 
@@ -212,7 +212,7 @@ turtle_measures %>%
 #There were 77 unique Green turtles captured by GTBK during the 2022 season. Two turtles were captured twice.
 ```
 
-```{r GTBK-turtle-demographics-by-location, fig.width = 12, fig.height = 8}
+```{r GTBK-turtle-demographics-by-location, fig.width = 12, fig.height = 8 , fig.alt= "This bar chart shows the species and sex distribution of sea turtles monitored by BISTRP and GTBK during the 2022 season. The bar chart is faceted by organization and the data clearly reflects the different nature of each project. Because BISTRP monitors nesting turtles on a nesting beach, all sea turtles monitored by BISTRP in 2022 were adult females, pretty evenly split between 29 Hawksbill and 27 Green with one exceptional Loggerhead. GTBK on the other hand monitors sea turtles in Kino Bay through opportunistic in-water surveys. GTBK encountered mostly Green sea turtles, 79 of them, both males and females, as well as one Olive Ridley. The majority of Green turtles captured by GTBK, 59 out of 79, could not be sexed however because they were juvenile."}
 turtle_measures %>% 
   mutate(species = case_when(
     sp == "Chelonia mydas" ~ "Green",
@@ -270,7 +270,7 @@ turtle_measures %>%
 ```
 
 
-```{r GTBK-static-turtle-growth, fig.width = 8, fig.height = 5}
+```{r GTBK-static-turtle-growth, fig.width = 8, fig.height = 5, fig.alt= "This time-enabled animation tracks the growth of three female Green sea turtles--Elvia, Juana and Pepe--recaptured by GTBK over several years. The chart uses Curved Carapace Length (CCL) in centimeters as a standard measurement for growth. Each turtle has grown in size between recaptures but this is most evident in Pepe's case. Pepe had a CCL of about 52 cm when first captured in 2014 and grew almost 20 cm before being recaptured in 2017."}
 GTBK$fecha = as.Date(GTBK$fecha)
 
 GTBK <- GTBK %>% 
