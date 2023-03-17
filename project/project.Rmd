@@ -1,0 +1,840 @@
+---
+title: "Las Torgtugueras"
+author: "Sophie Chivers, Emily Rose Stringer, Georgia Lattig"
+date: "2023-02-22"
+output: html_document
+---
+
+#### Load Packages and Data
+
+```{r load-packages , include = FALSE}
+# install.packages("ggridges")
+# install.packages("leaflet")
+# install.packages("sf")
+library(tidyverse)
+library(readxl)
+library(readr)
+library(lubridate)
+library(janitor)
+library(rlang)
+library(ggridges)
+library(leaflet)
+library(sf)
+library(lubridate)
+# install.packages("regeoboundaries")
+#library(rgeoboundaries)
+# install.packages("remotes")
+#remotes::install_gitlab("dickoa/rgeoboundaries")
+#csv_dir = '/Users/georgia.lattig/Desktop/graphs'
+```
+
+```{r load-data, include = FALSE}
+GTBK_2010_2018 <- read_excel("/cloud/project/data/GTBK_2010_2018.xls")
+
+GTBK_2018_2023 <- read_excel("/cloud/project/data/GTBK_2018_2023.xlsx", 
+    col_types = c("text", "text", "text", 
+        "date", "numeric", "numeric", "numeric", 
+        "text", "text", "numeric", "text", 
+        "numeric", "numeric", "text", "date", 
+        "numeric", "text", "text", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "text", "text", "text", 
+        "text", "text", "text", "text", "numeric", 
+        "numeric", "text", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "numeric", "numeric", "text", "text", 
+        "text", "text", "text", "text", "text", 
+        "text", "numeric"))
+
+buis_2022 <- read_csv("/cloud/project/data/buis_turtle_measures.csv", 
+    col_types = cols(CDate = col_date(format = "%m/%d/%Y")))
+
+```
+
+#### Clean Data
+
+```{r tidy-column-names, include = FALSE}
+colnames(GTBK_2010_2018) <- c(
+  "ID", 
+  "Nombre tortuga",
+  "No. Monitoreo",
+  "Estacion", 
+  "Fecha_original",
+  "Fecha", 
+  "Area de Monitoreo",
+  "Posicion lat-long", 
+  "Hora de captura",
+  "Especie", 
+  "Peso", 
+  "Sexo", 
+  "L.R.C.",
+  "L.C.C.",
+  "A.R.C.",
+  "A.C.C.",
+  "P.C",
+  "L.P", 
+  "L T C",
+  "Recaptura", 
+  "Marca Derecha",
+  "Marca Izquierda", 
+  "Observaciones y comentarios") 
+
+GTBK_2010_2018 <- clean_names(GTBK_2010_2018)
+
+colnames(GTBK_2018_2023) <- c(
+  "id",
+  "Responsable",
+  "no monitoreo",
+  "fecha_inicio",
+  "hora_inicio",
+  "hora_fin",
+  "total_horas",
+  "tipo monitoreo",
+  "metodologia",
+  "Longidud red o lanceos",
+  "area_de_monitoreo",
+  "latitud",
+  "longitud",
+  "unidad utm o grados",
+  "fecha",
+  "hora captura",
+  "nombre_tortuga",
+  "Especie",
+  "L R C",
+  "A R C",
+  "L C C",
+  "A C C",
+  "P C",
+  "L P",
+  "L T C",
+  "peso",
+  "sexo",
+  "Material_marcas",
+  "Marca_derecha",
+  "Marca izquierda" ,
+  "Marca previa derecha",
+  "Marca previa Izquierda",
+  "PIT tag",
+  "PIT nuevo",
+  "PIT previo",
+  "Muestra sangre",
+  "Muestra piel",
+  "Muestra cont estom",
+  "Otra muestra",
+  "Especificar",
+  "Lesiones Balanos",
+  "Foto",
+  "observaciones y comentarios",
+  "ID",
+  "PIT previo",
+  "Muestra sangre",
+  "Muestra piel",
+  "Muestra cont estom",
+  "Otra muestra",
+  "Especificar",
+  "Lesiones Balanos",
+  "Foto",
+  "Comentarios",
+  "ID"
+  )
+
+GTBK_2018_2023 <- clean_names(GTBK_2018_2023)
+```
+
+```{r coerce-variable-types, include = FALSE}
+#GTBK 2018-2023
+GTBK_2018_2023$no_monitoreo <- as.double(GTBK_2018_2023$no_monitoreo)
+
+#GTBK 2010-2018
+GTBK_2010_2018$no_monitoreo <- as.double(GTBK_2010_2018$no_monitoreo)
+GTBK_2010_2018$l_r_c <- as.double(GTBK_2010_2018$no_monitoreo)
+GTBK_2010_2018$l_r_c <- as.double(GTBK_2010_2018$no_monitoreo)
+GTBK_2010_2018$l_p <- as.double(GTBK_2010_2018$no_monitoreo)
+
+```
+
+```{r join-datasets, include = FALSE}
+GTBK_data <- full_join(GTBK_2010_2018, GTBK_2018_2023)
+```
+
+```{r clean-species-variable, include = FALSE}
+GTBK_data <- GTBK_data %>%
+  mutate(especie_nombre_latino = 
+           case_when(
+             especie == "Verde/Prieta" ~ "Chelonia mydas",
+             especie == "Chelonia mydas" ~ "Chelonia mydas",
+             especie == "Carey" ~ "Eretmochelys imbricata", 
+             especie == "Eretmochelys imbricata" ~ "Eretmochelys imbricata",
+             especie == "Amarilla" ~ "Caretta caretta", 
+             especie == "Golfina" ~ "Lepidochelys olivacea", 
+             especie == "Lepidochelys olivacea" ~ "Lepidochelys olivacea"
+             )
+         )
+```
+
+```{r clean-sex-variable, include = FALSE}
+GTBK_data <- GTBK_data %>%
+  mutate(sexo_correcto = 
+           case_when(
+             sexo == "indefinido" ~ "Indefinido",
+             sexo == "Indefinido" ~ "Indefinido",
+             sexo == "hembra" ~ "Hembra", 
+             sexo == "Hembra" ~ "Hembra",
+             sexo == "macho" ~ "Macho", 
+             sexo == "Macho" ~ "Macho"
+             ))
+#Created variable `sexo-correcto` to combine lowercase and uppercase words, originally "Hembra" and "hembra" read as different values 
+```
+
+```{r clean-location-create-geography-variable, include = FALSE}
+
+GTBK_data <- GTBK_data %>%
+  mutate(lugar = 
+           case_when(
+             area_de_monitoreo == "ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Pta. Blanca Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Pasadita I. Choyudo" ~ "Isla Tiburon", 
+             area_de_monitoreo == "Sargento-Desemboque" ~ "Sargento",
+             area_de_monitoreo == "Los Morritos ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Sur de San Lorenzo" ~ "Laguna La Cruz",
+             area_de_monitoreo == "entre S. Esteban y Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "Boca del Estero" ~ "Laguna La Cruz",
+             area_de_monitoreo == '"Y" Laguna la Cruz' ~ "Laguna La Cruz",
+             area_de_monitoreo == "san nicolas" ~ "Laguna La Cruz",
+             area_de_monitoreo == "la ventana ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Campo Biologo ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Pta circulo Isla Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "La Barra Valla ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "La Ventana - ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Isla Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "ISPM - Campo Biologo" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Las brisas del mar" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Pta. Rabijunco - ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Playa de Kino nuevo" ~ "Playa",
+             area_de_monitoreo == "Campo Biologo - ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == 'La "Y" Laguna la Cruz' ~ "Laguna La Cruz",
+             area_de_monitoreo == "El Cartelon ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Las Almejitas Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Cartelon - R.B. ISPM" ~ "Isla San Pedro Mártir", 
+             area_de_monitoreo == "Pta.Blanca Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "La ventana -  ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Barraballa - ISPM" ~ "Isla San Pedro Mártir", 
+             area_de_monitoreo == "ISPM - Pta. Rabijunco" ~ "Isla San Pedro Mártir",  
+             area_de_monitoreo == "Liberada - Isla Choyudo" ~ "Isla Tiburon",   
+             area_de_monitoreo == "Liberada,Campo biologo-ISPM" ~ "Isla San Pedro Mártir",  
+             area_de_monitoreo == "Cueva de la Reserva- ISPM" ~ "Isla San Pedro Mártir",
+             area_de_monitoreo == "Bomba del Dictus" ~ "Laguna La Cruz",
+             area_de_monitoreo == "La Pta. Blanca" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Playa de Kino nuevo poste 88" ~ "Playa",
+             area_de_monitoreo == '"Y" griega laguna la Cruz' ~ "Laguna La Cruz",
+             area_de_monitoreo == "Punta Rabijunco - ISPM" ~ "Isla San Pedro Mártir", 
+             area_de_monitoreo == '"Y" griega laguna la Cruz' ~ "Laguna La Cruz",
+             area_de_monitoreo == "Punta Blanca Laguna la Cruz" ~ "Laguna La Cruz",
+             area_de_monitoreo == "Media travesia tiburon-Kino" ~ "Isla Tiburon",
+             area_de_monitoreo == "Kino nuevo.poste 157" ~ "Playa",
+             area_de_monitoreo == "choyudo-I Tiburon" ~ "Isla Tiburon",
+             area_de_monitoreo == "Alcaltraz" ~ "Laguna La Cruz",
+             area_de_monitoreo == '"y" griega laguna la Cruz' ~ "Laguna La Cruz",
+             area_de_monitoreo == "Boca de la laguna" ~ "Laguna La Cruz",
+             area_de_monitoreo == "region de las grandes Islas del G.C." ~ "Mar Abierto",
+             area_de_monitoreo == "A media travesia" ~ "Mar Abierto",
+             area_de_monitoreo == "a unos 8 km al Este de la ispm" ~ "Mar Abierto",
+             area_de_monitoreo == "Poza La Gallina" ~ "UNKNOWN",
+             area_de_monitoreo == "Raya roja" ~ "Sargento",
+             area_de_monitoreo == "Mision del sol" ~ "Playa",
+             area_de_monitoreo == "Liberada en Islandia Marina" ~ "Playa",
+             area_de_monitoreo == "Mision del Sol" ~ "Playa",
+             area_de_monitoreo == "Donada" ~ "UNKNOWN"
+             ))
+
+GTBK_data <- GTBK_data %>%
+  mutate(geografía =
+           case_when(
+             lugar == "Laguna La Cruz" ~ "estuario",
+             lugar == "Sargento" ~ "estuario",
+             lugar == "Isla San Pedro Mártir" ~ "isla",
+             lugar == "Isla Tiburon" ~ "isla",
+             lugar == "Playa" ~ "playa"))
+
+```
+
+```{r create-id-variable, include = FALSE}
+GTBK_data <- GTBK_data %>%
+  unite(marca_nombre, marca_derecha, marca_previa_derecha, na.rm = TRUE)
+
+number_recapture <- GTBK_data %>%
+  group_by(marca_nombre) %>%
+  count(marca_nombre) %>%
+  arrange(desc(n)) 
+```
+
+```{r create-recapture-variable, include = FALSE}
+GTBK_data <- GTBK_data %>% 
+  group_by(marca_nombre) %>% 
+  mutate(numero_recaptura = n())
+```
+
+```{r GTBK-remove-unneeded-variables, include = FALSE}
+# This chunk isn't running. It is saying that most of the variables aren't found.  
+GTBK_data <- GTBK_data %>% 
+  subset(select = 
+           -c(id, no_monitoreo, fecha_original, recaptura, observaciones_y_comentarios, responsable, 
+              longidud_red_o_lanceos, pit_tag, pit_nuevo, pit_previo, pit_previo_2, muestra_sangre, muestra_piel, 
+              muestra_cont_estom, muestra_sangre_2, muestra_piel_2, muestra_cont_estom_2, otra_muestra, otra_muestra_2,               especificar, especificar_2, lesiones_balanos, lesiones_balanos_2, foto, foto_2, id_2, id_3))
+```
+
+```{r create-GTBK-measures, include = FALSE}
+GTBK_turtle_measures <- 
+  GTBK_data %>%
+  select(fecha, nombre_tortuga, marca_nombre, especie_nombre_latino, numero_recaptura, a_c_c,, l_c_c, lugar, geografía, sexo_correcto)
+  
+write_csv(GTBK_turtle_measures, file = ("/cloud/project/data/GTBK_turtle_measures.csv"))
+
+# write_csv(GTBK_data, file = ("/cloud/project/data/GTBK_data.csv"))
+```
+
+#### Counts
+```{r count-especie-nombre-latino, include = FALSE}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+count()  
+```
+
+## Visualizations
+
+### Missing Data
+```{r load_packages_for_missing_data_viz, include = FALSE}
+library(visdat)
+library(naniar)
+
+visdat::vis_dat(GTBK_data)
+visdat::vis_dat(GTBK_2010_2018)
+visdat::vis_dat(GTBK_2018_2023)
+
+visdat::vis_dat(buis_2022)
+```
+
+```{r visualize_missing_data, echo = FALSE, fig.alt= "Bar graph showing each variable in the GTBK data set and what percent of the data is missing. Overall 26.2% of data is missing."}
+# naniar::gg_miss_var(GTBK_data)
+
+visdat::vis_miss(GTBK_data) 
+
+# ggsave("final_visualizations/missingdata.jpg", device = "jpg", dpi = 500)
+# visdat::vis_miss(GTBK_2018_2023)
+```
+
+### Species, Sex, and Size Distributions
+```{r buis-22-species-size, echo = FALSE}
+buis_2022 %>% 
+  mutate(species = case_when(
+    sp == "HB" ~ "Eretmochelys imbricata",
+    sp == "GR" ~ "Chelonia mydas")
+  ) %>% 
+  ggplot(aes(x = species, y = cclnuct, fill = species)) +
+  geom_violin() +
+  scale_fill_manual(values = c("chartreuse4", "hotpink4")) + 
+  theme_minimal() +
+  coord_flip () +
+  labs(title = "Average Curved Carapace Length of Green and Hawksbill Sea Turtles",
+       subtitle = "Reproductive Females Measured During 2022 Nesting Season on Buck Island, USVI",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+
+buis_2022 %>% 
+  mutate(species = case_when(
+    sp == "HB" ~ "Eretmochelys imbricata",
+    sp == "GR" ~ "Chelonia mydas")
+  ) %>% 
+  ggplot(aes(x = species, y = cclnuct, fill = species)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("chartreuse4", "hotpink4")) + 
+  theme_minimal() +
+  coord_flip () +
+  labs(title = "Average Curved Carapace Length of Green and Hawksbill Sea Turtles",
+       subtitle = "Reproductive Females Measured During 2022 Nesting Season on Buck Island, USVI",
+       x = "Species", 
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+```
+
+
+```{r GTBK-10-23-species-size, echo = FALSE}
+GTBK_data %>%
+  filter(especie_nombre_latino == "Chelonia mydas" |
+         especie_nombre_latino == "Eretmochelys imbricata" |
+         especie_nombre_latino == "Lepidochelys olivacea" |
+         especie_nombre_latino == "Caretta caretta") %>%
+  ggplot(aes(x = especie_nombre_latino, y = a_c_c, fill = especie_nombre_latino)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("goldenrod1","chartreuse4", "hotpink4","cornflowerblue")) +
+  theme_minimal() +
+  coord_flip() +
+  facet_wrap(~ geografía) +
+  labs(title = "Curved Carapace Length Measurements of Four Sea Turtle Species",
+       subtitle = "Monitored by GTBK in Kino Bay, Mexico between 2010-2023",
+       x = "Species",
+       y = "Curved Carapace Length (cm)",
+       fill = "Species")
+```
+
+```{r species-sex-distribution, echo = FALSE}
+GTBK_data %>%
+  filter(numero_recaptura == 1) %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
+
+GTBK_data %>%
+filter(especie_nombre_latino != "NA") %>%
+  filter(numero_recaptura == 1) %>%
+ggplot(aes(x = sexo_correcto, 
+                     fill = sexo_correcto)) +
+  geom_bar() + 
+  facet_wrap( ~ especie_nombre_latino, 
+              # <- fct_relevel(especie_nombre_latino, 
+              #                         "Caretta caretta",
+              #                          "Eretmochelys imbricata", 
+              #                          "Lepidochelys olivacea",
+              #                          "Chelonia mydas"),
+               scales = "free_y") +
+   labs(title = "Species and Sex Distribution", 
+       subtitle = "of turtles captured in Kino Bay", 
+       x = "sex", 
+       y = "number of individuals", 
+       fill = "sex") +
+ scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81", "#000004"))
+
+```
+
+### Captures and Recaptures
+```{r basic-recaptures-viz, echo = FALSE}
+# recapture bar graph
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(2, 3, 4)) %>% 
+  ggplot(aes(x = numero_recaptura)) +
+  geom_bar() + 
+  labs(title = "Recaptures of Sea Turtles",
+       x = "Number of Times Captured",
+       y = "Number of Turtles")
+
+# sex distribution bar graph
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(2, 3, 4)) %>% 
+  ggplot(aes(x = numero_recaptura, fill = sexo_correcto)) +
+  geom_bar() + 
+  labs(title = "Sex Distribution of Recaptured Sea Turtles",
+       subtitle = "from 2010-2023",
+       x = "Number of Times Captured",
+       y = "Number of Turtles",
+       fill = "Sex") +
+scale_fill_manual(values = c("#cd4071","#feca8d", "#721f81"))
+
+# ggsave("final_visualizations/GTBKcapturesbyspecies.jpg", device = "jpg", dpi = 500)
+```
+
+```{r overall-turtle-captures,fig.alt = "This bar chart demonstrates the number of turtles that have been recaptured 1, 2, 3, or 4 times. Each bar represents the number of turtles that have been recaptured that number of times. The chart is also stacked by species. The majority of the turtles are green turtles and have only been captured once. A smaller amount of the turtles have been captured twice", echo=FALSE}
+GTBK_data %>% 
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>% 
+  filter(especie_nombre_latino == "Chelonia mydas" | 
+         especie_nombre_latino == "Eretmochelys imbricata" |
+         especie_nombre_latino == "Caretta caretta" |
+         especie_nombre_latino == "Lepidochelys olivacea") %>% 
+  mutate(especie_nombre_latino = factor(especie_nombre_latino, levels = c("Chelonia mydas", "Lepidochelys olivacea", "Caretta caretta", "Eretmochelys imbricata"))) %>% 
+  mutate(especie_nombre_latino = case_when(
+    especie_nombre_latino == "Chelonia mydas" ~ "Green",
+    especie_nombre_latino == "Lepidochelys olivacea" ~ "Olive Ridley",
+    especie_nombre_latino == "Caretta caretta" ~ "Loggerhead",
+    especie_nombre_latino == "Eretmochelys imbricata" ~ "Hawksbill"
+  )) %>% 
+  ggplot(aes(x = numero_recaptura, fill = especie_nombre_latino)) +
+  geom_bar() +
+  scale_fill_manual(values = c("palegreen3", "gold", "darkorchid4", "darkturquoise")) +
+  theme_minimal() +
+  labs(title = "Number of Sea Turtle Captures by GTBK from 2010-2023",
+       subtitle = "in Kino Bay, Mexico",
+       x = "Number of Times Captured",
+       y = "Number of Turtles",
+       fill = "Species") +
+  theme(plot.title = element_text(size = 15, family = "Helvetica"),
+        plot.subtitle = element_text(size = 13, family = "Helvetica"),
+        strip.text.x = element_text(size = 13, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 13, family = "Helvetica", vjust = 0.1),
+        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 1),
+        axis.text.x = element_text(size = 11, family = "Helvetica"),
+        axis.text.y = element_text(size = 11, family = "Helvetica"),
+        legend.text = element_text(size = 11, family = "Helvetica"),
+        legend.title = element_text(size = 13, family = "Helvetica")) +
+   guides(color = guide_legend(override.aes = list(size = 0.5)))
+
+
+# ggsave("final_visualizations/GTBKcapturesbyspecies.jpg", device = "jpg", dpi = 500)
+```
+
+```{r seasonality, include = FALSE}
+recapture_tibble <- GTBK_data %>%
+  group_by(marca_nombre) %>%
+  select(nombre_tortuga, fecha, especie, area_de_monitoreo, marca_nombre)
+
+
+recapture_tibble %>%
+  group_by(marca_nombre) %>%
+  summarize(marca_nombre)
+```
+
+```{r species-by-sex-counts, include = FALSE}
+GTBK_data %>%
+  group_by(especie_nombre_latino) %>%
+  count (sexo_correcto)
+
+# GTBK_2018_2023 %>% 
+#   group_by(especie_nombre_latino) %>% 
+#   count(Sexo)
+
+# GTBK_2010_2018 %>% 
+#   group_by(Especie) %>% 
+#   count(Sexo) 
+
+buis_2022 %>% 
+  group_by(sp) %>% 
+  count(sex)
+
+```
+
+```{r map-kino-bay-recaptures, include = FALSE}
+leaflet(GTBK_data) %>%
+  addProviderTiles(providers$Esri.WorldImagery) %>% 
+  setView(lng = -111.936302, 
+          lat = 28.822747,
+          zoom = 1) %>% 
+  addCircleMarkers(~longitud, ~latitud,
+                  fillColor = "red",
+                  stroke = FALSE)
+```
+
+### GTBK Recapture Visualizations
+They went out 880 times total and there were 188 instances of recapture
+
+```{r recaptures-per-month,  fig.alt = "This is a bar chart representing the seasonality of overall sea turtle recaptures Each bar represents the total number of recaptures per outing per month. There is a roughly even seasonal distribution of recaptures.", echo=FALSE}
+GTBK_data <- GTBK_data %>%
+  mutate(año = year(fecha)) %>%
+  mutate(mes = month(fecha)) %>%
+  mutate(mes_nombre = case_when(
+        mes == "1" ~ "jan",
+        mes == "2" ~ "feb",
+        mes == "3" ~ "mar",
+        mes == "4" ~ "apr",
+        mes == "5" ~ "may",
+        mes == "6" ~ "jun",
+        mes == "7" ~ "jul",
+        mes == "8" ~ "aug",
+        mes == "9" ~ "sep",
+        mes == "10" ~ "oct",
+        mes == "11" ~ "nov",
+        mes == "12" ~ "dec"))
+
+as.integer(GTBK_data$mes)
+as.integer(GTBK_data$año)
+
+GTBK_outings <- GTBK_data %>%
+      group_by(mes) %>%
+      count(mes)
+
+
+GTBK_recapturas <- GTBK_data %>%
+  filter(numero_recaptura %in% c(2, 3, 4)) %>%
+  group_by(mes) %>%
+  count(mes)
+
+as.integer(GTBK_outings$mes)
+as.integer(GTBK_recapturas$mes)
+
+full_join(GTBK_outings, GTBK_recapturas, by = "mes") %>%
+  mutate(tortugas_por_esfuerzo = n.y/n.x) %>%
+  select(mes, tortugas_por_esfuerzo) %>%
+  mutate(mes = case_when(
+        mes == "1" ~ "jan",
+        mes == "2" ~ "feb",
+        mes == "3" ~ "mar",
+        mes == "4" ~ "apr",
+        mes == "5" ~ "may",
+        mes == "6" ~ "jun",
+        mes == "7" ~ "jul",
+        mes == "8" ~ "aug",
+        mes == "9" ~ "sep",
+        mes == "10" ~ "oct",
+        mes == "11" ~ "nov",
+        mes == "12" ~ "dec"
+    )) %>% 
+  mutate(
+    mes = factor(mes, levels = c(
+      "jan", 
+      "feb", 
+      "mar", 
+      "apr",
+      "may",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "oct",
+      "nov",
+      "dec"
+      )
+      )
+    ) %>%
+  drop_na() %>%
+   ggplot(aes(x = mes, y = tortugas_por_esfuerzo)) +
+   geom_col(fill = "seagreen4") +
+  labs(title = "Seasonality of Sea Turtle Recaptures Per Effort by GTBK",
+       x = "Month",
+       y = "Turtles Per Effort") +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 15, family = "Helvetica"),
+        plot.subtitle = element_text(size = 13, family = "Helvetica"),
+        strip.text.x = element_text(size = 13, family = "Helvetica", face = "bold"),
+        axis.title.x = element_text(size = 13, family = "Helvetica", vjust = 0.1),
+        axis.title.y = element_text(size = 13, family = "Helvetica", vjust = 1),
+        axis.text.x = element_text(size = 11, family = "Helvetica"),
+        axis.text.y = element_text(size = 11, family = "Helvetica"))
+
+# ggsave("final_visualizations/seasonality_of_recaptures.jpg", device = "jpg", dpi = 500)
+```
+
+```{r individual_recaps_sankey, fig.alt = "This sankey diagram tracks the 9 most frequently recaptured over time from 2014 to 2021. Each turtle is labled with it's tag number. Generally it seems that individual's recaptures are clustered together, but some are more spread apart", echo=FALSE}
+# install.packages("ggalluvial")
+library(ggalluvial)
+
+Sankey <- GTBK_data %>% 
+  filter(numero_recaptura %in% c(3,4)) %>%
+  mutate(yearmonth = paste(año, mes, sep = "-")) %>%
+  select(marca_nombre, año) %>%
+  group_by(marca_nombre, año) %>%
+  summarize(n = n()) %>%
+  arrange(año) 
+
+Sankey %>%
+  ggplot(
+    aes(
+         y = n, 
+         axis1 = año,
+         axis2 = marca_nombre
+         )
+       ) +
+  geom_alluvium(aes(fill = marca_nombre)) + 
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", label.size = 0.1, aes(label = after_stat(stratum))) +
+  scale_fill_viridis_d() + 
+  coord_flip() +
+  labs(title = "Individual Turtle Captures By GTBK Over time") +
+  ylab("Number of Captures") +
+  theme(axis.text.y = element_blank(),
+      axis.ticks.y = element_blank())
+ 
+# ggsave("final_visualizations/turtle_recap_sankey.jpg", device = "jpg", width = 15, height = 7, dpi = 500)
+```
+
+```{r individual_recaps_line, echo = FALSE}
+Line_plot <- GTBK_data %>% 
+  filter(numero_recaptura %in% c(3,4)) %>%
+  mutate(yearmonth = paste(año, mes, sep = "-")) %>%
+  select(marca_nombre, año) %>%
+  group_by(marca_nombre, año) %>%
+  summarize(n = n()) %>%
+  arrange(año)
+
+Line_plot %>%
+  group_by(marca_nombre) %>%
+  ggplot( 
+    aes(x = año, 
+        y = n, 
+        color = marca_nombre)) +
+  geom_line() + 
+  facet_wrap(. ~ marca_nombre)
+
+```
+
+
+### GTBK Turtle Capture Visualizations
+```{r create-effort-variables, include=FALSE}
+
+tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
+  group_by(fecha, mes, año) %>%
+  drop_na(marca_nombre) %>%
+  summarize(turtles = n()) %>%
+  group_by(mes, año) %>%
+  summarize(total_turtles = sum(turtles, na.rm = T))
+# 
+# tiempo <- GTBK_data %>%    # of times they went out
+#   distinct(fecha, mes, año) %>%
+#   group_by(mes, año) %>%
+#   summarize(effort = n())
+# 
+# full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año"))
+```
+
+```{r captures_per_effort_over_time,  fig.alt = "This bar chart demonstrates the number of turtle recaptures per outing from 2010 to 2023. Recaptures per effort have stayed roughly the same through time.", echo=FALSE}
+library(lubridate)
+
+tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
+  group_by(fecha, mes, año) %>%
+  drop_na(marca_nombre) %>%
+  summarize(turtles = n()) %>%
+  group_by(mes, año) %>%
+  summarize(total_turtles = sum(turtles, na.rm = T))
+
+tiempo <- GTBK_data %>%    # of times they went out
+  distinct(fecha, mes, año) %>%
+  group_by(fecha, mes, año) %>%
+  summarize(effort = n())
+
+Capturas_y_ezfuerzo <- full_join(tiempo, tortugas_por_tiempo, by = c("mes", "año")) %>%
+  mutate(tortugas_por_esfuerzo = effort/total_turtles) %>%
+  mutate(year_month = ym(paste(año, mes, sep = "-"))) 
+
+Capturas_y_ezfuerzo %>% 
+  ggplot(
+    aes(x = year_month,
+        y = tortugas_por_esfuerzo
+      )
+  ) +
+  geom_col() +
+  labs(title = "Captures per Effort over Time", 
+       x = "month and year", 
+       y = "turtles per effort")
+
+# ggsave("final_visualizations/captures_per_effort_over_time.jpg", device = "jpg", dpi = 500)
+
+```
+
+```{r practice-effort, include = FALSE}
+GTBK_data %>%
+  mutate(yearmonth = ym(paste(año, mes, sep = "-")))
+
+tortugas_por_tiempo <- GTBK_data %>%   #counting every time they caught a turtle
+  filter(numero_recaptura %in% c(1, 2, 3, 4)) %>%
+  group_by(fecha, mes_nombre, año) %>%
+  drop_na(marca_nombre) %>%
+  summarize(turtles = n()) %>%
+  group_by(mes_nombre, año) %>%
+  summarize(total_turtles = sum(turtles, na.rm = T))
+
+tiempo <- GTBK_data %>%    # of times they went out
+  distinct(fecha, mes_nombre, año) %>%
+  group_by(mes_nombre, año) %>% 
+  summarize(effort = n())
+
+tortugas_por_esfuerzo <- full_join(tortugas_por_tiempo, tiempo) %>%
+   mutate(esfuerzo = total_turtles/effort) %>%
+  drop_na()
+
+```
+
+```{r capture-heat-map, echo=FALSE, fig.alt= "Heat map graph showing the overall turtle captures. X axis representes year and Y axis represents month in which turtles were caught. Total captures is represented by effort (turtles caught/outing). There is a range between 0.7 and 1.1 turtles per outing."}
+as.integer(tortugas_por_esfuerzo$mes)
+as.integer(tortugas_por_esfuerzo$año)
+
+tortugas_por_esfuerzo %>%
+  mutate(mes_nombre = factor(mes_nombre, levels = c("jan", "feb", "mar", "apr","may","jun","jul","aug","sep","oct","nov","dec"))) %>% 
+  drop_na() %>%
+   ggplot(aes(x = mes_nombre, y = año, fill = esfuerzo)) +
+   geom_tile() +
+# geom_text(aes(label = round(esfuerzo, 2))) + 
+   labs(title = "Turtle captures", 
+       subtitle = "represented by effort over year and month", 
+       x = "month", 
+       y = "year", 
+       fill = "turtles per effort") + 
+    scale_fill_gradient(low = "yellow", high = "cyan4") +
+                      # limits = c(0,NA)) + 
+  coord_fixed(ratio = 1) + 
+  scale_y_continuous(breaks = c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)) + 
+  theme_bw()
+
+ggsave("final_heat_map.jpg", device = "jpg", dpi = 500)
+
+```
+
+```{r captures-by-area, echo=FALSE, fig.alt= "Segmented bar graph showing which of three locations turtles were caught in from 2010 to 2023. The locations are estuary, island, and beach. Over two thirds of turtles were caught in the estuary"}
+
+lugar_de_tortugas <- GTBK_data %>%
+  mutate(mes = month(fecha)) %>%
+  mutate(año = year(fecha)) %>%
+  select(marca_nombre, lugar, geografía, numero_recaptura, mes, año, especie_nombre_latino)
+
+# overview graph
+lugar_de_tortugas %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = geografía)) +
+  geom_bar() +
+  labs(title = "Spacial Overview",
+       subtitle = "Turtles Captured by Location",
+       x = "year", y = "turtles captured",
+       fill = "geography") +
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) +
+  scale_fill_manual(values = c("cyan4", "cyan2", "coral1")) +
+   theme_bw()
+ggsave("final_spacial_overview.jpg", device = "jpg", dpi = 500)
+```
+
+```{r captures-by-area-and-species, echo = FALSE, fig.alt= "Segmented bar graph showing species of turtles caught over the years. The graph is faceted by location: estuary, island, and beach, and the bars are segmented by species (Caretta caretta, Chelonia mydas, and Lepidochelys olivacea). Over two thirds of all turtles were caught in the estuary and the majority of all turtles caught were Chelonia mydas species."}
+
+# facet graph
+lugar_de_tortugas %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = especie_nombre_latino)) +
+  geom_bar() +
+  facet_grid( ~ geografía) +
+  labs(title = "Captures by Location",
+       subtitle = "and Species Distribution",
+       x = "year", y = "turtles captured",
+       fill = "geography") +
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen")) +
+   theme_bw()
+ggsave("final_spacial_species_breakdown.jpg", device = "jpg", dpi = 500)
+
+```
+
+```{r captures-by-area-isla, echo = FALSE}
+#isla graph
+lugar_de_tortugas %>%
+  filter(geografía == "isla") %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = especie_nombre_latino)) +
+  geom_bar() +
+  labs(title = "Species Distribution on the Islands",
+       x = "year", y = "number of turtles",
+       fill = "species") +
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023)) +
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+
+theme_bw()
+```
+
+```{r captures-by-area-estuario, echo = FALSE}
+# estuario graph
+lugar_de_tortugas %>%
+  filter(geografía == "estuario") %>%
+  drop_na() %>%
+ggplot(aes(x = año, fill = especie_nombre_latino)) +
+  geom_bar() +
+  labs(title = "Species Distribution in the Estuaries",
+       x = "year", y = "number of turtles",
+       fill = "species") +
+  scale_x_continuous(breaks = c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023))+
+scale_fill_manual(values = c("gold", "darkseagreen3", "mediumorchid", "darkolivegreen"))+
+  theme_bw()
+```
+
+## Turtle Media
+
+```{r image-1, echo=FALSE, out.width = "50%", fig.cap = "A Green sea turtle hatchling headed toward the sea."}
+knitr::include_graphics("/cloud/project/images/GreenSeaTurtleHatchlingBUIS.JPG")
+```
+
+```{r image-2, echo=FALSE, out.width = "50%", fig.cap = "A Hawksbill sea turtle laying her nest on Buck Island."}
+knitr::include_graphics("/cloud/project/images/hawksbillseaturtleBISTRP.JPG")
+```
+
