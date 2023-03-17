@@ -277,6 +277,7 @@ GTBK_data <- GTBK_data %>%
 ```
 
 ```{r GTBK-remove-unneeded-variables, include = FALSE}
+# This chunk isn't running. It is saying that most of the variables aren't found.  
 GTBK_data <- GTBK_data %>% 
   subset(select = 
            -c(id, no_monitoreo, fecha_original, recaptura, observaciones_y_comentarios, responsable, 
@@ -291,7 +292,7 @@ GTBK_turtle_measures <-
   
 write_csv(GTBK_turtle_measures, file = ("/cloud/project/data/GTBK_turtle_measures.csv"))
 
-write_csv(GTBK_data, file = ("/cloud/project/data/GTBK_data.csv"))
+# write_csv(GTBK_data, file = ("/cloud/project/data/GTBK_data.csv"))
 ```
 
 #### Counts
@@ -320,7 +321,7 @@ visdat::vis_dat(buis_2022)
 
 visdat::vis_miss(GTBK_data) 
 
-ggsave("final_visualizations/missingdata.jpg", device = "jpg", dpi = 500)
+# ggsave("final_visualizations/missingdata.jpg", device = "jpg", dpi = 500)
 # visdat::vis_miss(GTBK_2018_2023)
 ```
 
@@ -631,7 +632,7 @@ Sankey %>%
   theme(axis.text.y = element_blank(),
       axis.ticks.y = element_blank())
  
-ggsave("final_visualizations/turtle_recap_sankey.jpg", device = "jpg", width = 15, height = 7, dpi = 500)
+# ggsave("final_visualizations/turtle_recap_sankey.jpg", device = "jpg", width = 15, height = 7, dpi = 500)
 ```
 
 ```{r individual_recaps_line, echo = FALSE}
