@@ -4,7 +4,7 @@ by Sophie Chivers, Emily Rose Stringer and Georgia Lattig
 
 ## Summary
 
-Our group worked closely with a community conservation organization in Mexico, El Grupo Tortuguero de Bahía de Kino (GTBK), to help organize and interpret their long term sea turtle monitoring data from the Gulf of California. This group... (mission statement). To accomplish this monitoring... (methods). Sophie spent... (our connection to GTBK).
+Our group worked closely with a community conservation organization in Mexico, El Grupo Tortuguero de Bahía de Kino (GTBK), to help organize and interpret their long term sea turtle monitoring data from the Gulf of California. This group is focused on monitoring turtle populations in the Gulf, and in particular, monitoring recaptures of sea turtles. To accomplish this monitoring they travel to offshore islands and local estuaries and capture turtles. In estuaries, they do this using nets, but on the islands, they catch the turtles by hand. Each turtle is tagged, weighed, and measured across multiple axes. Sophie spent this past fall term in Kino Bay, Mexico and worked with GTBK while she was there. We reached out to GTBK at the beginning of the term to see if they would be willing to let us use their data, and they were really excited about it. 
 
 The target questions we were given by GTBK involved quantifying sea turtle recaptures and calculating survey effort, considering variables like species, sex, seasonality and location. The process of summarizing and visualizing GTBK's data required a lot of data cleaning and tidying. We began by organizing and merging two large datasets (dimensions of each, respectively) that collectively covered the group's sea turtle monitoring efforts from 2010-2022.
 
@@ -35,6 +35,8 @@ Our presentation can be found [UPDATED here](https://docs.google.com/presentatio
 ## Data
 
 Our data:
+Grupo Tortuguero Bahía de Kino, 2018, 2010-2018 Turtle Monitoring Dataset, data file. 
+Grupo Tortuguero Bahía de Kino, 2023, 2018-2023 Turtle Monitoring Dataset, data file. 
 
 See
 <http://libraryguides.vu.edu.au/c.php?g=386501&p=4347840> for guidance
