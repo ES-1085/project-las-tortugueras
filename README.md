@@ -16,14 +16,15 @@ Overall, this project enabled us to use our new skills in coding and creating da
 
 ## Presentation
 
-Our presentation can be found [here](https://docs.google.com/presentation/d/1xQokf4kLggq_BDt04svHl_0KVKK_AW0inhDp5nUpfAA/edit#slide=id.p). You can update this link to a Google Slides link.
+Our presentation can be found [here](https://docs.google.com/presentation/d/1xQokf4kLggq_BDt04svHl_0KVKK_AW0inhDp5nUpfAA/edit#slide=id.p).
 
 ## Data
 
 Our data:
-Grupo Tortuguero Bahía de Kino, 2018, 2010-2018 Turtle Monitoring Dataset, data file. 
-Grupo Tortuguero Bahía de Kino, 2023, 2018-2023 Turtle Monitoring Dataset, data file. 
-Buck Island Sea Turtle Research Program, 2022, 2022 Female Sea Turtle Measurements Dataset, data file.
+
+- Grupo Tortuguero Bahía de Kino, 2018, 2010-2018 Turtle Monitoring Dataset, data file. 
+- Grupo Tortuguero Bahía de Kino, 2023, 2018-2023 Turtle Monitoring Dataset, data file. 
+- Buck Island Sea Turtle Research Program, 2022, 2022 Female Sea Turtle Measurements Dataset, data file.
 
 ## References
 
